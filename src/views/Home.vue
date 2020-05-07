@@ -1,18 +1,32 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home" v-if="userState.user">
+    <UserHeader :user="userState.user" />
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+<script lang="ts">
+const namespace = "user";
+import { State, Action, Getter } from "vuex-class";
+import { UserState, User } from "@/store/user/types";
 
-export default {
-  name: 'Home',
+import UserHeader from "@/components/UserHeader.vue";
+
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component({
+  name: "Home",
   components: {
-    HelloWorld
+    UserHeader
+  },
+  computed: {}
+})
+export default class Home extends Vue {
+  @State("user") userState: UserState;
+  @Action("fetchUser", { namespace }) fetchUser: any;
+
+  mounted() {
+    this.fetchUser();
   }
 }
 </script>
