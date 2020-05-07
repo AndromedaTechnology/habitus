@@ -1,6 +1,7 @@
 <template>
   <div v-if="user" class="userHeader">
-    <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+    <h1>{{ user.username }}</h1>
+    <button @click="deleteUser()">Delete</button>
   </div>
 </template>
 
@@ -11,6 +12,10 @@ import { User } from "../store/user/types";
 @Component
 export default class UserHeader extends Vue {
   @Prop() private user!: User;
+
+  deleteUser() {
+    this.$emit("delete");
+  }
 }
 </script>
 
