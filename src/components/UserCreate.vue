@@ -2,7 +2,7 @@
   <div class="userCreate">
     <h1>Choose your username</h1>
     <input type="text" v-model="username" @keyup.enter="submit()" />
-    <button class="btn-dark" @click="submit()">Login</button>
+    <button class="btn-dark" @click="submit()">Go!</button>
   </div>
 </template>
 
@@ -21,4 +21,7 @@ export default class UserCreate extends Vue {
 </script>
 
 <style scoped lang="scss">
+.userCreate {
+  text-align: center;
+}
 </style>

@@ -1,8 +1,6 @@
 <template>
   <div class="habitHeader">
-    <h1>
-      {{ habit.name }}
-    </h1>
+    <h1>{{ habit.name }}</h1>
     <button class="btn-dark delete" @click="deleteHabit()">Delete</button>
   </div>
 </template>
@@ -21,11 +19,4 @@ export default class HabitHeader extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-h1 {
-  display: inline-block;
-}
-button.delete {
-  margin-left: 8px;
-}
-</style>
+<style scoped lang="scss"></style>

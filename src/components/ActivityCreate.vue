@@ -1,7 +1,12 @@
 <template>
   <div class="activityCreate">
     <button class="btn-dark" @click="decreaseAmount()">-</button>
-    <input type="text" v-model="amount" @keyup.enter="submit()" />
+    <input
+      type="text"
+      class="amount"
+      v-model="amount"
+      @keyup.enter="submit()"
+    />
     <button class="btn-dark" @click="increaseAmount()">+</button>
 
     <button class="btn-dark" @click="submit()">Add</button>
@@ -35,5 +40,8 @@ export default class ActivityCreate extends Vue {
 <style scoped lang="scss">
 .activityCreate {
   display: flex;
+  .amount {
+    width: 24px;
+  }
 }
 </style>

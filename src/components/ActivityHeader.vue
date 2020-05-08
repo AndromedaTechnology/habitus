@@ -3,7 +3,7 @@
     <h1>
       <span>{{ activity.amount }}</span>
     </h1>
-    <button @click="deletActivity()">Delete Activity</button>
+    <button @click="deleteActivity()">Delete</button>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ import { Activity } from "../store/activity/types";
 export default class ActivityHeader extends Vue {
   @Prop() private activity!: Activity;
 
-  deletActivity() {
+  deleteActivity() {
     this.$emit("delete", this.activity);
   }
 }

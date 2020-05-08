@@ -1,10 +1,10 @@
 <template>
   <div class="userHeader">
-    <button class="btn-dark" @click="deleteUser()">Delete</button>
     <h1>
       <span>@</span>
       <span>{{ user.username }}</span>
     </h1>
+    <button class="btn-dark" @click="deleteUser()">Delete</button>
   </div>
 </template>
 

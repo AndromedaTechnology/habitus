@@ -1,8 +1,12 @@
 <template>
   <div class="habitCreate">
-    <h1>Create a Habit</h1>
-    <input type="text" placeholder="Name" v-model="name" @keyup.enter="submit()" />
-    <button class="btn-dark" @click="submit()">Create</button>
+    <input
+      type="text"
+      placeholder="Name"
+      v-model="name"
+      @keyup.enter="submit()"
+    />
+    <button class="btn-dark" @click="submit()">Add</button>
   </div>
 </template>
 
@@ -20,4 +24,7 @@ export default class HabitCreate extends Vue {
 </script>
 
 <style scoped lang="scss">
+.habitCreate {
+  text-align: center;
+}
 </style>

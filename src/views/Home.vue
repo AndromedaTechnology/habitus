@@ -5,18 +5,19 @@
       <UserHeader :user="user" @delete="userDeleteSubmit()" />
 
       <!-- Habit List -->
-      <div v-for="habit in habits" :key="habit.name" class="habits">
+      <div v-for="habit in habits" :key="habit.name" class="habit">
         <!-- Habit List Single -->
         <HabitHeader :habit="habit" @delete="habitDeleteSubmit($event)" />
 
         <!-- Habit Activity Create -->
-        <ActivityCreate @submit="activityCreateSubmit(habit._id, user._id, $event)" />
-
-        <!-- Habit Heatmap -->
-        <calendar-heatmap
+        <ActivityCreate
+          @submit="activityCreateSubmit(habit._id, user._id, $event)"
+        />
+        <br />
+        <!-- Habit Activity Chart -->
+        <ActivityChart
           v-if="heatmapHabitActivities(habit._id)"
-          :values="heatmapHabitActivities(habit._id)"
-          :end-date="new Date()"
+          :activities="heatmapHabitActivities(habit._id)"
         />
 
         <!-- Activity List -->
@@ -27,7 +28,10 @@
             class="activities"
           >
             <!-- Activity List Single -->
-            <ActivityHeader :activity="activity" @delete="activityDeleteSubmit($event)" />
+            <ActivityHeader
+              :activity="activity"
+              @delete="activityDeleteSubmit($event)"
+            />
           </div>
         </div>
       </div>
@@ -39,9 +43,9 @@
 </template>
 
 <script lang="ts">
-import { CalendarHeatmap } from "vue-calendar-heatmap";
-
 import { State, Action, Getter } from "vuex-class";
+
+import ActivityChart from "@/components/ActivityChart.vue";
 
 import { UserState, User } from "@/store/user/types";
 import UserCreate from "@/components/UserCreate.vue";
@@ -60,13 +64,13 @@ import Component from "vue-class-component";
 @Component({
   name: "Home",
   components: {
-    CalendarHeatmap,
+    ActivityChart,
     HabitHeader,
     UserCreate,
     UserHeader,
     ActivityCreate,
-    ActivityHeader
-  }
+    ActivityHeader,
+  },
 })
 export default class Home extends Vue {
   // User Store
@@ -103,7 +107,7 @@ export default class Home extends Vue {
 
   userCreateSubmit(username: string) {
     this.persistUser({
-      username: username
+      username: username,
     });
     this.fetchUser();
   }
@@ -112,7 +116,7 @@ export default class Home extends Vue {
     this.persistActivity({
       habitId: habitId,
       userId: userId,
-      amount: amount
+      amount: amount,
     });
     this.fetchActivities();
   }
@@ -137,3 +141,14 @@ export default class Home extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.habit {
+  margin: 16px;
+}
+@media (min-width: 768px) {
+  .habit {
+    margin: 64px;
+  }
+}
+</style>
