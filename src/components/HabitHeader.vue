@@ -3,7 +3,7 @@
     <h1>
       <span>{{ habit.name }}</span>
     </h1>
-    <button @click="deleteHabit()">Delete Habit</button>
+    <button @click="deleteHabit()">Delete</button>
   </div>
 </template>
 
@@ -21,5 +21,4 @@ export default class HabitHeader extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

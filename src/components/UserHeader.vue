@@ -4,7 +4,7 @@
       <span>@</span>
       <span>{{ user.username }}</span>
     </h1>
-    <button @click="deleteUser()">Delete User</button>
+    <button @click="deleteUser()">Delete</button>
   </div>
 </template>
 
@@ -23,4 +23,7 @@ export default class UserHeader extends Vue {
 </script>
 
 <style scoped lang="scss">
+.userHeader {
+  text-align: center;
+}
 </style>

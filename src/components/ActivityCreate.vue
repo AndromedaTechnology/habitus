@@ -7,6 +7,7 @@
       v-model="amount"
       @keyup.enter="submit()"
     />
+    <br />
     <button @click="submit()">Save</button>
   </div>
 </template>
