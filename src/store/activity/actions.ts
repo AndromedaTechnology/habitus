@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/class-name-casing */
+/* eslint-disable @typescript-eslint/camelcase */
 import { ActionTree } from "vuex";
 import { ActivityState, Activity, Activities } from "./types";
 import { Habit } from "../habit/types";
@@ -12,7 +14,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
     commit("activities", activities);
   },
   persistActivity({ state, getters, commit }, activity: Activity): any {
-    // Add _id to activity
+    // Add _id
 
     activity._id =
       Math.random()
@@ -21,6 +23,9 @@ export const actions: ActionTree<ActivityState, RootState> = {
       Math.random()
         .toString(36)
         .substring(2, 15);
+
+    // Add createdAt
+    activity.createdAt = new Date();
 
     // Append
     let activities = getters["habitActivities"](activity.habitId);

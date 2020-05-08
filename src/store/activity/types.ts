@@ -2,7 +2,7 @@ export interface Activity {
   _id?: string;
   habitId: string;
   userId: string;
-  count: number;
+  amount: number;
   createdAt: Date;
 }
 

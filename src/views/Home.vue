@@ -12,22 +12,30 @@
         <!-- Habit List Single -->
         <HabitHeader :habit="habit" @delete="habitDeleteSubmit($event)" />
 
-        <!-- Activity Create -->
+        <!-- Habit Activity Create -->
         <ActivityCreate
           @submit="activityCreateSubmit(habit._id, user._id, $event)"
         />
 
+        <!-- Habit Heatmap -->
+        <calendar-heatmap
+          :values="heatmapHabitActivities(habit._id)"
+          :end-date="new Date()"
+        />
+
         <!-- Activity List -->
-        <div
-          v-for="activity in habitActivities(habit._id)"
-          :key="activity._id"
-          class="activities"
-        >
-          <!-- Activity List Single -->
-          <ActivityHeader
-            :activity="activity"
-            @delete="activityDeleteSubmit($event)"
-          />
+        <div class="div" v-if="false">
+          <div
+            v-for="activity in habitActivities(habit._id)"
+            :key="activity._id"
+            class="activities"
+          >
+            <!-- Activity List Single -->
+            <ActivityHeader
+              :activity="activity"
+              @delete="activityDeleteSubmit($event)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -38,6 +46,8 @@
 </template>
 
 <script lang="ts">
+import { CalendarHeatmap } from "vue-calendar-heatmap";
+
 import { State, Action, Getter } from "vuex-class";
 
 import { UserState, User } from "@/store/user/types";
@@ -58,6 +68,7 @@ import Component from "vue-class-component";
 @Component({
   name: "Home",
   components: {
+    CalendarHeatmap,
     HabitCreate,
     HabitHeader,
     UserCreate,
@@ -65,7 +76,6 @@ import Component from "vue-class-component";
     ActivityCreate,
     ActivityHeader,
   },
-  computed: {},
 })
 export default class Home extends Vue {
   // User Store
@@ -85,6 +95,8 @@ export default class Home extends Vue {
   @Getter("habitActivities", { namespace: "activity" }) habitActivities:
     | Array<Activity>
     | undefined;
+  @Getter("heatmapHabitActivities", { namespace: "activity" })
+  heatmapHabitActivities: Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
@@ -113,11 +125,11 @@ export default class Home extends Vue {
     this.fetchUser();
   }
 
-  activityCreateSubmit(habitId: string, userId: string, count: number) {
+  activityCreateSubmit(habitId: string, userId: string, amount: number) {
     this.persistActivity({
       habitId: habitId,
       userId: userId,
-      count: count,
+      amount: amount,
     });
   }
 

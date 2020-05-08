@@ -1,7 +1,7 @@
 <template>
   <div class="activityHeader">
     <h1>
-      <span>{{ activity.count }}</span>
+      <span>{{ activity.amount }}</span>
     </h1>
     <button @click="deletActivity()">Delete Activity</button>
   </div>

@@ -13,4 +13,22 @@ export const getters: GetterTree<ActivityState, RootState> = {
       return activities[habitId];
     };
   },
+  heatmapHabitActivities(state) {
+    return (habitId: number): Array<Activity> | undefined => {
+      const { activities } = state;
+      let data = activities[habitId];
+
+      if (!data) return undefined;
+
+      data = data.map((element) => {
+        element.date = element.createdAt;
+        element.count = element.amount;
+        return element;
+      });
+
+      // TODO: merge same dates
+
+      return data;
+    };
+  },
 };
