@@ -1,7 +1,12 @@
 <template>
   <div class="activityCreate">
     <h1>Add Activity</h1>
-    <input type="text" placeholder="Amount" v-model="amount" @keyup.enter="submit()" />
+    <input
+      type="text"
+      placeholder="Count"
+      v-model="count"
+      @keyup.enter="submit()"
+    />
     <button @click="submit()">Save</button>
   </div>
 </template>
@@ -11,13 +16,12 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class ActivityCreate extends Vue {
-  amount = 0;
+  count = 0;
 
   submit() {
-    this.$emit("submit", this.amount);
+    this.$emit("submit", this.count);
   }
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

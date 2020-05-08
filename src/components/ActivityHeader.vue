@@ -1,7 +1,7 @@
 <template>
   <div class="activityHeader">
     <h1>
-      <span>{{ activity.amount }}</span>
+      <span>{{ activity.count }}</span>
     </h1>
     <button @click="deletActivity()">Delete Activity</button>
   </div>
@@ -21,5 +21,4 @@ export default class ActivityHeader extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

@@ -13,12 +13,21 @@
         <HabitHeader :habit="habit" @delete="habitDeleteSubmit($event)" />
 
         <!-- Activity Create -->
-        <ActivityCreate @submit="activityCreateSubmit(habit._id, user._id, $event)" />
+        <ActivityCreate
+          @submit="activityCreateSubmit(habit._id, user._id, $event)"
+        />
 
         <!-- Activity List -->
-        <div v-for="activity in habitActivities(habit._id)" :key="activity._id" class="activities">
+        <div
+          v-for="activity in habitActivities(habit._id)"
+          :key="activity._id"
+          class="activities"
+        >
           <!-- Activity List Single -->
-          <ActivityHeader :activity="activity" @delete="activityDeleteSubmit($event)" />
+          <ActivityHeader
+            :activity="activity"
+            @delete="activityDeleteSubmit($event)"
+          />
         </div>
       </div>
     </div>
@@ -54,9 +63,9 @@ import Component from "vue-class-component";
     UserCreate,
     UserHeader,
     ActivityCreate,
-    ActivityHeader
+    ActivityHeader,
   },
-  computed: {}
+  computed: {},
 })
 export default class Home extends Vue {
   // User Store
@@ -92,23 +101,23 @@ export default class Home extends Vue {
 
   habitCreateSubmit(name: string) {
     this.persistHabit({
-      name: name
+      name: name,
     });
     this.fetchHabits();
   }
 
   userCreateSubmit(username: string) {
     this.persistUser({
-      username: username
+      username: username,
     });
     this.fetchUser();
   }
 
-  activityCreateSubmit(habitId: string, userId: string, amount: number) {
+  activityCreateSubmit(habitId: string, userId: string, count: number) {
     this.persistActivity({
       habitId: habitId,
       userId: userId,
-      amount: amount
+      count: count,
     });
   }
 
