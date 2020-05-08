@@ -54,6 +54,7 @@ export default class Home extends Vue {
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
   @Action("deleteHabits", { namespace: "habit" }) deleteHabits: any;
+  @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
 
   mounted() {
     this.fetchUser();
@@ -82,9 +83,8 @@ export default class Home extends Vue {
   }
 
   habitDeleteSubmit(habit: Habit) {
-    // TODO: Implement in vuex, pass id
-    // this.deleteHabit(habitId);
-    console.log("TODO: delete", habit);
+    this.deleteHabit(habit);
+    this.fetchHabits();
   }
 }
 </script>

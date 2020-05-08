@@ -9,7 +9,6 @@ export const actions: ActionTree<HabitState, RootState> = {
     const habitsLocalStorage: string | null | undefined = localStorage.getItem(
       "habits"
     );
-    console.log("ola", habitsLocalStorage);
 
     const habits: Array<Habit> = habitsLocalStorage
       ? JSON.parse(habitsLocalStorage)
@@ -38,5 +37,19 @@ export const actions: ActionTree<HabitState, RootState> = {
     // Delete from Localstorage
 
     localStorage.removeItem("habits");
+  },
+  deleteHabit({ getters, commit }, habit: Habit): any {
+    // Find
+    const habits = getters["habits"];
+    const habitIndex: number = habits.findIndex(
+      (element: Habit) => element._id === habit._id
+    );
+
+    // Remove
+    habits.splice(habitIndex, 1);
+
+    // Persist
+    commit("setHabits", habits);
+    localStorage.setItem("habits", JSON.stringify(habits));
   },
 };
