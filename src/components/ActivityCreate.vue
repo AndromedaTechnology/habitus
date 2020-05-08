@@ -8,7 +8,7 @@
       @keyup.enter="submit()"
     />
     <br />
-    <button @click="submit()">Save</button>
+    <button @click="submit()">Add</button>
   </div>
 </template>
 
