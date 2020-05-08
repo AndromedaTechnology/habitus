@@ -1,7 +1,10 @@
 <template>
-  <div v-if="user" class="userHeader">
-    <h1>{{ user.username }}</h1>
-    <button @click="deleteUser()">Delete</button>
+  <div class="userHeader">
+    <h1>
+      <span>@</span>
+      <span>{{ user.username }}</span>
+    </h1>
+    <button @click="deleteUser()">Delete User</button>
   </div>
 </template>
 
