@@ -118,6 +118,7 @@ export default class Home extends Vue {
       userId: userId,
       amount: amount,
     });
+    this.fetchActivities();
   }
 
   activityDeleteSubmit(activity: Activity) {
