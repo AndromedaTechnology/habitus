@@ -10,12 +10,11 @@
         <HabitHeader :habit="habit" @delete="habitDeleteSubmit($event)" />
 
         <!-- Habit Activity Create -->
-        <ActivityCreate
-          @submit="activityCreateSubmit(habit._id, user._id, $event)"
-        />
+        <ActivityCreate @submit="activityCreateSubmit(habit._id, user._id, $event)" />
 
         <!-- Habit Heatmap -->
         <calendar-heatmap
+          v-if="heatmapHabitActivities(habit._id)"
           :values="heatmapHabitActivities(habit._id)"
           :end-date="new Date()"
         />
@@ -28,10 +27,7 @@
             class="activities"
           >
             <!-- Activity List Single -->
-            <ActivityHeader
-              :activity="activity"
-              @delete="activityDeleteSubmit($event)"
-            />
+            <ActivityHeader :activity="activity" @delete="activityDeleteSubmit($event)" />
           </div>
         </div>
       </div>
@@ -69,8 +65,8 @@ import Component from "vue-class-component";
     UserCreate,
     UserHeader,
     ActivityCreate,
-    ActivityHeader,
-  },
+    ActivityHeader
+  }
 })
 export default class Home extends Vue {
   // User Store
@@ -107,7 +103,7 @@ export default class Home extends Vue {
 
   userCreateSubmit(username: string) {
     this.persistUser({
-      username: username,
+      username: username
     });
     this.fetchUser();
   }
@@ -116,7 +112,7 @@ export default class Home extends Vue {
     this.persistActivity({
       habitId: habitId,
       userId: userId,
-      amount: amount,
+      amount: amount
     });
     this.fetchActivities();
   }

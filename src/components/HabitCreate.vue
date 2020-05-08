@@ -2,7 +2,7 @@
   <div class="habitCreate">
     <h1>Create a Habit</h1>
     <input type="text" placeholder="Name" v-model="name" @keyup.enter="submit()" />
-    <button @click="submit()">Create</button>
+    <button class="btn-dark" @click="submit()">Create</button>
   </div>
 </template>
 
