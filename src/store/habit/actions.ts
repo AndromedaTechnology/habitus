@@ -18,8 +18,20 @@ export const actions: ActionTree<HabitState, RootState> = {
     commit("setHabits", habits);
   },
   persistHabit({ state, getters, commit }, habit: Habit): any {
+    // Add _id to habit
+    habit._id =
+      Math.random()
+        .toString(36)
+        .substring(2, 15) +
+      Math.random()
+        .toString(36)
+        .substring(2, 15);
+
+    // Append
     const habits = getters["habits"];
     habits.push(habit);
+
+    // Save
     localStorage.setItem("habits", JSON.stringify(habits));
   },
   deleteHabits({ commit }): any {
