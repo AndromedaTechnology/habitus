@@ -3,7 +3,9 @@ export interface Activity {
   habitId: string;
   userId: string;
   amount: number;
+  count?: number; // for heatmap
   createdAt: Date;
+  date?: Date; // For heatmap
 }
 
 export interface ActivityState {
