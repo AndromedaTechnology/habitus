@@ -14,6 +14,15 @@ export const actions: ActionTree<UserState, RootState> = {
     commit("setUser", user);
   },
   persistUser({ commit }, user: User): any {
+    // Add _id to user
+
+    user._id =
+      Math.random()
+        .toString(36)
+        .substring(2, 15) +
+      Math.random()
+        .toString(36)
+        .substring(2, 15);
     // Persist to Localstorage
 
     localStorage.setItem("user", JSON.stringify(user));

@@ -1,5 +1,5 @@
 export interface Habit {
-  _id?: string;
+  _id: string;
   name: string;
   user_id?: string;
 }
