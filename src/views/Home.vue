@@ -4,9 +4,6 @@
       <!-- User Header -->
       <UserHeader :user="user" @delete="userDeleteSubmit()" />
 
-      <!-- Habit Create -->
-      <HabitCreate @submit="habitCreateSubmit($event)" />
-
       <!-- Habit List -->
       <div v-for="habit in habits" :key="habit.name" class="habits">
         <!-- Habit List Single -->
@@ -55,7 +52,6 @@ import UserCreate from "@/components/UserCreate.vue";
 import UserHeader from "@/components/UserHeader.vue";
 
 import { HabitState, Habit } from "@/store/habit/types";
-import HabitCreate from "@/components/HabitCreate.vue";
 import HabitHeader from "@/components/HabitHeader.vue";
 
 import { ActivityState, Activity } from "@/store/activity/types";
@@ -69,7 +65,6 @@ import Component from "vue-class-component";
   name: "Home",
   components: {
     CalendarHeatmap,
-    HabitCreate,
     HabitHeader,
     UserCreate,
     UserHeader,
@@ -87,7 +82,6 @@ export default class Home extends Vue {
   // Habit Store
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
-  @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
   @Action("deleteHabits", { namespace: "habit" }) deleteHabits: any;
   @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
 
@@ -109,13 +103,6 @@ export default class Home extends Vue {
     this.fetchUser();
     this.fetchHabits();
     this.fetchActivities();
-  }
-
-  habitCreateSubmit(name: string) {
-    this.persistHabit({
-      name: name,
-    });
-    this.fetchHabits();
   }
 
   userCreateSubmit(username: string) {
