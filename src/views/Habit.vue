@@ -3,6 +3,9 @@
     <!-- Header -->
     <HabitHeader v-if="habit" :habit="habit" :activities="habitActivities(habit._id)" />
 
+    <!-- Delete Habit -->
+    <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">Delete</button>
+
     <!--  Add Activity -->
 
     <ActivityCreate @submit="activityCreateSubmit(habit._id, user._id, $event)" />
@@ -52,6 +55,7 @@ export default class Habit extends Vue {
   // Habits
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
+  @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
   ) => Habit | undefined;
@@ -64,6 +68,8 @@ export default class Habit extends Vue {
   // Activity
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
+  @Action("deleteHabitActivities", { namespace: "activity" })
+  deleteHabitActivities: any;
   @Action("deleteHabitActivity", { namespace: "activity" })
   deleteHabitActivity: any;
 
@@ -103,6 +109,12 @@ export default class Habit extends Vue {
 
   activityDeleteSubmit(activity: Activity) {
     this.deleteHabitActivity(activity);
+  }
+
+  habitDeleteSubmit(habit: Habit) {
+    this.deleteHabit(habit);
+    this.deleteHabitActivities(habit);
+    this.$router.push({ name: "home" });
   }
 }
 </script>

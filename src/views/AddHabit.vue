@@ -14,17 +14,17 @@ import Component from "vue-class-component";
 @Component({
   name: "Home",
   components: {
-    HabitCreate,
-  },
+    HabitCreate
+  }
 })
 export default class Home extends Vue {
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
 
   habitCreateSubmit(name: string) {
     this.persistHabit({
-      name: name,
+      name: name
     });
-    this.$router.push({ name: "Home" });
+    this.$router.push({ name: "home" });
   }
 }
 </script>

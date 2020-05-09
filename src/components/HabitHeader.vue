@@ -6,7 +6,6 @@
         <HabitStreak :activities="activities" />
       </h1>
     </router-link>
-    <button class="btn-dark delete" @click="deleteHabit()">Delete</button>
   </div>
 </template>
 
@@ -24,10 +23,6 @@ import HabitStreak from "@/components/HabitStreak.vue";
 export default class HabitHeader extends Vue {
   @Prop() private habit!: Habit;
   @Prop() private activities!: Array<Activity> | undefined;
-
-  deleteHabit() {
-    this.$emit("delete", this.habit);
-  }
 }
 </script>
 

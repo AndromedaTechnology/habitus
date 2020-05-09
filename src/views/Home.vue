@@ -12,11 +12,7 @@
       <!-- Habit List -->
       <div v-for="habit in habits" :key="habit.name" class="habit">
         <!-- Habit List Single -->
-        <HabitHeader
-          :habit="habit"
-          :activities="heatmapHabitActivities(habit._id)"
-          @delete="habitDeleteSubmit($event)"
-        />
+        <HabitHeader :habit="habit" :activities="heatmapHabitActivities(habit._id)" />
 
         <!-- Habit Activity Create -->
         <ActivityCreate @submit="activityCreateSubmit(habit._id, user._id, $event)" />
@@ -75,7 +71,6 @@ export default class Home extends Vue {
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("deleteHabits", { namespace: "habit" }) deleteHabits: any;
-  @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
 
   // Activity Store
   @Getter("activities", { namespace: "activity" }) activities:
@@ -86,8 +81,6 @@ export default class Home extends Vue {
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
-  @Action("deleteHabitActivities", { namespace: "activity" })
-  deleteHabitActivities: any;
 
   mounted() {
     this.fetchUser();
@@ -117,12 +110,6 @@ export default class Home extends Vue {
     this.fetchHabits();
     this.fetchUser();
     this.deleteActivities();
-  }
-
-  habitDeleteSubmit(habit: Habit) {
-    this.deleteHabit(habit);
-    this.deleteHabitActivities(habit);
-    this.fetchHabits();
   }
 }
 </script>
