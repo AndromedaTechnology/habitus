@@ -8,7 +8,10 @@
 
     <!--  Add Activity -->
 
-    <ActivityCreate @submit="activityCreateSubmit(habit._id, user._id, $event)" />
+    <ActivityCreate
+      class="activityCreate"
+      @submit="activityCreateSubmit(habit._id, user._id, $event)"
+    />
     <br />
 
     <!--  Activity Chart -->
@@ -118,3 +121,9 @@ export default class Habit extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.activityCreate {
+  margin-top: 8px;
+}
+</style>
