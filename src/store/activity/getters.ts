@@ -7,11 +7,11 @@ export const getters: GetterTree<ActivityState, RootState> = {
     const { activities } = state;
     return activities;
   },
-  habitActivities(state) {
-    return (habitId: number): Array<Activity> | undefined => {
-      const { activities } = state;
-      return activities[habitId];
-    };
+  habitActivities: (state) => (
+    habitId: number
+  ): Array<Activity> | undefined => {
+    const { activities } = state;
+    return activities[habitId];
   },
   heatmapHabitActivities(state) {
     return (habitId: number): Array<Activity> | undefined => {

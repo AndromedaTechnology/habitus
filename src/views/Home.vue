@@ -2,7 +2,12 @@
   <div>
     <div v-if="user">
       <!-- User Header -->
-      <UserHeader :user="user" @delete="userDeleteSubmit()" />
+      <UserHeader
+        :user="user"
+        :habits="habits"
+        :activities="activities"
+        @delete="userDeleteSubmit()"
+      />
 
       <!-- Habit List -->
       <div v-for="habit in habits" :key="habit.name" class="habit">
@@ -58,7 +63,7 @@ import UserHeader from "@/components/UserHeader.vue";
 import { HabitState, Habit } from "@/store/habit/types";
 import HabitHeader from "@/components/HabitHeader.vue";
 
-import { ActivityState, Activity } from "@/store/activity/types";
+import { ActivityState, Activity, Activities } from "@/store/activity/types";
 import ActivityCreate from "@/components/ActivityCreate.vue";
 import ActivityHeader from "@/components/ActivityHeader.vue";
 
@@ -90,6 +95,9 @@ export default class Home extends Vue {
   @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
 
   // Activity Store
+  @Getter("activities", { namespace: "activity" }) activities:
+    | Activities
+    | undefined;
   @Getter("habitActivities", { namespace: "activity" }) habitActivities:
     | Array<Activity>
     | undefined;

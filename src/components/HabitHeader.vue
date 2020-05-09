@@ -14,7 +14,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Habit } from "../store/habit/types";
 import { Activity } from "../store/activity/types";
-import HabitStreak from "@/components/HabitStreak";
+import HabitStreak from "@/components/HabitStreak.vue";
 
 @Component({
   components: {

@@ -1,5 +1,5 @@
 export interface Activity {
-  _id?: string;
+  _id: string;
   habitId: string;
   userId: string;
   amount: number;
