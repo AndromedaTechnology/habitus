@@ -3,7 +3,7 @@
     <router-link :to="{name: 'habit', params: {id: habit._id}}">
       <h1>
         <span>{{ habit.name }}</span>
-        <HabitStreak :activities="activities" />
+        <HabitStreak class="streak" :activities="activities" />
       </h1>
     </router-link>
   </div>
@@ -26,4 +26,8 @@ export default class HabitHeader extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.streak {
+  margin-left: 8px;
+}
+</style>
