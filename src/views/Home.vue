@@ -19,30 +19,15 @@
         />
 
         <!-- Habit Activity Create -->
-        <ActivityCreate
-          @submit="activityCreateSubmit(habit._id, user._id, $event)"
-        />
+        <ActivityCreate @submit="activityCreateSubmit(habit._id, user._id, $event)" />
+
         <br />
+
         <!-- Habit Activity Chart -->
         <ActivityChart
           v-if="heatmapHabitActivities(habit._id)"
           :activities="heatmapHabitActivities(habit._id)"
         />
-
-        <!-- Activity List -->
-        <div class="div" v-if="false">
-          <div
-            v-for="activity in habitActivities(habit._id)"
-            :key="activity._id"
-            class="activities"
-          >
-            <!-- Activity List Single -->
-            <ActivityHeader
-              :activity="activity"
-              @delete="activityDeleteSubmit($event)"
-            />
-          </div>
-        </div>
       </div>
     </div>
 
@@ -65,7 +50,6 @@ import HabitHeader from "@/components/HabitHeader.vue";
 
 import { ActivityState, Activity, Activities } from "@/store/activity/types";
 import ActivityCreate from "@/components/ActivityCreate.vue";
-import ActivityHeader from "@/components/ActivityHeader.vue";
 
 import Vue from "vue";
 import Component from "vue-class-component";
@@ -77,9 +61,8 @@ import Component from "vue-class-component";
     HabitHeader,
     UserCreate,
     UserHeader,
-    ActivityCreate,
-    ActivityHeader,
-  },
+    ActivityCreate
+  }
 })
 export default class Home extends Vue {
   // User Store
@@ -98,9 +81,6 @@ export default class Home extends Vue {
   @Getter("activities", { namespace: "activity" }) activities:
     | Activities
     | undefined;
-  @Getter("habitActivities", { namespace: "activity" }) habitActivities:
-    | Array<Activity>
-    | undefined;
   @Getter("heatmapHabitActivities", { namespace: "activity" })
   heatmapHabitActivities: Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
@@ -108,8 +88,6 @@ export default class Home extends Vue {
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
   @Action("deleteHabitActivities", { namespace: "activity" })
   deleteHabitActivities: any;
-  @Action("deleteHabitActivity", { namespace: "activity" })
-  deleteHabitActivity: any;
 
   mounted() {
     this.fetchUser();
@@ -119,7 +97,7 @@ export default class Home extends Vue {
 
   userCreateSubmit(username: string) {
     this.persistUser({
-      username: username,
+      username: username
     });
     this.fetchUser();
   }
@@ -128,14 +106,9 @@ export default class Home extends Vue {
     this.persistActivity({
       habitId: habitId,
       userId: userId,
-      amount: amount,
+      amount: amount
     });
     this.fetchActivities();
-  }
-
-  activityDeleteSubmit(activity: Activity) {
-    console.log(activity);
-    this.deleteHabitActivity(activity);
   }
 
   userDeleteSubmit() {

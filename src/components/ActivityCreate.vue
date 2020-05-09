@@ -1,12 +1,7 @@
 <template>
   <div class="activityCreate">
     <button class="btn-dark" @click="decreaseAmount()">-</button>
-    <input
-      type="text"
-      class="amount"
-      v-model="amount"
-      @keyup.enter="submit()"
-    />
+    <input type="text" class="amount" v-model="amount" @keyup.enter="submit()" />
     <button class="btn-dark" @click="increaseAmount()">+</button>
 
     <button class="btn-dark" @click="submit()">Add</button>
@@ -17,7 +12,7 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
-  components: {},
+  components: {}
 })
 export default class ActivityCreate extends Vue {
   amount = 0;

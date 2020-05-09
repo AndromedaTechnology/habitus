@@ -7,4 +7,13 @@ export const getters: GetterTree<HabitState, RootState> = {
     const { habits } = state;
     return habits;
   },
+  getHabit: (state) => (habitId: string): Habit | undefined => {
+    const { habits } = state;
+    if (!habits) return undefined;
+
+    const habit = habits.find((element: Habit) => {
+      return element._id === habitId;
+    });
+    return habit;
+  },
 };

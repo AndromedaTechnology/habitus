@@ -2,19 +2,25 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import AddHabit from "../views/AddHabit.vue";
+import Habit from "../views/Habit.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home,
   },
   {
     path: "/add-habit",
-    name: "AddHabit",
+    name: "add-habit",
     component: AddHabit,
+  },
+  {
+    path: "/habit/:id",
+    name: "habit",
+    component: Habit,
   },
   // {
   //   path: '/about',
