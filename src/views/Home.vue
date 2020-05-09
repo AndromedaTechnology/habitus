@@ -7,7 +7,11 @@
       <!-- Habit List -->
       <div v-for="habit in habits" :key="habit.name" class="habit">
         <!-- Habit List Single -->
-        <HabitHeader :habit="habit" @delete="habitDeleteSubmit($event)" />
+        <HabitHeader
+          :habit="habit"
+          :activities="heatmapHabitActivities(habit._id)"
+          @delete="habitDeleteSubmit($event)"
+        />
 
         <!-- Habit Activity Create -->
         <ActivityCreate

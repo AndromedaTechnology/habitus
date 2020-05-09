@@ -65,4 +65,18 @@ button.active {
   background: #1f1f1f;
   color: #fff;
 }
+
+.badge {
+  vertical-align: middle;
+  box-sizing: border-box;
+  display: inline-block;
+  background-color: #2c3e50;
+  color: #ffffff;
+  border-radius: 3rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 8px 16px;
+  line-height: inherit;
+}
 </style>
