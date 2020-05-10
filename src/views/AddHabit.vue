@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Action } from "vuex-class";
 import HabitCreate from "@/components/HabitCreate.vue";
+import { HabitType } from "@/store/habit/types";
 
 import Vue from "vue";
 import Component from "vue-class-component";
@@ -14,16 +15,18 @@ import Component from "vue-class-component";
 @Component({
   name: "Home",
   components: {
-    HabitCreate
-  }
+    HabitCreate,
+  },
 })
 export default class Home extends Vue {
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
 
   habitCreateSubmit(name: string) {
     this.persistHabit({
-      name: name
+      name: name,
+      type: HabitType.amount,
     });
+
     this.$router.push({ name: "home" });
   }
 }

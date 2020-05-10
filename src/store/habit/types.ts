@@ -1,11 +1,18 @@
+export enum HabitType {
+  amount = "amount",
+  timer = "timer",
+  check = "check",
+}
+
 export interface Habit {
   _id: string;
+  type: HabitType;
+  user_id: string;
   name: string;
-  user_id?: string;
   startsAtDate: Date;
   repeatInSeconds: number;
 }
 
 export interface HabitState {
-  habits?: Array<Habit>;
+  habits: Array<Habit>;
 }

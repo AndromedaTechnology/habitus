@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{name: 'home'}">Habitus</router-link>
-      <router-link :to="{name: 'add-habit'}">Add Habit</router-link>
+      <router-link :to="{ name: 'home' }">Habitus</router-link>
+      <router-link :to="{ name: 'add-habit' }">Add Habit</router-link>
     </div>
     <router-view />
   </div>
@@ -36,6 +36,7 @@ a {
   }
 }
 
+select,
 input,
 button {
   border: solid 2px #1f1f1f;

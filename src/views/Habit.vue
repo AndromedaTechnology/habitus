@@ -1,7 +1,6 @@
 <template>
   <div v-if="user && habit">
     <!-- Header -->
-
     <HabitHeader
       v-if="habit"
       :habit="habit"
@@ -9,13 +8,21 @@
     />
 
     <!-- Delete  -->
-
     <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">
       Delete
     </button>
 
-    <!-- Starts At Date -->
+    <!-- Type -->
+    <div class="typeContainer">
+      <p>Type:</p>
+      <select v-model="type">
+        <option value="amount">Amount (default)</option>
+        <option value="timer">Timer</option>
+        <option value="check">Check</option>
+      </select>
+    </div>
 
+    <!-- Starts At Date -->
     <div class="startsAtDateContainer">
       <p>Starts At:</p>
       <datetime
@@ -27,7 +34,6 @@
     </div>
 
     <!--  Add Activity -->
-
     <div class="activityCreate">
       <p>Add Activity:</p>
       <ActivityCreate
@@ -36,7 +42,6 @@
     </div>
 
     <!--  Activity Chart -->
-
     <ActivityChart
       v-if="heatmapHabitActivities(habit._id)"
       class="activityChart"
@@ -44,7 +49,6 @@
     />
 
     <!-- Activity List -->
-
     <div
       v-for="activity in habitActivities(habit._id)"
       :key="activity._id"
@@ -112,6 +116,7 @@ export default class Habit extends Vue {
   habitId: string | null = null;
   habit: Habit | undefined | null = null;
   startsAtDate: Date | undefined | null = null;
+  type: string | undefined | null = null;
 
   mounted() {
     this.habitId = this.$route.params.id;
@@ -146,11 +151,20 @@ export default class Habit extends Vue {
     this.updateHabit({ habit: this.habit, data: { startsAtDate: value } });
   }
 
+  @Watch("type", {
+    immediate: false,
+    deep: true,
+  })
+  typeChanged(value: any, oldValue: any) {
+    this.updateHabit({ habit: this.habit, data: { type: value } });
+  }
+
   fetchHabit() {
     if (this.habitId) {
       this.getHabit(this.habitId).then((resp) => {
         this.habit = resp;
         this.startsAtDate = this.habit?.startsAtDate;
+        this.type = this.habit?.type;
       });
     }
   }
