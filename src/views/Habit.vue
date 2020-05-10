@@ -2,15 +2,18 @@
   <div v-if="user && habit">
     <!-- Header -->
     <HabitHeader
+      class="habitHeader"
       v-if="habit"
       :habit="habit"
       :activities="habitActivities(habit._id)"
     />
 
     <!-- Edit  -->
-    <button class="btn-dark edit" @click="$refs.editModal.open()">
-      Edit
-    </button>
+    <div class="habitEditContainer">
+      <button class="btn-dark edit" @click="$refs.editModal.open()">
+        Edit
+      </button>
+    </div>
 
     <!--  Add Activity -->
     <div class="activityCreateContainer">
@@ -29,12 +32,10 @@
     />
 
     <!-- Activity List -->
-    <div
-      v-for="activity in habitActivities(habit._id)"
-      :key="activity._id"
-      class="activities"
-    >
+    <div class="activityList">
       <ActivityHeader
+        v-for="activity in habitActivities(habit._id)"
+        :key="activity._id"
         :activity="activity"
         @delete="activityDeleteSubmit(habit, $event)"
       />
@@ -224,18 +225,24 @@ export default class Habit extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.habitEditContainer,
+.habitHeader {
+  text-align: center;
+}
+
 .activityCreateContainer {
   border-radius: 8px;
   padding: 16px;
-  margin-top: 8px;
+  margin-top: 32px;
   background: rgba(66, 185, 131, 0.8);
 }
-.activityChart {
-  margin-top: 8px;
+
+.activityChart,
+.activityList {
+  margin-top: 32px;
 }
-button.delete {
-  margin-top: 8px;
-}
+
+button.delete,
 .startsAtDateContainer {
   margin-top: 8px;
 }
