@@ -1,7 +1,7 @@
 <template>
   <div class="activityCreate">
     <!-- TYPE Amount -->
-    <div class="timer" v-if="habit.type === 'timer'">
+    <div :class="{ timer: true, center: center }" v-if="habit.type === 'timer'">
       <button class="btn-dark" @click="toggleTimer(1)">
         {{ timerHandler ? "Stop" : "Up" }}
       </button>
@@ -15,7 +15,10 @@
       </button>
     </div>
 
-    <div class="amount" v-else-if="habit.type === 'amount'">
+    <div
+      :class="{ amount: true, center: center }"
+      v-else-if="habit.type === 'amount'"
+    >
       <button class="btn-dark" @click="decreaseAmount()">-</button>
       <input
         type="text"
@@ -45,6 +48,7 @@ import { Habit } from "../store/habit/types";
 })
 export default class ActivityCreate extends Vue {
   @Prop() private habit!: Habit;
+  @Prop({ default: false }) private center?: boolean;
   amount = 0;
 
   timerStartedAt: { HH: string; mm: string; ss: string } | null = null;
@@ -180,6 +184,12 @@ export default class ActivityCreate extends Vue {
 <style scoped lang="scss">
 .activityCreate {
   .timer {
+    &.center {
+      * {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
     * {
       display: block;
       &:not(:last-child) {
@@ -190,6 +200,9 @@ export default class ActivityCreate extends Vue {
   }
   .amount {
     display: flex;
+    &.center {
+      justify-content: center;
+    }
     input {
       width: 24px;
     }
