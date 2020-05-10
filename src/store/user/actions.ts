@@ -13,6 +13,16 @@ export const actions: ActionTree<UserState, RootState> = {
 
     commit("setUser", user);
   },
+  updateUser(
+    { state, getters, commit },
+    payload: { user: User; data: any }
+  ): any {
+    commit("updateUser", payload);
+
+    // Save
+    const user = getters["user"];
+    localStorage.setItem("user", JSON.stringify(user));
+  },
   persistUser({ commit }, user: User): any {
     // Add _id to user
 
