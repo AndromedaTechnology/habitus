@@ -20,6 +20,7 @@
       <h3>Add Activity</h3>
       <ActivityCreate
         :habit="habit"
+        :center="true"
         @submit="activityCreateSubmit(habit._id, user._id, $event)"
       />
     </div>
@@ -231,6 +232,7 @@ export default class Habit extends Vue {
 }
 
 .activityCreateContainer {
+  text-align: center;
   border-radius: 8px;
   padding: 16px;
   margin-top: 32px;
