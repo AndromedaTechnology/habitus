@@ -1,9 +1,9 @@
 <template>
   <div class="activityHeader">
-    <h1 class="amount">
+    <h3 class="amount">
       <span>{{ activity.amount }}</span>
       <button class="delete" @click="deleteActivity()">Delete</button>
-    </h1>
+    </h3>
     <span>{{ ago }} days ago</span>
   </div>
 </template>
