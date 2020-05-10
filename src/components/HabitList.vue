@@ -7,6 +7,7 @@
       />
 
       <ActivityCreate
+        :habit="habit"
         @submit="activityCreateSubmit(habit._id, user._id, $event)"
       />
 

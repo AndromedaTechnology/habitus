@@ -37,7 +37,7 @@ a {
 }
 
 select,
-input,
+:not(.time-picker) > input,
 button {
   border: solid 2px #1f1f1f;
   background: transparent;

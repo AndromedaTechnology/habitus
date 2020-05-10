@@ -18,7 +18,7 @@
       <select v-model="type">
         <option value="amount">Amount (default)</option>
         <option value="timer">Timer</option>
-        <option value="check">Check</option>
+        <!-- <option value="check">Check</option> -->
       </select>
     </div>
 
@@ -37,6 +37,7 @@
     <div class="activityCreate">
       <p>Add Activity:</p>
       <ActivityCreate
+        :habit="habit"
         @submit="activityCreateSubmit(habit._id, user._id, $event)"
       />
     </div>
