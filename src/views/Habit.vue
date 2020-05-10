@@ -236,7 +236,6 @@ export default class Habit extends Vue {
   border-radius: 8px;
   padding: 16px;
   margin-top: 32px;
-  background: rgba(66, 185, 131, 0.8);
 }
 
 .activityChart,
