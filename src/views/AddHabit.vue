@@ -34,6 +34,7 @@ export default class Home extends Vue {
       type: HabitType.amount,
       repeatInSeconds: 0,
       startsAtDate: new Date(),
+      endsAtDate: null,
       userId: this.user?._id,
     });
 

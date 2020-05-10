@@ -70,6 +70,17 @@
         ></datetime>
       </div>
 
+      <!-- Ends At Date -->
+      <div class="endsAtDateContainer">
+        <h3>Ends At</h3>
+        <datetime
+          class="endsAtDate"
+          v-model="endsAtDate"
+          type="datetime"
+          title="Ends at"
+        ></datetime>
+      </div>
+
       <!-- Delete -->
       <div class="deleteContainer">
         <h3>Delete</h3>
@@ -137,6 +148,7 @@ export default class Habit extends Vue {
   habitId: string | null = null;
   habit: Habit | undefined | null = null;
   startsAtDate: Date | undefined | null = null;
+  endsAtDate: Date | undefined | null = null;
   name: string | undefined | null = null;
   type: string | undefined | null = null;
 
@@ -163,6 +175,7 @@ export default class Habit extends Vue {
   habitChanged(value: any, oldValue: any) {
     if (!value) return;
     this.startsAtDate = value.startsAtDate;
+    this.endsAtDate = value.endsAtDate;
   }
 
   @Watch("name", {
@@ -181,6 +194,14 @@ export default class Habit extends Vue {
     this.updateHabit({ habit: this.habit, data: { startsAtDate: value } });
   }
 
+  @Watch("endsAtDate", {
+    immediate: false,
+    deep: true,
+  })
+  endsAtDateChanged(value: any, oldValue: any) {
+    this.updateHabit({ habit: this.habit, data: { endsAtDate: value } });
+  }
+
   @Watch("type", {
     immediate: false,
     deep: true,
@@ -194,6 +215,7 @@ export default class Habit extends Vue {
       this.getHabit(this.habitId).then((resp) => {
         this.habit = resp;
         this.startsAtDate = this.habit?.startsAtDate;
+        this.endsAtDate = this.habit?.endsAtDate;
         this.type = this.habit?.type;
         this.name = this.habit?.name;
       });
@@ -244,7 +266,8 @@ export default class Habit extends Vue {
 }
 
 button.delete,
-.startsAtDateContainer {
+.startsAtDateContainer,
+.endsAtDateContainer {
   margin-top: 8px;
 }
 </style>

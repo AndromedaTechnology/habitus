@@ -1,6 +1,31 @@
 <template>
   <div v-if="habits && user">
-    <div v-for="habit in habits" :key="habit._id" class="habit">
+    <!-- FIlter -->
+
+    <div class="filter">
+      <button
+        :class="{ 'btn-dark': true, active: filter === 'now' }"
+        @click="filter = 'now'"
+      >
+        Now
+      </button>
+      <button
+        :class="{ 'btn-dark': true, active: filter === 'future' }"
+        @click="filter = 'future'"
+      >
+        Future
+      </button>
+      <button
+        :class="{ 'btn-dark': true, active: filter === 'past' }"
+        @click="filter = 'past'"
+      >
+        Past
+      </button>
+    </div>
+
+    <!--  List -->
+
+    <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
       <HabitHeader
         :habit="habit"
         :activities="heatmapHabitActivities(habit._id)"
@@ -30,7 +55,7 @@ import HabitHeader from "@/components/HabitHeader.vue";
 import ActivityChart from "@/components/ActivityChart.vue";
 import ActivityCreate from "@/components/ActivityCreate.vue";
 
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   name: "HabitList",
@@ -54,8 +79,52 @@ export default class HabitList extends Vue {
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
+  filter: string | undefined | null = "now";
+  filteredHabits: Array<Habit> | undefined | null = null;
+
+  @Watch("filter", {
+    immediate: true,
+    deep: true,
+  })
+  filterChanged(value: any, oldValue: any) {
+    if (!value) return;
+    this.filterHabits(value);
+  }
+
   mounted() {
     this.fetchActivities();
+  }
+
+  filterHabits(filter: string) {
+    this.filteredHabits = this.habits.filter((element: Habit) => {
+      // Dates
+      const currentDate = new Date();
+
+      const startsAtDate = element.startsAtDate
+        ? new Date(element.startsAtDate)
+        : null;
+
+      const endsAtDate = element.endsAtDate
+        ? new Date(element.endsAtDate)
+        : null;
+
+      // Filter
+      let isValid = false;
+
+      if (filter === "now") {
+        isValid = startsAtDate ? startsAtDate < currentDate : true;
+        if (endsAtDate) {
+          isValid = isValid && (endsAtDate ? currentDate < endsAtDate : true);
+        }
+      } else if (filter === "future") {
+        isValid = startsAtDate ? currentDate < startsAtDate : true;
+      } else if (filter === "past") {
+        isValid = startsAtDate ? startsAtDate < currentDate : true;
+        isValid = isValid && (endsAtDate ? endsAtDate < currentDate : false);
+      }
+
+      return isValid;
+    });
   }
 
   activityCreateSubmit(habitId: string, userId: string, amount: number) {

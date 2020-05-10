@@ -9,7 +9,8 @@ export interface Habit {
   type: HabitType;
   userId: string;
   name: string;
-  startsAtDate: Date;
+  startsAtDate: Date | null;
+  endsAtDate: Date | null;
   repeatInSeconds: number;
 }
 
