@@ -1,6 +1,6 @@
 <template>
   <div v-if="habits && user">
-    <div v-for="habit in habits" :key="habit.name" class="habit">
+    <div v-for="habit in habits" :key="habit._id" class="habit">
       <HabitHeader
         :habit="habit"
         :activities="heatmapHabitActivities(habit._id)"
