@@ -10,7 +10,7 @@ export const mutations: MutationTree<ActivityState> = {
   },
   habitActivities(
     state,
-    payload: { habitId: number; activities: Array<Activity> }
+    payload: { habitId: string; activities: Array<Activity> }
   ) {
     state.activities[payload.habitId] = payload.activities;
   },

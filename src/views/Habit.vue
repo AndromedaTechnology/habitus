@@ -57,7 +57,7 @@
     >
       <ActivityHeader
         :activity="activity"
-        @delete="activityDeleteSubmit($event)"
+        @delete="activityDeleteSubmit(habit, $event)"
       />
     </div>
   </div>
@@ -179,8 +179,12 @@ export default class Habit extends Vue {
     this.fetchActivities();
   }
 
-  activityDeleteSubmit(activity: Activity) {
-    this.deleteHabitActivity(activity);
+  activityDeleteSubmit(habit: Habit, activity: Activity) {
+    this.deleteHabitActivity({
+      habit: habit,
+      activity: activity,
+    });
+    this.fetchActivities();
   }
 
   habitDeleteSubmit(habit: Habit) {

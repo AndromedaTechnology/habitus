@@ -51,7 +51,23 @@ export const actions: ActionTree<ActivityState, RootState> = {
     const activities = getters["activities"];
     localStorage.setItem("activities", JSON.stringify(activities));
   },
-  deleteHabitActivity({ getters, commit }, activity: Activity): any {
-    // TODO:
+  deleteHabitActivity(
+    { getters, commit },
+    payload: { habit: Habit; activity: Activity }
+  ): any {
+    let activities = getters["habitActivities"](payload.habit._id);
+    activities = activities.filter((element: Activity) => {
+      return element._id !== payload.activity._id;
+    });
+
+    // Save to State
+    commit("habitActivities", {
+      habitId: payload.habit._id,
+      activities: activities,
+    });
+
+    // Persist to localStorage
+    activities = getters["activities"];
+    localStorage.setItem("activities", JSON.stringify(activities));
   },
 };
