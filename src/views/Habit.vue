@@ -7,35 +7,14 @@
       :activities="habitActivities(habit._id)"
     />
 
-    <!-- Delete  -->
-    <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">
-      Delete
+    <!-- Edit  -->
+    <button class="btn-dark edit" @click="$refs.editModal.open()">
+      Edit
     </button>
 
-    <!-- Type -->
-    <div class="typeContainer">
-      <p>Type:</p>
-      <select v-model="type">
-        <option value="amount">Amount (default)</option>
-        <option value="timer">Timer</option>
-        <!-- <option value="check">Check</option> -->
-      </select>
-    </div>
-
-    <!-- Starts At Date -->
-    <div class="startsAtDateContainer">
-      <p>Starts At:</p>
-      <datetime
-        class="startsAtDate"
-        v-model="startsAtDate"
-        type="datetime"
-        title="Start at"
-      ></datetime>
-    </div>
-
     <!--  Add Activity -->
-    <div class="activityCreate">
-      <p>Add Activity:</p>
+    <div class="activityCreateContainer">
+      <h3>Add Activity</h3>
       <ActivityCreate
         :habit="habit"
         @submit="activityCreateSubmit(habit._id, user._id, $event)"
@@ -60,6 +39,43 @@
         @delete="activityDeleteSubmit(habit, $event)"
       />
     </div>
+
+    <sweet-modal ref="editModal">
+      <!-- Name -->
+      <div class="nameContainer">
+        <h3>Name</h3>
+        <input type="text" class="input-dark" v-model="name" />
+      </div>
+
+      <!-- Type -->
+      <div class="typeContainer">
+        <h3>Type</h3>
+        <select v-model="type">
+          <option value="amount">Amount (default)</option>
+          <option value="timer">Timer</option>
+          <!-- <option value="check">Check</option> -->
+        </select>
+      </div>
+
+      <!-- Starts At Date -->
+      <div class="startsAtDateContainer">
+        <h3>Starts At</h3>
+        <datetime
+          class="startsAtDate"
+          v-model="startsAtDate"
+          type="datetime"
+          title="Start at"
+        ></datetime>
+      </div>
+
+      <!-- Delete -->
+      <div class="deleteContainer">
+        <h3>Delete</h3>
+        <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">
+          Delete
+        </button>
+      </div>
+    </sweet-modal>
   </div>
 </template>
 
@@ -74,6 +90,7 @@ import { Activity } from "@/store/activity/types";
 
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
+import { SweetModal } from "sweet-modal-vue";
 import { State, Action, Getter, Mutation } from "vuex-class";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
@@ -85,6 +102,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
     ActivityChart,
     ActivityHeader,
     Datetime,
+    SweetModal,
   },
 })
 export default class Habit extends Vue {
@@ -117,6 +135,7 @@ export default class Habit extends Vue {
   habitId: string | null = null;
   habit: Habit | undefined | null = null;
   startsAtDate: Date | undefined | null = null;
+  name: string | undefined | null = null;
   type: string | undefined | null = null;
 
   mounted() {
@@ -144,6 +163,14 @@ export default class Habit extends Vue {
     this.startsAtDate = value.startsAtDate;
   }
 
+  @Watch("name", {
+    immediate: false,
+    deep: true,
+  })
+  nameChanged(value: any, oldValue: any) {
+    this.updateHabit({ habit: this.habit, data: { name: value } });
+  }
+
   @Watch("startsAtDate", {
     immediate: false,
     deep: true,
@@ -166,6 +193,7 @@ export default class Habit extends Vue {
         this.habit = resp;
         this.startsAtDate = this.habit?.startsAtDate;
         this.type = this.habit?.type;
+        this.name = this.habit?.name;
       });
     }
   }
@@ -196,8 +224,11 @@ export default class Habit extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.activityCreate {
+.activityCreateContainer {
+  border-radius: 8px;
+  padding: 16px;
   margin-top: 8px;
+  background: rgba(66, 185, 131, 0.8);
 }
 .activityChart {
   margin-top: 8px;
