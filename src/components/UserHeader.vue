@@ -8,7 +8,7 @@
         </h1>
         <button class="btn-dark" @click="deleteUser()">Delete</button>
       </div>
-      <div class="column">
+      <div class="column" v-if="habits.length > 2">
         <UserChart :habits="habits" :activities="activities" />
       </div>
     </div>
