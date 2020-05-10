@@ -7,7 +7,7 @@ export enum HabitType {
 export interface Habit {
   _id: string;
   type: HabitType;
-  user_id: string;
+  userId: string;
   name: string;
   startsAtDate: Date;
   repeatInSeconds: number;

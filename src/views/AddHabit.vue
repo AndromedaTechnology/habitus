@@ -5,9 +5,10 @@
 </template>
 
 <script lang="ts">
-import { Action } from "vuex-class";
+import { Action, Getter } from "vuex-class";
 import HabitCreate from "@/components/HabitCreate.vue";
 import { HabitType } from "@/store/habit/types";
+import { User } from "@/store/user/types";
 
 import Vue from "vue";
 import Component from "vue-class-component";
@@ -20,11 +21,20 @@ import Component from "vue-class-component";
 })
 export default class Home extends Vue {
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
+  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
+  @Getter("user", { namespace: "user" }) user: User | undefined;
+
+  mounted() {
+    this.fetchUser();
+  }
 
   habitCreateSubmit(name: string) {
     this.persistHabit({
       name: name,
       type: HabitType.amount,
+      repeatInSeconds: 0,
+      startsAtDate: new Date(),
+      userId: this.user?._id,
     });
 
     this.$router.push({ name: "home" });
