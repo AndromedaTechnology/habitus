@@ -16,6 +16,16 @@ export const actions: ActionTree<HabitState, RootState> = {
 
     commit("setHabits", habits);
   },
+  updateHabit(
+    { state, getters, commit },
+    payload: { habit: Habit; data: any }
+  ): any {
+    commit("updateHabit", payload);
+
+    // Save
+    const habits = getters["habits"];
+    localStorage.setItem("habits", JSON.stringify(habits));
+  },
   persistHabit({ state, getters, commit }, habit: Habit): any {
     // Add _id to habit
     habit._id =

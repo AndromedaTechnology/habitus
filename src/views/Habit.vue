@@ -1,30 +1,59 @@
 <template>
   <div v-if="user && habit">
     <!-- Header -->
-    <HabitHeader v-if="habit" :habit="habit" :activities="habitActivities(habit._id)" />
 
-    <!-- Delete Habit -->
-    <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">Delete</button>
+    <HabitHeader
+      v-if="habit"
+      :habit="habit"
+      :activities="habitActivities(habit._id)"
+    />
+
+    <!-- Delete  -->
+
+    <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">
+      Delete
+    </button>
+
+    <!-- Starts At Date -->
+
+    <div class="startsAtDateContainer">
+      <p>Starts At:</p>
+      <datetime
+        class="startsAtDate"
+        v-model="startsAtDate"
+        type="datetime"
+        title="Start at"
+      ></datetime>
+    </div>
 
     <!--  Add Activity -->
 
-    <ActivityCreate
-      class="activityCreate"
-      @submit="activityCreateSubmit(habit._id, user._id, $event)"
-    />
-    <br />
+    <div class="activityCreate">
+      <p>Add Activity:</p>
+      <ActivityCreate
+        @submit="activityCreateSubmit(habit._id, user._id, $event)"
+      />
+    </div>
 
     <!--  Activity Chart -->
 
     <ActivityChart
       v-if="heatmapHabitActivities(habit._id)"
+      class="activityChart"
       :activities="heatmapHabitActivities(habit._id)"
     />
 
     <!-- Activity List -->
 
-    <div v-for="activity in habitActivities(habit._id)" :key="activity._id" class="activities">
-      <ActivityHeader :activity="activity" @delete="activityDeleteSubmit($event)" />
+    <div
+      v-for="activity in habitActivities(habit._id)"
+      :key="activity._id"
+      class="activities"
+    >
+      <ActivityHeader
+        :activity="activity"
+        @delete="activityDeleteSubmit($event)"
+      />
     </div>
   </div>
 </template>
@@ -37,9 +66,11 @@ import ActivityChart from "@/components/ActivityChart.vue";
 
 import { User } from "@/store/user/types";
 import { Activity } from "@/store/activity/types";
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
-import { State, Action, Getter } from "vuex-class";
+import { Datetime } from "vue-datetime";
+import "vue-datetime/dist/vue-datetime.css";
+import { State, Action, Getter, Mutation } from "vuex-class";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   name: "Habit",
@@ -47,8 +78,9 @@ import { State, Action, Getter } from "vuex-class";
     HabitHeader,
     ActivityCreate,
     ActivityChart,
-    ActivityHeader
-  }
+    ActivityHeader,
+    Datetime,
+  },
 })
 export default class Habit extends Vue {
   // User
@@ -57,11 +89,12 @@ export default class Habit extends Vue {
 
   // Habits
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
+  @Action("updateHabit", { namespace: "habit" }) updateHabit: any;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
-  ) => Habit | undefined;
+  ) => Promise<Habit | undefined>;
   @Getter("habitActivities", { namespace: "activity" }) habitActivities:
     | Array<Activity>
     | undefined;
@@ -78,6 +111,7 @@ export default class Habit extends Vue {
 
   habitId: string | null = null;
   habit: Habit | undefined | null = null;
+  startsAtDate: Date | undefined | null = null;
 
   mounted() {
     this.habitId = this.$route.params.id;
@@ -88,16 +122,36 @@ export default class Habit extends Vue {
 
   @Watch("habits", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
     this.fetchHabit();
   }
 
+  @Watch("habit", {
+    immediate: false,
+    deep: true,
+  })
+  habitChanged(value: any, oldValue: any) {
+    if (!value) return;
+    this.startsAtDate = value.startsAtDate;
+  }
+
+  @Watch("startsAtDate", {
+    immediate: false,
+    deep: true,
+  })
+  startsAtDateChanged(value: any, oldValue: any) {
+    this.updateHabit({ habit: this.habit, data: { startsAtDate: value } });
+  }
+
   fetchHabit() {
     if (this.habitId) {
-      this.habit = this.getHabit(this.habitId);
+      this.getHabit(this.habitId).then((resp) => {
+        this.habit = resp;
+        this.startsAtDate = this.habit?.startsAtDate;
+      });
     }
   }
 
@@ -105,7 +159,7 @@ export default class Habit extends Vue {
     this.persistActivity({
       habitId: habitId,
       userId: userId,
-      amount: amount
+      amount: amount,
     });
     this.fetchActivities();
   }
@@ -124,6 +178,15 @@ export default class Habit extends Vue {
 
 <style lang="scss" scoped>
 .activityCreate {
+  margin-top: 8px;
+}
+.activityChart {
+  margin-top: 8px;
+}
+button.delete {
+  margin-top: 8px;
+}
+.startsAtDateContainer {
   margin-top: 8px;
 }
 </style>

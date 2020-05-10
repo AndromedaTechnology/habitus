@@ -2,7 +2,7 @@ export interface Habit {
   _id: string;
   name: string;
   user_id?: string;
-  startsAt: Date;
+  startsAtDate: Date;
   repeatInSeconds: number;
 }
 
