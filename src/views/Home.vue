@@ -33,8 +33,8 @@ import Component from "vue-class-component";
   components: {
     UserCreate,
     UserHeader,
-    HabitList,
-  },
+    HabitList
+  }
 })
 export default class Home extends Vue {
   // User Store
@@ -61,7 +61,7 @@ export default class Home extends Vue {
 
   userCreateSubmit(username: string) {
     this.persistUser({
-      username: username,
+      username: username
     });
     this.fetchUser();
   }
@@ -79,10 +79,5 @@ export default class Home extends Vue {
 <style lang="scss" scoped>
 .habit {
   margin: 16px;
-}
-@media (min-width: 768px) {
-  .habit {
-    margin: 64px;
-  }
 }
 </style>

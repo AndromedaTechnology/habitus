@@ -2,9 +2,9 @@
   <div class="activityHeader">
     <h3 class="amount">
       <span>{{ activity.amount }}</span>
-      <button class="delete" @click="deleteActivity()">Delete</button>
     </h3>
-    <span>{{ ago }} days ago</span>
+    <button class="delete" @click="deleteActivity()">Delete</button>
+    <h4 class="ago">{{ ago }} days ago</h4>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default class ActivityHeader extends Vue {
   display: flex;
 }
 
-button.delete {
-  margin-left: 8px;
+.ago {
+  margin-top: 8px;
 }
 </style>

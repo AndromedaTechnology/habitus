@@ -1,10 +1,10 @@
 <template>
   <div class="habitHeader">
     <router-link :to="{ name: 'habit', params: { id: habit._id } }">
-      <h2>
+      <h1>
         <span>{{ habit.name }}</span>
         <HabitStreak class="streak" :activities="activities" />
-      </h2>
+      </h1>
     </router-link>
   </div>
 </template>
@@ -17,8 +17,8 @@ import HabitStreak from "@/components/HabitStreak.vue";
 
 @Component({
   components: {
-    HabitStreak,
-  },
+    HabitStreak
+  }
 })
 export default class HabitHeader extends Vue {
   @Prop() private habit!: Habit;

@@ -1,31 +1,15 @@
 <template>
   <div class="activityCreate">
     <!-- TYPE Amount -->
-    <div :class="{ timer: true, center: center }" v-if="habit.type === 'timer'">
-      <button class="btn-dark" @click="toggleTimer(1)">
-        {{ timerHandler ? "Stop" : "Up" }}
-      </button>
-      <vue-timepicker
-        :format="timerFormat"
-        v-model="timer"
-        hide-clear-button
-      ></vue-timepicker>
-      <button class="btn-dark" @click="toggleTimer(0)">
-        {{ timerHandler ? "Stop" : "Down" }}
-      </button>
+    <div :class="{ timer: true }" v-if="habit.type === 'timer'">
+      <button class="btn-dark" @click="toggleTimer(1)">{{ timerHandler ? "Stop" : "Up" }}</button>
+      <vue-timepicker :format="timerFormat" v-model="timer" hide-clear-button></vue-timepicker>
+      <button class="btn-dark" @click="toggleTimer(0)">{{ timerHandler ? "Stop" : "Down" }}</button>
     </div>
 
-    <div
-      :class="{ amount: true, center: center }"
-      v-else-if="habit.type === 'amount'"
-    >
+    <div :class="{ amount: true }" v-else-if="habit.type === 'amount'">
       <button class="btn-dark" @click="decreaseAmount()">-</button>
-      <input
-        type="text"
-        class="amount"
-        v-model="amount"
-        @keyup.enter="submit()"
-      />
+      <input type="text" class="amount" v-model="amount" @keyup.enter="submit()" />
       <button class="btn-dark" @click="increaseAmount()">+</button>
     </div>
 
@@ -43,13 +27,12 @@ import { Habit } from "../store/habit/types";
 
 @Component({
   components: {
-    VueTimepicker,
-  },
+    VueTimepicker
+  }
 })
 export default class ActivityCreate extends Vue {
   @Prop() private habit!: Habit;
-  @Prop({ default: false }) private center?: boolean;
-  amount = 0;
+  amount = 1;
 
   timerStartedAt: { HH: string; mm: string; ss: string } | null = null;
   timerHandler: number | null = null;
@@ -57,7 +40,7 @@ export default class ActivityCreate extends Vue {
   timer = {
     HH: "00",
     mm: "00",
-    ss: "00",
+    ss: "00"
   };
 
   submit() {
@@ -95,7 +78,7 @@ export default class ActivityCreate extends Vue {
     }
 
     this.$emit("submit", this.amount);
-    this.amount = 0;
+    this.amount = 1;
   }
 
   increaseAmount() {
@@ -103,7 +86,7 @@ export default class ActivityCreate extends Vue {
   }
   decreaseAmount() {
     this.amount -= 1;
-    this.amount = Math.max(this.amount, 0);
+    this.amount = Math.max(this.amount, 1);
   }
 
   toggleTimer(increase = 1) {
@@ -173,7 +156,7 @@ export default class ActivityCreate extends Vue {
     this.timer = {
       HH: "00",
       mm: "00",
-      ss: "00",
+      ss: "00"
     };
 
     this.timerStartedAt = null;
@@ -184,12 +167,6 @@ export default class ActivityCreate extends Vue {
 <style scoped lang="scss">
 .activityCreate {
   .timer {
-    &.center {
-      * {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
     * {
       display: block;
       &:not(:last-child) {

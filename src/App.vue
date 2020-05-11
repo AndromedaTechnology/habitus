@@ -10,6 +10,9 @@
 
 <style lang="scss">
 #app {
+  @media (min-width: 768px) {
+    margin: 64px;
+  }
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
