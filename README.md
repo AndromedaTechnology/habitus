@@ -20,8 +20,14 @@ Track Habits Easily.
 
 ## TODO
 
+- Habit timer type - One stop button
+- ActivityCreate Component - design fix - all in one row (timer, points)
+- Habit - Longest Streak (show on Habit view page)
 - Habits - Recurring
-- Habits - type = 'checkbox'
+- Habits - type = 'checkbox' (mark as done; move to 'Past' filter)
+- AddHabit navigation link and Component - show only when user is created
+- Habit timer type - transform seconds to hours:minutes:seconds on graph and in ActivityList
+
 - API - enable a social component (following, including people in Habits)
 - Wording - Habits became tasks, adjust wording and project name accordingly
 
