@@ -20,8 +20,8 @@ Track Habits Easily.
 
 ## TODO
 
-- Habits - Set Due Date, Recurring
-- Habits - Filter by Due date (Now, Upcoming, Past)
+- Habits - Recurring
+- Habits - type = 'checkbox'
 - API - enable a social component (following, including people in Habits)
 - Wording - Habits became tasks, adjust wording and project name accordingly
 
