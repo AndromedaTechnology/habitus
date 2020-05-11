@@ -1,47 +1,32 @@
 <template>
-  <div v-if="habits && user">
+  <div class="habitList" v-if="habits && user">
     <!-- FIlter -->
 
     <div class="filter">
-      <button
-        :class="{ 'btn-dark': true, active: filter === 'now' }"
-        @click="filter = 'now'"
-      >
-        Now
-      </button>
+      <button :class="{ 'btn-dark': true, active: filter === 'now' }" @click="filter = 'now'">Now</button>
       <button
         :class="{ 'btn-dark': true, active: filter === 'future' }"
         @click="filter = 'future'"
-      >
-        Future
-      </button>
-      <button
-        :class="{ 'btn-dark': true, active: filter === 'past' }"
-        @click="filter = 'past'"
-      >
-        Past
-      </button>
+      >Future</button>
+      <button :class="{ 'btn-dark': true, active: filter === 'past' }" @click="filter = 'past'">Past</button>
     </div>
 
     <!--  List -->
 
-    <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
-      <HabitHeader
-        :habit="habit"
-        :activities="heatmapHabitActivities(habit._id)"
-      />
+    <div v-if="filteredHabits && filteredHabits.length" class="list">
+      <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
+        <HabitHeader :habit="habit" :activities="heatmapHabitActivities(habit._id)" />
 
-      <ActivityCreate
-        :habit="habit"
-        @submit="activityCreateSubmit(habit._id, user._id, $event)"
-      />
+        <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit._id, user._id, $event)" />
 
-      <ActivityChart
-        class="activityChart"
-        v-if="heatmapHabitActivities(habit._id)"
-        :activities="heatmapHabitActivities(habit._id)"
-      />
+        <ActivityChart
+          class="activityChart"
+          v-if="heatmapHabitActivities(habit._id)"
+          :activities="heatmapHabitActivities(habit._id)"
+        />
+      </div>
     </div>
+    <div v-else class="nothing">Nothing to show.</div>
   </div>
 </template>
 
@@ -62,8 +47,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
   components: {
     HabitHeader,
     ActivityChart,
-    ActivityCreate,
-  },
+    ActivityCreate
+  }
 })
 export default class HabitList extends Vue {
   @Prop() private habits!: Array<Habit>;
@@ -84,7 +69,7 @@ export default class HabitList extends Vue {
 
   @Watch("filter", {
     immediate: true,
-    deep: true,
+    deep: true
   })
   filterChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -131,7 +116,7 @@ export default class HabitList extends Vue {
     this.persistActivity({
       habitId: habitId,
       userId: userId,
-      amount: amount,
+      amount: amount
     });
     this.fetchActivities();
   }
@@ -142,13 +127,15 @@ export default class HabitList extends Vue {
 .habit {
   margin: 16px;
 }
+
 @media (min-width: 768px) {
-  .habit {
+  .habitList {
     margin: 64px;
   }
 }
 
-.activityChart {
-  margin-top: 8px;
+.activityChart,
+.nothing {
+  margin-top: 32px;
 }
 </style>
