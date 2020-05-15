@@ -22,16 +22,16 @@ Track Habits Easily.
 
 ## TODO
 
-- Habit timer type - One stop button
-- ActivityCreate Component - design fix - all in one row (timer, points)
-- Habit - Longest Streak (show on Habit view page)
-- Habits - Recurring
-- Habits - type = 'checkbox' (mark as done; move to 'Past' filter)
-- AddHabit navigation link and Component - show only when user is created
-- Habit timer type - transform seconds to hours:minutes:seconds on graph and in ActivityList
-
-- API - enable a social component (following, including people in Habits)
-- Wording - Habits became tasks, adjust wording and project name accordingly
+- Don't ask for username on first visit, allow any action: Allow for immediate app usage
+- Show Experience points for Users and Habits (sum(Activity.amount))
+- Habit.type == "timer": Show only one stop button
+- ActivityCreateComponent: Design fix: show all buttons and inputs in one row
+- Habit - Longest Streak: Show on Habit single page
+- Habit timer type: transform seconds to hours:minutes:seconds on graph and in ActivityList
+- Recurring Habits
+- Add Habit.type == 'checkbox': Mark Habit as done; move to 'Past' filter
+- API: enable a social component (following, including people in Habits)
+- Wording: Habits became tasks, adjust wording and project name accordingly
 
 ## Installation
 
