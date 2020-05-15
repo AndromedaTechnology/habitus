@@ -10,7 +10,7 @@ import VueNoty from "vuejs-noty";
 import "vuejs-noty/dist/vuejs-noty.css";
 
 Vue.use(VueNoty, {
-  theme: "semanticui",
+  theme: "metroui",
   layout: "bottomRight",
   sounds: {
     sources: ["/audio/notification.mp3"],
@@ -52,7 +52,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
     localStorage.setItem("activities", JSON.stringify(activities));
 
     // Notification
-    (Vue as any).noty.success(activity.amount + " experience gained!");
+    (Vue as any).noty.info(activity.amount + " experience gained!");
     const audio = new Audio("/audio/notification.ogg");
     audio.play();
   },

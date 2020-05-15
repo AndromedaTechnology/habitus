@@ -33,7 +33,7 @@ export default class ActivityChart extends Vue {
     },
     scales: {
       xAxes: [{ display: false }],
-      yAxes: [{ display: true }],
+      yAxes: [{ display: true, ticks: { fontSize: 16 } }],
     },
     responsive: true,
     maintainAspectRatio: false,

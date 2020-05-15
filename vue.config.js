@@ -1,6 +1,7 @@
 module.exports = {
     pwa: {
         name: 'Habitus',
+        themeColor: "#42b983",
         iconPaths: {
             favicon16: 'img/icons/favicon-16x16.png',
             favicon32: 'img/icons/favicon-32x32.png',

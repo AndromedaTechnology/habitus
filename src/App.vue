@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'home' }">Habitus</router-link>
-      <router-link :to="{ name: 'add-habit' }">Add Habit</router-link>
+      <router-link :to="{ name: 'home' }"> <h2>Habitus</h2></router-link>
+      <router-link :to="{ name: 'add-habit' }"><h2>Add Habit</h2></router-link>
     </div>
     <router-view />
   </div>
@@ -17,6 +17,15 @@ import { Component, Vue } from "vue-property-decorator";
 export default class App extends Vue {}
 </script>
 <style lang="scss">
+$backgroundColor: #000;
+$textColor: #fff;
+$activeLinkColor: #42b983;
+$badgeBackgroundColor: #1f1f1f;
+
+body {
+  background: $backgroundColor;
+}
+
 #app {
   @media (min-width: 768px) {
     margin: 64px;
@@ -24,7 +33,7 @@ export default class App extends Vue {}
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: $textColor;
 }
 
 a {
@@ -34,34 +43,46 @@ a {
 #nav {
   padding: 30px;
   text-align: center;
-
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    h2 {
+      display: inline;
+    }
     &:not(:last-of-type) {
-      margin-right: 8px;
+      margin-right: 32px;
     }
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  }
+}
+
+a {
+  font-weight: bold;
+  color: $textColor;
+  &.router-link-exact-active {
+    color: $activeLinkColor;
+  }
+}
+
+.time-picker {
+  input,
+  .dropdown {
+    background: $backgroundColor;
+    color: $textColor;
   }
 }
 
 select,
 :not(.time-picker) > input,
 button {
-  border: solid 2px #1f1f1f;
-  background: transparent;
-  color: #1f1f1f;
+  background: $badgeBackgroundColor;
+  border: solid 2px $badgeBackgroundColor;
+  color: #fff;
 
   outline: none;
 
   border-radius: 0px;
   text-decoration: none;
-  padding: 0px 18px;
-  font-size: 12px;
-  line-height: 19px;
-  text-transform: uppercase;
+  padding: 0px 24px;
+  font-size: 16px;
+  line-height: 32px;
   font-weight: 400;
   letter-spacing: 3px;
   -webkit-transition: all 0.4s ease-in-out;
@@ -73,26 +94,33 @@ button {
 
 button {
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 button:hover,
 button.active {
-  border: solid 2px #1f1f1f;
-  background: #1f1f1f;
-  color: #fff;
+  color: $textColor;
+  border: solid 2px $textColor;
+
+  background: transparent;
 }
 
 .badge {
   vertical-align: middle;
   box-sizing: border-box;
   display: inline-block;
-  background-color: #2c3e50;
-  color: #ffffff;
+  background-color: $badgeBackgroundColor;
+  color: $textColor;
   border-radius: 3rem;
   text-align: center;
   font-size: 1rem;
   font-weight: 400;
   padding: 8px 16px;
   line-height: inherit;
+}
+
+.sweet-modal-overlay,
+.sweet-modal {
+  background: $backgroundColor !important;
 }
 </style>

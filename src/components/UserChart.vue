@@ -31,16 +31,21 @@ export default class UserChart extends Vue {
   ) => Array<Activity> | undefined;
 
   chartOptions = {
+    gridLines: {
+      display: false,
+    },
     legend: {
-      position: "top",
       display: false,
     },
     title: {
       display: false,
-      text: "Performance",
     },
     scale: {
+      pointLabels: {
+        fontSize: 16,
+      },
       ticks: {
+        display: false,
         beginAtZero: true,
       },
     },

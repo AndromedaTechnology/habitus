@@ -44,7 +44,11 @@
         />
       </div>
     </div>
-    <div v-else class="nothing">Nothing to show.</div>
+    <div v-else class="nothing">
+      <h2>
+        Nothing to show.
+      </h2>
+    </div>
   </div>
 </template>
 
@@ -144,7 +148,7 @@ export default class HabitList extends Vue {
 
 <style lang="scss" scoped>
 .habit {
-  margin: 16px;
+  margin: 0px 16px 128px;
 }
 
 @media (min-width: 768px) {

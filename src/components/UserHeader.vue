@@ -8,10 +8,12 @@
         </h1>
         <!-- Edit  -->
         <div class="editContainer">
-          <button class="btn-dark edit" @click="$refs.editModal.open()">Edit</button>
+          <button class="btn-dark edit" @click="$refs.editModal.open()">
+            Edit
+          </button>
         </div>
       </div>
-      <div class="column" v-if="habits.length > 2">
+      <div class="column chart" v-if="habits.length > 2">
         <UserChart :habits="habits" :activities="activities" />
       </div>
     </div>
@@ -63,8 +65,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({
   components: {
     UserChart,
-    SweetModal
-  }
+    SweetModal,
+  },
 })
 export default class UserHeader extends Vue {
   @Prop() private user!: User;
@@ -86,7 +88,7 @@ export default class UserHeader extends Vue {
 
   @Watch("username", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   usernameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { username: value } });
@@ -94,7 +96,7 @@ export default class UserHeader extends Vue {
 
   @Watch("firstName", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   firstNameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { firstName: value } });
@@ -102,7 +104,7 @@ export default class UserHeader extends Vue {
 
   @Watch("lastName", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   lastNameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { lastName: value } });
@@ -110,7 +112,7 @@ export default class UserHeader extends Vue {
 
   @Watch("email", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   emailChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { email: value } });
@@ -129,10 +131,18 @@ export default class UserHeader extends Vue {
 
   .row {
     display: block;
+
+    .column.chart {
+      margin-top: 48px;
+    }
+
     @media only screen and (min-width: 1024px) {
       display: flex;
       .column {
         flex: 50%;
+      }
+      .column.chart {
+        margin-top: auto;
       }
     }
   }
