@@ -4,6 +4,18 @@ import { ActionTree } from "vuex";
 import { ActivityState, Activity, Activities } from "./types";
 import { Habit } from "../habit/types";
 import { RootState } from "../types";
+import { Vue } from "vue-property-decorator";
+
+import VueNoty from "vuejs-noty";
+import "vuejs-noty/dist/vuejs-noty.css";
+
+Vue.use(VueNoty, {
+  theme: "semanticui",
+  layout: "bottomRight",
+  sounds: {
+    sources: ["/audio/notification.mp3"],
+  },
+});
 
 export const actions: ActionTree<ActivityState, RootState> = {
   fetchActivities({ commit }): any {
@@ -38,6 +50,11 @@ export const actions: ActionTree<ActivityState, RootState> = {
 
     activities = getters["activities"];
     localStorage.setItem("activities", JSON.stringify(activities));
+
+    // Notification
+    (Vue as any).noty.success(activity.amount + " experience gained!");
+    const audio = new Audio("/audio/notification.ogg");
+    audio.play();
   },
   deleteActivities({ commit }): any {
     // Delete from Localstorage
