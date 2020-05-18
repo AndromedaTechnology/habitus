@@ -1,13 +1,14 @@
 <template>
   <div class="activityCreate">
-    <!-- TYPE Amount -->
-    <div :class="{ timer: true }" v-if="habit.type === 'timer'">
+    <!-- Timer -->
+    <div :class="{ timer: true }" v-if="habit.amountType === 'timer'">
       <button class="btn-dark" @click="toggleTimer(1)">{{ timerHandler ? "Stop" : "Up" }}</button>
       <vue-timepicker :format="timerFormat" v-model="timer" hide-clear-button></vue-timepicker>
       <button class="btn-dark" @click="toggleTimer(0)">{{ timerHandler ? "Stop" : "Down" }}</button>
     </div>
 
-    <div :class="{ amount: true }" v-else-if="habit.type === 'amount'">
+    <!-- Amount -->
+    <div :class="{ amount: true }" v-else-if="habit.amountType === 'amount'">
       <button class="btn-dark" @click="decreaseAmount()">-</button>
       <input type="text" class="amount" v-model="amount" @keyup.enter="submit()" />
       <button class="btn-dark" @click="increaseAmount()">+</button>
@@ -44,7 +45,7 @@ export default class ActivityCreate extends Vue {
   };
 
   submit() {
-    if (this.habit.type === "timer") {
+    if (this.habit.amountType === "timer") {
       if (this.timerStartedAt) {
         //  For countdown: Submit diff of(startedAt, current)
 
@@ -73,7 +74,7 @@ export default class ActivityCreate extends Vue {
       }
 
       this.resetTimer();
-    } else if (this.habit.type === "amount") {
+    } else if (this.habit.amountType === "amount") {
       //
     }
 

@@ -46,7 +46,7 @@
       <!-- Type -->
       <div class="typeContainer">
         <h3>Type</h3>
-        <select v-model="type">
+        <select v-model="amountType">
           <option value="amount">Amount (default)</option>
           <option value="timer">Timer</option>
           <!-- <option value="check">Check</option> -->
@@ -132,7 +132,7 @@ export default class Habit extends Vue {
   startsAtDate: Date | undefined | null = null;
   endsAtDate: Date | undefined | null = null;
   name: string | undefined | null = null;
-  type: string | undefined | null = null;
+  amountType: string | undefined | null = null;
 
   mounted() {
     this.habitId = this.$route.params.id;
@@ -184,12 +184,12 @@ export default class Habit extends Vue {
     this.updateHabit({ habit: this.habit, data: { endsAtDate: value } });
   }
 
-  @Watch("type", {
+  @Watch("amountType", {
     immediate: false,
     deep: true
   })
   typeChanged(value: any, oldValue: any) {
-    this.updateHabit({ habit: this.habit, data: { type: value } });
+    this.updateHabit({ habit: this.habit, data: { amountType: value } });
   }
 
   fetchHabit() {
@@ -198,7 +198,7 @@ export default class Habit extends Vue {
         this.habit = resp;
         this.startsAtDate = this.habit?.startsAtDate;
         this.endsAtDate = this.habit?.endsAtDate;
-        this.type = this.habit?.type;
+        this.amountType = this.habit?.amountType;
         this.name = this.habit?.name;
       });
     }

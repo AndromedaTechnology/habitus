@@ -1,4 +1,4 @@
-export enum HabitType {
+export enum HabitAmountType {
   amount = "amount",
   timer = "timer",
   check = "check",
@@ -6,7 +6,7 @@ export enum HabitType {
 
 export interface Habit {
   _id: string;
-  type: HabitType;
+  amountType: HabitAmountType;
   userId: string;
   name: string;
   startsAtDate: Date | null;
