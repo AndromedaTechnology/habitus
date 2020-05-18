@@ -1,9 +1,9 @@
 <template>
   <div class="habitHeader">
     <router-link :to="{ name: 'habit', params: { id: habit._id } }" :class="{isBad: !habit.isGood}">
+      <HabitStreak v-if="showStreak" class="streak" :activities="activities" />
       <h1>
         <span>{{ habit.name }}</span>
-        <HabitStreak class="streak" :activities="activities" />
       </h1>
     </router-link>
   </div>
@@ -23,6 +23,7 @@ import HabitStreak from "@/components/HabitStreak.vue";
 export default class HabitHeader extends Vue {
   @Prop() private habit!: Habit;
   @Prop() private activities!: Array<Activity> | undefined;
+  @Prop({ default: false, type: Boolean }) showStreak?: boolean;
 }
 </script>
 

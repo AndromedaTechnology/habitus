@@ -4,6 +4,7 @@
     <HabitHeader
       class="habitHeader"
       v-if="habit"
+      :showStreak="true"
       :habit="habit"
       :activities="habitActivities(habit._id)"
     />
