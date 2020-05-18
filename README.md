@@ -8,12 +8,11 @@ Track Habits Easily.
 
 - Guest access, saving data to LocalStorage
 - Create User
-- Add Habits
-- Add Activity (points, timer) to Habits
-- Showing Notifications, with Sound, for added Activity
+- Add Habits (Good or Bad)
+- Add Activity to Habits (Points or Time)
+- Showing Notifications for added Activity, with Sound (Good or Bad)
 - Activity for each Habit is showed as a Line graph
-- Experience points for Users and Habits
-- Radar Graph for User's Habits
+- Showing User's Habits as a Doughnut chart (Good and Bad Habits)
 
 ## Tech
 
