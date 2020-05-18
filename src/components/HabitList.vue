@@ -1,6 +1,6 @@
 <template>
-  <div class="habitList" v-if="habits && user">
-    <!-- FIlter -->
+  <div class="habitList" v-if="habits && habits.length && user">
+    <!-- Filter -->
 
     <div class="filter">
       <button :class="{ 'btn-dark': true, active: filter === 'now' }" @click="filter = 'now'">Now</button>
