@@ -3,12 +3,12 @@
     <!-- Filter -->
 
     <div class="filter">
+      <button :class="{ 'btn-dark': true, active: filter === 'past' }" @click="filter = 'past'">Past</button>
       <button :class="{ 'btn-dark': true, active: filter === 'now' }" @click="filter = 'now'">Now</button>
       <button
         :class="{ 'btn-dark': true, active: filter === 'future' }"
         @click="filter = 'future'"
       >Future</button>
-      <button :class="{ 'btn-dark': true, active: filter === 'past' }" @click="filter = 'past'">Past</button>
     </div>
 
     <!--  List -->
