@@ -1,8 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'home' }"> <h2>Habitus</h2></router-link>
-      <router-link :to="{ name: 'add-habit' }"><h2>Add Habit</h2></router-link>
+      <router-link :to="{ name: 'home' }">
+        <h2>Habitus</h2>
+      </router-link>
+      <router-link :to="{ name: 'add-habit' }">
+        <h2>Add Habit</h2>
+      </router-link>
     </div>
     <router-view />
   </div>
@@ -12,7 +16,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   name: "App",
-  components: {},
+  components: {}
 })
 export default class App extends Vue {}
 </script>
@@ -20,6 +24,7 @@ export default class App extends Vue {}
 $backgroundColor: #000;
 $textColor: #fff;
 $activeLinkColor: #42b983;
+$activeLinkBadColor: #b94278;
 $badgeBackgroundColor: #1f1f1f;
 
 body {
@@ -58,6 +63,9 @@ a {
   color: $textColor;
   &.router-link-exact-active {
     color: $activeLinkColor;
+    &.isBad {
+      color: $activeLinkBadColor;
+    }
   }
 }
 

@@ -1,11 +1,6 @@
 <template>
   <div class="userChart">
-    <RadarChart
-      v-if="chartData"
-      :chartData="chartData"
-      :options="chartOptions"
-      :height="200"
-    ></RadarChart>
+    <DoughnutChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="200"></DoughnutChart>
   </div>
 </template>
 
@@ -15,12 +10,12 @@ import { State, Action, Getter } from "vuex-class";
 import { Activity } from "@/store/activity/types";
 import { Habit } from "@/store/habit/types";
 import { Activities } from "@/store/activity/types";
-import RadarChart from "@/components/RadarChart.vue";
+import DoughnutChart from "@/components/DoughnutChart.vue";
 
 @Component({
   components: {
-    RadarChart,
-  },
+    DoughnutChart
+  }
 })
 export default class UserChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
@@ -31,32 +26,20 @@ export default class UserChart extends Vue {
   ) => Array<Activity> | undefined;
 
   chartOptions = {
-    gridLines: {
-      display: false,
-    },
     legend: {
-      display: false,
+      display: false
     },
     title: {
-      display: false,
-    },
-    scale: {
-      pointLabels: {
-        fontSize: 16,
-      },
-      ticks: {
-        display: false,
-        beginAtZero: true,
-      },
+      display: false
     },
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: false
   };
   chartData: {} | undefined = {};
 
   @Watch("activities", {
     immediate: true,
-    deep: true,
+    deep: true
   })
   onPropertyChanged(value: any, oldValue: any) {
     this.recalculate(value);
@@ -65,12 +48,20 @@ export default class UserChart extends Vue {
   recalculate(activities: Activities | undefined) {
     const labels: string[] = [];
     const chartData: number[] = [];
+    const backgroundColors: string[] = [];
 
-    this.habits?.forEach((habit: Habit) => {
-      labels.push(habit.name);
+    // Sort habits by isGood
+    // (to group good/bad habits)
 
+    let habits = this.habits;
+    habits = habits?.sort((a, b) => (a.isGood > b.isGood ? 1 : -1));
+
+    // Add to chart
+    habits?.forEach((habit: Habit) => {
       if (this.habitActivities) {
         const acts = this.habitActivities!(habit._id);
+        labels.push(habit.name);
+        backgroundColors.push(habit.isGood ? "#42b983" : "#b94278");
         chartData.push(acts ? acts.length : 0);
       }
     });
@@ -80,12 +71,12 @@ export default class UserChart extends Vue {
       datasets: [
         {
           label: "Activities",
-          backgroundColor: "#42b983",
+          backgroundColor: backgroundColors,
           borderColor: "#2c3e50",
           pointBackgroundColor: "#fff",
-          data: chartData,
-        },
-      ],
+          data: chartData
+        }
+      ]
     };
   }
 }

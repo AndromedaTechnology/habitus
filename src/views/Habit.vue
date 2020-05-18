@@ -16,13 +16,14 @@
     <!--  Add Activity -->
     <div class="activityCreateContainer">
       <h3>Add Activity</h3>
-      <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit._id, user._id, $event)" />
+      <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit, user, $event)" />
     </div>
 
     <!--  Activity Chart -->
     <ActivityChart
       v-if="heatmapHabitActivities(habit._id)"
       class="activityChart"
+      :habit="habit"
       :activities="heatmapHabitActivities(habit._id)"
     />
 
@@ -39,13 +40,20 @@
     <sweet-modal ref="editModal">
       <!-- Name -->
       <div class="nameContainer">
-        <h3>Name</h3>
+        <h1>Name</h1>
         <input type="text" class="input-dark" v-model="name" />
+      </div>
+
+      <!-- Is good -->
+      <div class="isGoodContainer">
+        <h1>Good or Bad</h1>
+        <input type="checkbox" id="isGood" v-model="isGood" />
+        <label for="isGood">{{isGood ? 'Good' : 'Bad'}}</label>
       </div>
 
       <!-- Type -->
       <div class="typeContainer">
-        <h3>Type</h3>
+        <h1>Amount Type</h1>
         <select v-model="amountType">
           <option value="amount">Amount (default)</option>
           <option value="timer">Timer</option>
@@ -55,19 +63,19 @@
 
       <!-- Starts At Date -->
       <div class="startsAtDateContainer">
-        <h3>Starts At</h3>
+        <h1>Starts At</h1>
         <datetime class="startsAtDate" v-model="startsAtDate" type="datetime" title="Start at"></datetime>
       </div>
 
       <!-- Ends At Date -->
       <div class="endsAtDateContainer">
-        <h3>Ends At</h3>
+        <h1>Ends At</h1>
         <datetime class="endsAtDate" v-model="endsAtDate" type="datetime" title="Ends at"></datetime>
       </div>
 
       <!-- Delete -->
       <div class="deleteContainer">
-        <h3>Delete</h3>
+        <h1>Delete</h1>
         <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">Delete</button>
       </div>
     </sweet-modal>
@@ -132,6 +140,7 @@ export default class Habit extends Vue {
   startsAtDate: Date | undefined | null = null;
   endsAtDate: Date | undefined | null = null;
   name: string | undefined | null = null;
+  isGood: boolean | undefined | null = null;
   amountType: string | undefined | null = null;
 
   mounted() {
@@ -168,6 +177,14 @@ export default class Habit extends Vue {
     this.updateHabit({ habit: this.habit, data: { name: value } });
   }
 
+  @Watch("isGood", {
+    immediate: false,
+    deep: true
+  })
+  isGoodChanged(value: any, oldValue: any) {
+    this.updateHabit({ habit: this.habit, data: { isGood: value } });
+  }
+
   @Watch("startsAtDate", {
     immediate: false,
     deep: true
@@ -200,14 +217,15 @@ export default class Habit extends Vue {
         this.endsAtDate = this.habit?.endsAtDate;
         this.amountType = this.habit?.amountType;
         this.name = this.habit?.name;
+        this.isGood = this.habit?.isGood;
       });
     }
   }
 
-  activityCreateSubmit(habitId: string, userId: string, amount: number) {
+  activityCreateSubmit(habit: Habit, user: User, amount: number) {
     this.persistActivity({
-      habitId: habitId,
-      userId: userId,
+      habit: habit,
+      user: user,
       amount: amount
     });
     this.fetchActivities();

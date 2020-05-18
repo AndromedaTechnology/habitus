@@ -3,51 +3,32 @@
     <!-- FIlter -->
 
     <div class="filter">
-      <button
-        :class="{ 'btn-dark': true, active: filter === 'now' }"
-        @click="filter = 'now'"
-      >
-        Now
-      </button>
+      <button :class="{ 'btn-dark': true, active: filter === 'now' }" @click="filter = 'now'">Now</button>
       <button
         :class="{ 'btn-dark': true, active: filter === 'future' }"
         @click="filter = 'future'"
-      >
-        Future
-      </button>
-      <button
-        :class="{ 'btn-dark': true, active: filter === 'past' }"
-        @click="filter = 'past'"
-      >
-        Past
-      </button>
+      >Future</button>
+      <button :class="{ 'btn-dark': true, active: filter === 'past' }" @click="filter = 'past'">Past</button>
     </div>
 
     <!--  List -->
 
     <div v-if="filteredHabits && filteredHabits.length" class="list">
       <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
-        <HabitHeader
-          :habit="habit"
-          :activities="heatmapHabitActivities(habit._id)"
-        />
+        <HabitHeader :habit="habit" :activities="heatmapHabitActivities(habit._id)" />
 
-        <ActivityCreate
-          :habit="habit"
-          @submit="activityCreateSubmit(habit._id, user._id, $event)"
-        />
+        <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit, user, $event)" />
 
         <ActivityChart
           class="activityChart"
           v-if="heatmapHabitActivities(habit._id)"
+          :habit="habit"
           :activities="heatmapHabitActivities(habit._id)"
         />
       </div>
     </div>
     <div v-else class="nothing">
-      <h2>
-        Nothing to show.
-      </h2>
+      <h2>Nothing to show.</h2>
     </div>
   </div>
 </template>
@@ -69,8 +50,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
   components: {
     HabitHeader,
     ActivityChart,
-    ActivityCreate,
-  },
+    ActivityCreate
+  }
 })
 export default class HabitList extends Vue {
   @Prop() private habits!: Array<Habit>;
@@ -91,7 +72,7 @@ export default class HabitList extends Vue {
 
   @Watch("filter", {
     immediate: true,
-    deep: true,
+    deep: true
   })
   filterChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -134,11 +115,11 @@ export default class HabitList extends Vue {
     });
   }
 
-  activityCreateSubmit(habitId: string, userId: string, amount: number) {
+  activityCreateSubmit(habit: Habit, user: User, amount: number) {
     this.persistActivity({
-      habitId: habitId,
-      userId: userId,
-      amount: amount,
+      habit: habit,
+      user: user,
+      amount: amount
     });
 
     this.fetchActivities();

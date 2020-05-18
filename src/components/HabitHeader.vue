@@ -1,6 +1,6 @@
 <template>
   <div class="habitHeader">
-    <router-link :to="{ name: 'habit', params: { id: habit._id } }">
+    <router-link :to="{ name: 'habit', params: { id: habit._id } }" :class="{isBad: !habit.isGood}">
       <h1>
         <span>{{ habit.name }}</span>
         <HabitStreak class="streak" :activities="activities" />

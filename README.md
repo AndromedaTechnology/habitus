@@ -24,7 +24,6 @@ Track Habits Easily.
 ## TODO
 
 - Don't ask for username on first visit, allow any action: Allow for immediate app usage
-- Show Experience points for Users and Habits (sum(Activity.amount))
 - Habit.type == "timer": Show only one stop button
 - ActivityCreateComponent: Design fix: show all buttons and inputs in one row
 - Habit - Longest Streak: Show on Habit single page

@@ -6,6 +6,7 @@ export enum HabitAmountType {
 
 export interface Habit {
   _id: string;
+  isGood: boolean;
   amountType: HabitAmountType;
   userId: string;
   name: string;

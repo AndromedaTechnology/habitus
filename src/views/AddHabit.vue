@@ -31,6 +31,7 @@ export default class Home extends Vue {
   habitCreateSubmit(name: string) {
     this.persistHabit({
       name: name,
+      isGood: true,
       amountType: HabitAmountType.amount,
       repeatInSeconds: 0,
       startsAtDate: new Date(),

@@ -3,6 +3,7 @@
 import { ActionTree } from "vuex";
 import { ActivityState, Activity, Activities } from "./types";
 import { Habit } from "../habit/types";
+import { User } from "../user/types";
 import { RootState } from "../types";
 import { Vue } from "vue-property-decorator";
 
@@ -25,19 +26,23 @@ export const actions: ActionTree<ActivityState, RootState> = {
     const activities: Activities = data ? JSON.parse(data) : {};
     commit("activities", activities);
   },
-  persistActivity({ state, getters, commit }, activity: Activity): any {
-    // Add _id
-
-    activity._id =
-      Math.random()
-        .toString(36)
-        .substring(2, 15) +
-      Math.random()
-        .toString(36)
-        .substring(2, 15);
-
-    // Add createdAt
-    activity.createdAt = new Date();
+  persistActivity(
+    { state, getters, commit },
+    payload: { habit: Habit; user: User; amount: number }
+  ): any {
+    const activity: Activity = {
+      _id:
+        Math.random()
+          .toString(36)
+          .substring(2, 15) +
+        Math.random()
+          .toString(36)
+          .substring(2, 15),
+      habitId: payload.habit._id,
+      userId: payload.user._id,
+      amount: payload.amount,
+      createdAt: new Date(),
+    };
 
     // Append
     let activities = getters["habitActivities"](activity.habitId);
@@ -52,7 +57,11 @@ export const actions: ActionTree<ActivityState, RootState> = {
     localStorage.setItem("activities", JSON.stringify(activities));
 
     // Notification
-    (Vue as any).noty.info(activity.amount + " experience gained!");
+    if (payload.habit.isGood) {
+      (Vue as any).noty.success(activity.amount + " good experience gained!");
+    } else {
+      (Vue as any).noty.error(activity.amount + " bad experience gained!");
+    }
     const audio = new Audio("/audio/notification.ogg");
     audio.play();
   },
