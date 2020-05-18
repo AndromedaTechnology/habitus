@@ -2,16 +2,43 @@
   <div class="activityCreate">
     <!-- Timer -->
     <div :class="{ timer: true }" v-if="habit.amountType === 'timer'">
-      <button class="btn-dark" @click="toggleTimer(1)">{{ timerHandler ? "Stop" : "Up" }}</button>
-      <vue-timepicker :format="timerFormat" v-model="timer" hide-clear-button></vue-timepicker>
-      <button class="btn-dark" @click="toggleTimer(0)">{{ timerHandler ? "Stop" : "Down" }}</button>
+      <button class="btn-dark" @click="toggleTimer(1)">
+        {{ timerHandler ? "Stop" : "Up" }}
+      </button>
+      <vue-timepicker
+        :format="timerFormat"
+        v-model="timer"
+        hide-clear-button
+      ></vue-timepicker>
+      <button class="btn-dark" @click="toggleTimer(0)">
+        {{ timerHandler ? "Stop" : "Down" }}
+      </button>
     </div>
 
     <!-- Amount -->
     <div :class="{ amount: true }" v-else-if="habit.amountType === 'amount'">
-      <button class="btn-dark" @click="decreaseAmount()">-</button>
-      <input type="text" class="amount" v-model="amount" @keyup.enter="submit()" />
-      <button class="btn-dark" @click="increaseAmount()">+</button>
+      <button
+        class="btn-dark"
+        v-long-press="300"
+        @long-press-start="onDecreaseStart"
+        @long-press-stop="onDecreaseStop"
+      >
+        -
+      </button>
+      <input
+        type="text"
+        class="amount"
+        v-model="amount"
+        @keyup.enter="submit()"
+      />
+      <button
+        class="btn-dark"
+        v-long-press="300"
+        @long-press-start="onIncreaseStart"
+        @long-press-stop="onIncreaseStop"
+      >
+        +
+      </button>
     </div>
 
     <div class="submit">
@@ -21,6 +48,7 @@
 </template>
 
 <script lang="ts">
+import LongPress from "vue-directive-long-press";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -28,12 +56,17 @@ import { Habit } from "../store/habit/types";
 
 @Component({
   components: {
-    VueTimepicker
-  }
+    VueTimepicker,
+  },
+  directives: {
+    "long-press": LongPress,
+  },
 })
 export default class ActivityCreate extends Vue {
   @Prop() private habit!: Habit;
   amount = 1;
+  increaseInterval: number | undefined = undefined;
+  decreaseInterval: number | undefined = undefined;
 
   timerStartedAt: { HH: string; mm: string; ss: string } | null = null;
   timerHandler: number | null = null;
@@ -41,7 +74,7 @@ export default class ActivityCreate extends Vue {
   timer = {
     HH: "00",
     mm: "00",
-    ss: "00"
+    ss: "00",
   };
 
   submit() {
@@ -157,10 +190,27 @@ export default class ActivityCreate extends Vue {
     this.timer = {
       HH: "00",
       mm: "00",
-      ss: "00"
+      ss: "00",
     };
 
     this.timerStartedAt = null;
+  }
+
+  onDecreaseStart() {
+    this.decreaseInterval = setInterval(() => {
+      this.decreaseAmount();
+    }, 100);
+  }
+  onDecreaseStop() {
+    clearInterval(this.decreaseInterval);
+  }
+  onIncreaseStart() {
+    this.increaseInterval = setInterval(() => {
+      this.increaseAmount();
+    }, 100);
+  }
+  onIncreaseStop() {
+    clearInterval(this.increaseInterval);
   }
 }
 </script>
