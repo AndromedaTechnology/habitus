@@ -66,11 +66,10 @@
 
       <!-- Type -->
       <div class="editPropContainer">
-        <h3>Amount Type</h3>
+        <h3>Type</h3>
         <select v-model="amountType">
-          <option value="amount">Amount (default)</option>
-          <option value="timer">Timer</option>
-          <!-- <option value="check">Check</option> -->
+          <option value="amount">Points</option>
+          <option value="timer">Time</option>
         </select>
       </div>
 
