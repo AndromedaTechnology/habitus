@@ -189,6 +189,7 @@ export default class ActivityCreate extends Vue {
   }
 
   onDecreaseStart() {
+    this.decreaseAmount();
     this.decreaseInterval = setInterval(() => {
       this.decreaseAmount();
     }, 100);
@@ -197,6 +198,7 @@ export default class ActivityCreate extends Vue {
     clearInterval(this.decreaseInterval);
   }
   onIncreaseStart() {
+    this.increaseAmount();
     this.increaseInterval = setInterval(() => {
       this.increaseAmount();
     }, 100);
