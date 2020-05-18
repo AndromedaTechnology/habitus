@@ -1,5 +1,5 @@
 <template>
-  <div class="activityCreate">
+  <div class="activityCreate" @contextmenu.prevent="$event.preventDefault()">
     <!-- Timer -->
     <div :class="{ timer: true }" v-if="habit.amountType === 'timer'">
       <button class="btn-dark" @click="toggleTimer(1)">
@@ -19,9 +19,8 @@
     <div :class="{ amount: true }" v-else-if="habit.amountType === 'amount'">
       <button
         class="btn-dark"
-        v-long-press="300"
-        @long-press-start="onDecreaseStart"
-        @long-press-stop="onDecreaseStop"
+        v-touch:start="onDecreaseStart"
+        v-touch:end="onDecreaseStop"
       >
         -
       </button>
@@ -33,9 +32,8 @@
       />
       <button
         class="btn-dark"
-        v-long-press="300"
-        @long-press-start="onIncreaseStart"
-        @long-press-stop="onIncreaseStop"
+        v-touch:start="onIncreaseStart"
+        v-touch:end="onIncreaseStop"
       >
         +
       </button>
@@ -48,7 +46,6 @@
 </template>
 
 <script lang="ts">
-import LongPress from "vue-directive-long-press";
 import "vue2-timepicker/dist/VueTimepicker.css";
 import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -57,9 +54,6 @@ import { Habit } from "../store/habit/types";
 @Component({
   components: {
     VueTimepicker,
-  },
-  directives: {
-    "long-press": LongPress,
   },
 })
 export default class ActivityCreate extends Vue {
@@ -217,6 +211,10 @@ export default class ActivityCreate extends Vue {
 
 <style scoped lang="scss">
 .activityCreate {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   .timer {
     * {
       display: block;
