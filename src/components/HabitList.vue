@@ -138,6 +138,10 @@ export default class HabitList extends Vue {
   }
 }
 
+.filter {
+  text-align: center;
+}
+
 .activityChart,
 .nothing {
   margin-top: 32px;
