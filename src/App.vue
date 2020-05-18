@@ -126,5 +126,10 @@ button.active {
 .sweet-modal-overlay,
 .sweet-modal {
   background: $backgroundColor !important;
+
+  .sweet-box-actions .sweet-action-close {
+    background: #039be5;
+    color: #fff !important;
+  }
 }
 </style>
