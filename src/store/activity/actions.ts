@@ -44,6 +44,18 @@ export const actions: ActionTree<ActivityState, RootState> = {
       createdAt: new Date(),
     };
 
+    // Notification
+
+    if (payload.habit.isGood) {
+      const audio = new Audio("/audio/notificationGood.ogg");
+      audio.play();
+      (Vue as any).noty.success(activity.amount + " good experience gained!");
+    } else {
+      const audio = new Audio("/audio/notificationBad.ogg");
+      audio.play();
+      (Vue as any).noty.error(activity.amount + " bad experience gained!");
+    }
+
     // Append
     let activities = getters["habitActivities"](activity.habitId);
 
@@ -55,15 +67,6 @@ export const actions: ActionTree<ActivityState, RootState> = {
 
     activities = getters["activities"];
     localStorage.setItem("activities", JSON.stringify(activities));
-
-    // Notification
-    if (payload.habit.isGood) {
-      (Vue as any).noty.success(activity.amount + " good experience gained!");
-    } else {
-      (Vue as any).noty.error(activity.amount + " bad experience gained!");
-    }
-    const audio = new Audio("/audio/notification.ogg");
-    audio.play();
   },
   deleteActivities({ commit }): any {
     // Delete from Localstorage
