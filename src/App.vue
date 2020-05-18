@@ -23,8 +23,6 @@ export default class App extends Vue {}
 <style lang="scss">
 $backgroundColor: #000;
 $textColor: #fff;
-$activeLinkColor: #42b983;
-$activeLinkBadColor: #b94278;
 $badgeBackgroundColor: #1f1f1f;
 
 body {
@@ -61,12 +59,6 @@ a {
 a {
   font-weight: bold;
   color: $textColor;
-  &.router-link-exact-active {
-    color: $activeLinkColor;
-    &.isBad {
-      color: $activeLinkBadColor;
-    }
-  }
 }
 
 .time-picker {

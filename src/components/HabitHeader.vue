@@ -1,6 +1,9 @@
 <template>
   <div class="habitHeader">
-    <router-link :to="{ name: 'habit', params: { id: habit._id } }" :class="{isBad: !habit.isGood}">
+    <router-link
+      :to="{ name: 'habit', params: { id: habit._id } }"
+      :class="{habitLink: true, isBad: !habit.isGood}"
+    >
       <HabitStreak v-if="showStreak" class="streak" :activities="activities" />
       <h1>
         <span>{{ habit.name }}</span>
@@ -28,7 +31,17 @@ export default class HabitHeader extends Vue {
 </script>
 
 <style scoped lang="scss">
+$activeLinkColor: #42b983;
+$activeLinkBadColor: #b94278;
+
 .streak {
   margin-left: 8px;
+}
+
+.habitLink {
+  color: $activeLinkColor;
+  &.isBad {
+    color: $activeLinkBadColor;
+  }
 }
 </style>
