@@ -49,6 +49,10 @@ a {
   a {
     h2 {
       display: inline;
+      font-weight: lighter;
+    }
+    &.router-link-exact-active h2 {
+      font-weight: bold;
     }
     &:not(:last-of-type) {
       margin-right: 32px;
