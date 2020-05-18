@@ -40,21 +40,21 @@
 
     <sweet-modal ref="editModal">
       <!-- Name -->
-      <div class="nameContainer">
-        <h1>Name</h1>
+      <div class="editPropContainer">
+        <h3>Name</h3>
         <input type="text" class="input-dark" v-model="name" />
       </div>
 
       <!-- Is good -->
-      <div class="isGoodContainer">
-        <h1>Good or Bad</h1>
+      <div class="editPropContainer">
+        <h3>Good or Bad</h3>
         <input type="checkbox" id="isGood" v-model="isGood" />
         <label for="isGood">{{isGood ? 'Good' : 'Bad'}}</label>
       </div>
 
       <!-- Type -->
-      <div class="typeContainer">
-        <h1>Amount Type</h1>
+      <div class="editPropContainer">
+        <h3>Amount Type</h3>
         <select v-model="amountType">
           <option value="amount">Amount (default)</option>
           <option value="timer">Timer</option>
@@ -63,20 +63,20 @@
       </div>
 
       <!-- Starts At Date -->
-      <div class="startsAtDateContainer">
-        <h1>Starts At</h1>
+      <div class="editPropContainer">
+        <h3>Starts At</h3>
         <datetime class="startsAtDate" v-model="startsAtDate" type="datetime" title="Start at"></datetime>
       </div>
 
       <!-- Ends At Date -->
-      <div class="endsAtDateContainer">
-        <h1>Ends At</h1>
+      <div class="editPropContainer">
+        <h3>Ends At</h3>
         <datetime class="endsAtDate" v-model="endsAtDate" type="datetime" title="Ends at"></datetime>
       </div>
 
       <!-- Delete -->
-      <div class="deleteContainer">
-        <h1>Delete</h1>
+      <div class="editPropContainer">
+        <h3>Delete</h3>
         <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">Delete</button>
       </div>
     </sweet-modal>
