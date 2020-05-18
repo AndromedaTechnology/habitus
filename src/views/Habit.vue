@@ -18,7 +18,7 @@
 
     <!--  Add Activity -->
     <div class="activityCreateContainer">
-      <h3>Add Activity</h3>
+      <h2>Add Activity</h2>
       <ActivityCreate
         :habit="habit"
         @submit="activityCreateSubmit(habit, user, $event)"

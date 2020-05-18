@@ -24,7 +24,6 @@ Track Habits Easily.
 
 - Don't ask for username on first visit, allow any action: Allow for immediate app usage
 - Habit.type == "timer": Show only one stop button
-- ActivityCreateComponent: Design fix: show all buttons and inputs in one row
 - Habit - Longest Streak: Show on Habit single page
 - Habit timer type: transform seconds to hours:minutes:seconds on graph and in ActivityList
 - Recurring Habits

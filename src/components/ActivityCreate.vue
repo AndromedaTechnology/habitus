@@ -2,17 +2,18 @@
   <div class="activityCreate" @contextmenu.prevent="$event.preventDefault()">
     <!-- Timer -->
     <div :class="{ timer: true }" v-if="habit.amountType === 'timer'">
-      <button class="btn-dark" @click="toggleTimer(1)">
-        {{ timerHandler ? "Stop" : "Up" }}
+      <button class="btn-dark" @click="toggleTimer(0)">
+        {{ timerHandler ? "x" : "-" }}
       </button>
       <vue-timepicker
         :format="timerFormat"
         v-model="timer"
         hide-clear-button
       ></vue-timepicker>
-      <button class="btn-dark" @click="toggleTimer(0)">
-        {{ timerHandler ? "Stop" : "Down" }}
+      <button class="btn-dark" @click="toggleTimer(1)">
+        {{ timerHandler ? "x" : "+" }}
       </button>
+      <button class="btn-dark submit" @click="submit()">Add</button>
     </div>
 
     <!-- Amount -->
@@ -37,10 +38,7 @@
       >
         +
       </button>
-    </div>
-
-    <div class="submit">
-      <button class="btn-dark" @click="submit()">Add</button>
+      <button class="btn-dark submit" @click="submit()">Add</button>
     </div>
   </div>
 </template>
@@ -215,27 +213,25 @@ export default class ActivityCreate extends Vue {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
   .timer {
-    * {
-      display: block;
-      &:not(:last-child) {
-        margin-top: 8px;
-        margin-bottom: 8px;
-      }
-    }
+    display: flex;
   }
   .amount {
     display: flex;
-    &.center {
-      justify-content: center;
-    }
     input {
       width: 24px;
     }
   }
+}
+</style>
 
-  .submit {
-    margin-top: 8px;
+<style lang="scss">
+$timePickerWidth: 96px;
+.vue__time-picker {
+  width: $timePickerWidth;
+  input.display-time {
+    width: $timePickerWidth;
   }
 }
 </style>
