@@ -16,8 +16,8 @@ import Component from "vue-class-component";
 @Component({
   name: "Home",
   components: {
-    HabitCreate,
-  },
+    HabitCreate
+  }
 })
 export default class Home extends Vue {
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
@@ -28,15 +28,19 @@ export default class Home extends Vue {
     this.fetchUser();
   }
 
-  habitCreateSubmit(payload: { name: string; isGood: boolean }) {
+  habitCreateSubmit(payload: {
+    name: string;
+    isGood: boolean;
+    amountType: string;
+  }) {
     this.persistHabit({
       name: payload.name,
       isGood: payload.isGood,
-      amountType: HabitAmountType.amount,
+      amountType: payload.amountType,
       repeatInSeconds: 0,
       startsAtDate: new Date(),
       endsAtDate: null,
-      userId: this.user?._id,
+      userId: this.user?._id
     });
 
     this.$router.push({ name: "home" });
