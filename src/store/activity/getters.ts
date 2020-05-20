@@ -11,24 +11,13 @@ export const getters: GetterTree<ActivityState, RootState> = {
     habitId: number
   ): Array<Activity> | undefined => {
     const { activities } = state;
-    return activities[habitId];
-  },
-  heatmapHabitActivities(state) {
-    return (habitId: number): Array<Activity> | undefined => {
-      const { activities } = state;
-      let data = activities[habitId];
+    const habitActivities = activities[habitId];
+    if (!habitActivities) return undefined;
 
-      if (!data) return undefined;
-
-      data = data.map((element) => {
-        element.date = element.createdAt;
-        element.count = element.amount;
-        return element;
-      });
-
-      // TODO: merge same dates
-
-      return data;
-    };
+    return habitActivities.sort(function(a, b) {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return dateA > dateB ? -1 : 1;
+    });
   },
 };
