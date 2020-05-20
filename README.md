@@ -18,6 +18,7 @@ Track Habits Easily.
 
 - Vue.js 2.6
 - TypeScript 3.8
+- Vuetify 2.2
 - PWA
 
 ## TODO
