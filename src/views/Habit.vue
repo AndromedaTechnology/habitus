@@ -35,7 +35,7 @@
     <!-- Activity List -->
     <div class="activityList">
       <ActivityHeader
-        v-for="activity in habitActivities(habit._id)"
+        v-for="activity in habitActivities(habit._id, true)"
         :key="activity._id"
         :activity="activity"
         @delete="activityDeleteSubmit(habit, $event)"

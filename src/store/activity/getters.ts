@@ -8,16 +8,21 @@ export const getters: GetterTree<ActivityState, RootState> = {
     return activities;
   },
   habitActivities: (state) => (
-    habitId: number
+    habitId: number,
+    descending = false
   ): Array<Activity> | undefined => {
     const { activities } = state;
-    const habitActivities = activities[habitId];
+    let habitActivities = activities[habitId];
     if (!habitActivities) return undefined;
 
-    return habitActivities.slice().sort(function(a, b) {
-      const dateA = new Date(a.createdAt).getTime();
-      const dateB = new Date(b.createdAt).getTime();
-      return dateA > dateB ? -1 : 1;
-    });
+    if (descending === true) {
+      habitActivities = habitActivities.slice().sort(function(a, b) {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return dateA > dateB ? -1 : 1;
+      });
+    }
+
+    return habitActivities;
   },
 };
