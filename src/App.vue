@@ -18,7 +18,7 @@
       <v-spacer></v-spacer>
 
       <!-- Add -->
-      <v-btn :to="{ name: 'add-habit' }" text>
+      <v-btn :to="{ name: 'add-habit' }" text active-class="no-active">
         <v-icon large>add_box</v-icon>
       </v-btn>
     </v-app-bar>
@@ -80,5 +80,9 @@ button {
     background: #039be5;
     color: #fff !important;
   }
+}
+
+.v-btn--active.no-active::before {
+  opacity: 0 !important;
 }
 </style>
