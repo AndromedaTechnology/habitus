@@ -1,20 +1,18 @@
 <template>
-  <div class="userHeader">
-    <div class="row">
-      <div class="column">
-        <h1>
+  <v-container class="userHeader">
+    <v-row>
+      <v-col cols="12" sm="12" md="6">
+        <h1 class="mt-8">
           <span>@</span>
           <span>{{ user.username }}</span>
         </h1>
         <!-- Edit  -->
-        <div class="editContainer">
-          <v-btn @click="$refs.editModal.open()">Edit</v-btn>
-        </div>
-      </div>
-      <div class="column chart">
+        <v-btn @click="$refs.editModal.open()">Edit</v-btn>
+      </v-col>
+      <v-col cols="12" sm="12" md="6" class="chart">
         <UserChart :habits="habits" :activities="activities" />
-      </div>
-    </div>
+      </v-col>
+    </v-row>
 
     <sweet-modal ref="editModal">
       <v-text-field v-model="username" label="Username"></v-text-field>
@@ -23,7 +21,7 @@
       <v-text-field v-model="email" label="Email"></v-text-field>
       <v-btn @click="deleteUser()" large>Delete</v-btn>
     </sweet-modal>
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -39,8 +37,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({
   components: {
     UserChart,
-    SweetModal,
-  },
+    SweetModal
+  }
 })
 export default class UserHeader extends Vue {
   @Prop() private user!: User;
@@ -62,7 +60,7 @@ export default class UserHeader extends Vue {
 
   @Watch("username", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   usernameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { username: value } });
@@ -70,7 +68,7 @@ export default class UserHeader extends Vue {
 
   @Watch("firstName", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   firstNameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { firstName: value } });
@@ -78,7 +76,7 @@ export default class UserHeader extends Vue {
 
   @Watch("lastName", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   lastNameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { lastName: value } });
@@ -86,7 +84,7 @@ export default class UserHeader extends Vue {
 
   @Watch("email", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   emailChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { email: value } });
