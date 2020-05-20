@@ -1,42 +1,42 @@
 <template>
-  <div class="habitList" v-if="habits && habits.length && user">
-    <!-- Filter -->
+  <v-container class="habitList" v-if="habits && habits.length && user">
+    <v-row>
+      <v-col cols="12" sm="12">
+        <!-- Filter -->
 
-    <div class="filter">
-      <v-btn :class="{ active: filter === 'past' }" @click="filter = 'past'"
-        >Past</v-btn
-      >
-      <v-btn :class="{ active: filter === 'now' }" @click="filter = 'now'"
-        >Now</v-btn
-      >
-      <v-btn :class="{ active: filter === 'future' }" @click="filter = 'future'"
-        >Future</v-btn
-      >
-    </div>
+        <div class="filter">
+          <v-btn :class="{ active: filter === 'past' }" @click="filter = 'past'">Past</v-btn>
+          <v-btn :class="{ active: filter === 'now' }" @click="filter = 'now'">Now</v-btn>
+          <v-btn :class="{ active: filter === 'future' }" @click="filter = 'future'">Future</v-btn>
+        </div>
+      </v-col>
+    </v-row>
 
     <!--  List -->
 
-    <div v-if="filteredHabits && filteredHabits.length" class="list">
-      <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
-        <HabitHeader :habit="habit" :activities="habitActivities(habit._id)" />
+    <v-row v-if="filteredHabits && filteredHabits.length" class="list">
+      <v-col cols="12" sm="12">
+        <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
+          <HabitHeader :habit="habit" :activities="habitActivities(habit._id)" />
 
-        <ActivityCreate
-          :habit="habit"
-          @submit="activityCreateSubmit(habit, user, $event)"
-        />
+          <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit, user, $event)" />
 
-        <ActivityChart
-          class="activityChart"
-          v-if="habitActivities(habit._id)"
-          :habit="habit"
-          :activities="habitActivities(habit._id)"
-        />
-      </div>
-    </div>
-    <div v-else class="nothing">
-      <h2>Nothing to show.</h2>
-    </div>
-  </div>
+          <ActivityChart
+            class="activityChart"
+            v-if="habitActivities(habit._id)"
+            :habit="habit"
+            :activities="habitActivities(habit._id)"
+          />
+        </div>
+      </v-col>
+    </v-row>
+
+    <v-row v-else class="nothing">
+      <v-col cols="12" sm="12">
+        <h2>Nothing to show.</h2>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -56,8 +56,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
   components: {
     HabitHeader,
     ActivityChart,
-    ActivityCreate,
-  },
+    ActivityCreate
+  }
 })
 export default class HabitList extends Vue {
   @Prop() private habits!: Array<Habit>;
@@ -78,7 +78,7 @@ export default class HabitList extends Vue {
 
   @Watch("filter", {
     immediate: true,
-    deep: true,
+    deep: true
   })
   filterChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -125,7 +125,7 @@ export default class HabitList extends Vue {
     this.persistActivity({
       habit: habit,
       user: user,
-      amount: amount,
+      amount: amount
     });
 
     this.fetchActivities();
