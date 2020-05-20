@@ -1,89 +1,83 @@
 <template>
-  <div v-if="user && habit">
-    <!-- Header -->
-    <HabitHeader
-      class="habitHeader"
-      v-if="habit"
-      :showStreak="true"
-      :habit="habit"
-      :activities="habitActivities(habit._id)"
-    />
+  <v-container v-if="user && habit">
+    <v-row>
+      <v-col cols="12" sm="12">
+        <!-- Header -->
+        <HabitHeader
+          class="habitHeader"
+          v-if="habit"
+          :showStreak="true"
+          :habit="habit"
+          :activities="habitActivities(habit._id)"
+        />
 
-    <!-- Edit  -->
-    <div class="habitEditContainer mt-4">
-      <v-btn medium @click="$refs.editModal.open()" large>Edit</v-btn>
-    </div>
+        <!-- Edit  -->
+        <div class="habitEditContainer mt-4">
+          <v-btn medium @click="$refs.editModal.open()" large>Edit</v-btn>
+        </div>
 
-    <!--  Add Activity -->
-    <div class="activityCreateContainer">
-      <h2>Add Activity</h2>
-      <ActivityCreate
-        class="mt-4"
-        :habit="habit"
-        @submit="activityCreateSubmit(habit, user, $event)"
-      />
-    </div>
+        <!--  Add Activity -->
+        <div class="activityCreateContainer">
+          <h2>Add Activity</h2>
+          <ActivityCreate
+            class="mt-4"
+            :habit="habit"
+            @submit="activityCreateSubmit(habit, user, $event)"
+          />
+        </div>
 
-    <!--  Activity Chart -->
-    <ActivityChart
-      v-if="habitActivities(habit._id)"
-      class="activityChart"
-      :habit="habit"
-      :activities="habitActivities(habit._id)"
-    />
+        <!--  Activity Chart -->
+        <ActivityChart
+          v-if="habitActivities(habit._id)"
+          class="activityChart"
+          :habit="habit"
+          :activities="habitActivities(habit._id)"
+        />
 
-    <!-- Activity List -->
-    <div class="activityList">
-      <ActivityHeader
-        v-for="activity in habitActivities(habit._id, true)"
-        :key="activity._id"
-        :activity="activity"
-        @delete="activityDeleteSubmit(habit, $event)"
-      />
-    </div>
+        <!-- Activity List -->
+        <div class="activityList">
+          <ActivityHeader
+            v-for="activity in habitActivities(habit._id, true)"
+            :key="activity._id"
+            :activity="activity"
+            @delete="activityDeleteSubmit(habit, $event)"
+          />
+        </div>
 
-    <sweet-modal ref="editModal">
-      <v-switch
-        v-model="isGood"
-        :label="isGood ? 'Good' : 'Bad'"
-        :color="isGood ? '#42b983' : '#b94278'"
-      ></v-switch>
+        <sweet-modal ref="editModal">
+          <v-switch
+            v-model="isGood"
+            :label="isGood ? 'Good' : 'Bad'"
+            :color="isGood ? '#42b983' : '#b94278'"
+          ></v-switch>
 
-      <v-text-field v-model="name" label="Name"></v-text-field>
+          <v-text-field v-model="name" label="Name"></v-text-field>
 
-      <v-select
-        v-model="amountType"
-        :items="[
+          <v-select
+            v-model="amountType"
+            :items="[
           { text: 'Points', value: 'amount' },
           { text: 'Time', value: 'timer' },
         ]"
-        filled
-      ></v-select>
+            filled
+          ></v-select>
 
-      <div class="my-8">
-        <h3>Starts At</h3>
-        <datetime
-          class="startsAtDate"
-          v-model="startsAtDate"
-          type="datetime"
-          title="Start at"
-        ></datetime>
-      </div>
+          <div class="my-8">
+            <h3>Starts At</h3>
+            <datetime class="startsAtDate" v-model="startsAtDate" type="datetime" title="Start at"></datetime>
+          </div>
 
-      <!-- Ends At Date -->
-      <div class="my-8">
-        <h3>Ends At</h3>
-        <datetime
-          class="endsAtDate"
-          v-model="endsAtDate"
-          type="datetime"
-          title="Ends at"
-        ></datetime>
-      </div>
+          <!-- Ends At Date -->
+          <div class="my-8">
+            <h3>Ends At</h3>
+            <datetime class="endsAtDate" v-model="endsAtDate" type="datetime" title="Ends at"></datetime>
+          </div>
 
-      <v-btn class="delete" @click="habitDeleteSubmit(habit)">Delete</v-btn>
-    </sweet-modal>
-  </div>
+          <v-btn class="delete" @click="habitDeleteSubmit(habit)">Delete</v-btn>
+        </sweet-modal>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -111,8 +105,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
     ActivityChart,
     ActivityHeader,
     Datetime,
-    SweetModal,
-  },
+    SweetModal
+  }
 })
 export default class Habit extends Vue {
   // User
@@ -156,7 +150,7 @@ export default class Habit extends Vue {
 
   @Watch("habits", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -167,7 +161,7 @@ export default class Habit extends Vue {
 
   @Watch("habit", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   habitChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -177,7 +171,7 @@ export default class Habit extends Vue {
 
   @Watch("name", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   nameChanged(value: any, oldValue: any) {
     this.updateHabit({ habit: this.habit, data: { name: value } });
@@ -185,7 +179,7 @@ export default class Habit extends Vue {
 
   @Watch("isGood", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   isGoodChanged(value: any, oldValue: any) {
     this.updateHabit({ habit: this.habit, data: { isGood: value } });
@@ -193,7 +187,7 @@ export default class Habit extends Vue {
 
   @Watch("startsAtDate", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   startsAtDateChanged(value: any, oldValue: any) {
     this.updateHabit({ habit: this.habit, data: { startsAtDate: value } });
@@ -201,7 +195,7 @@ export default class Habit extends Vue {
 
   @Watch("endsAtDate", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   endsAtDateChanged(value: any, oldValue: any) {
     this.updateHabit({ habit: this.habit, data: { endsAtDate: value } });
@@ -209,7 +203,7 @@ export default class Habit extends Vue {
 
   @Watch("amountType", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   typeChanged(value: any, oldValue: any) {
     this.updateHabit({ habit: this.habit, data: { amountType: value } });
@@ -217,7 +211,7 @@ export default class Habit extends Vue {
 
   fetchHabit() {
     if (this.habitId) {
-      this.getHabit(this.habitId).then((resp) => {
+      this.getHabit(this.habitId).then(resp => {
         this.habit = resp;
         this.startsAtDate = this.habit?.startsAtDate;
         this.endsAtDate = this.habit?.endsAtDate;
@@ -232,7 +226,7 @@ export default class Habit extends Vue {
     this.persistActivity({
       habit: habit,
       user: user,
-      amount: amount,
+      amount: amount
     });
     this.fetchActivities();
   }
@@ -240,7 +234,7 @@ export default class Habit extends Vue {
   activityDeleteSubmit(habit: Habit, activity: Activity) {
     this.deleteHabitActivity({
       habit: habit,
-      activity: activity,
+      activity: activity
     });
     this.fetchActivities();
   }
