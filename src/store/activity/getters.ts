@@ -14,7 +14,7 @@ export const getters: GetterTree<ActivityState, RootState> = {
     const habitActivities = activities[habitId];
     if (!habitActivities) return undefined;
 
-    return habitActivities.sort(function(a, b) {
+    return habitActivities.slice().sort(function(a, b) {
       const dateA = new Date(a.createdAt).getTime();
       const dateB = new Date(b.createdAt).getTime();
       return dateA > dateB ? -1 : 1;
