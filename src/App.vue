@@ -23,7 +23,7 @@
       </v-btn>
     </v-app-bar>
 
-    <router-view />
+    <router-view class="routerView" />
   </v-app>
 </template>
 <script lang="ts">
@@ -35,6 +35,12 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class App extends Vue {}
 </script>
+<style lang="scss" scoped>
+.routerView {
+  margin-top: 64px;
+}
+</style>
+
 <style lang="scss">
 $backgroundColor: #121212;
 $textColor: #fff;
