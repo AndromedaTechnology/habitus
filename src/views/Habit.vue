@@ -26,10 +26,10 @@
 
     <!--  Activity Chart -->
     <ActivityChart
-      v-if="heatmapHabitActivities(habit._id)"
+      v-if="habitActivities(habit._id)"
       class="activityChart"
       :habit="habit"
-      :activities="heatmapHabitActivities(habit._id)"
+      :activities="habitActivities(habit._id)"
     />
 
     <!-- Activity List -->
@@ -130,8 +130,6 @@ export default class Habit extends Vue {
   @Getter("habitActivities", { namespace: "activity" }) habitActivities:
     | Array<Activity>
     | undefined;
-  @Getter("heatmapHabitActivities", { namespace: "activity" })
-  heatmapHabitActivities: Array<Activity> | undefined;
 
   // Activity
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
@@ -162,6 +160,8 @@ export default class Habit extends Vue {
   })
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
+    if (this.habit) return;
+
     this.fetchHabit();
   }
 

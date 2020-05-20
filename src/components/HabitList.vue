@@ -18,10 +18,7 @@
 
     <div v-if="filteredHabits && filteredHabits.length" class="list">
       <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
-        <HabitHeader
-          :habit="habit"
-          :activities="heatmapHabitActivities(habit._id)"
-        />
+        <HabitHeader :habit="habit" :activities="habitActivities(habit._id)" />
 
         <ActivityCreate
           :habit="habit"
@@ -30,9 +27,9 @@
 
         <ActivityChart
           class="activityChart"
-          v-if="heatmapHabitActivities(habit._id)"
+          v-if="habitActivities(habit._id)"
           :habit="habit"
-          :activities="heatmapHabitActivities(habit._id)"
+          :activities="habitActivities(habit._id)"
         />
       </div>
     </div>
@@ -70,8 +67,8 @@ export default class HabitList extends Vue {
   @Getter("activities", { namespace: "activity" }) activities:
     | Activities
     | undefined;
-  @Getter("heatmapHabitActivities", { namespace: "activity" })
-  heatmapHabitActivities: Array<Activity> | undefined;
+  @Getter("habitActivities", { namespace: "activity" })
+  habitActivities: Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
