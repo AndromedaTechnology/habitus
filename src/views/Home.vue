@@ -1,18 +1,22 @@
 <template>
-  <div>
-    <div v-if="user">
-      <UserHeader
-        :user="user"
-        :habits="habits"
-        :activities="activities"
-        @delete="userDeleteSubmit()"
-      />
+  <v-container>
+    <v-row>
+      <v-col cols="12" sm="12">
+        <div v-if="user">
+          <UserHeader
+            :user="user"
+            :habits="habits"
+            :activities="activities"
+            @delete="userDeleteSubmit()"
+          />
 
-      <HabitList :habits="habits" :user="user" />
-    </div>
+          <HabitList :habits="habits" :user="user" />
+        </div>
 
-    <UserCreate v-else @submit="userCreateSubmit($event)" />
-  </div>
+        <UserCreate v-else @submit="userCreateSubmit($event)" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
