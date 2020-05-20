@@ -2,7 +2,7 @@
   <div class="userCreate">
     <h1>Choose your username</h1>
     <input type="text" v-model="username" @keyup.enter="submit()" />
-    <button class="btn-dark" @click="submit()">Go!</button>
+    <v-btn @click="submit()">Go!</v-btn>
   </div>
 </template>
 

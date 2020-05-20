@@ -1,23 +1,27 @@
 <template>
   <div class="habitCreate">
-    <input v-model="name" type="text" placeholder="Name" @keyup.enter="submit()" class="name" />
-
-    <toggle-button
+    <v-switch
       v-model="isGood"
-      :labels="{ checked: 'Good', unchecked: 'Bad' }"
-      :switch-color="{ checked: '#42b983', unchecked: '#b94278' }"
-      :font-size="16"
-      :width="128"
-      :height="32"
-      class="isGood"
-    />
+      :label="isGood ? 'Good' : 'Bad'"
+      :color="isGood ? '#42b983' : '#b94278'"
+    ></v-switch>
 
-    <select v-model="amountType" class="amountType">
-      <option value="amount">Points</option>
-      <option value="timer">Time</option>
-    </select>
+    <v-text-field
+      class="mt-8"
+      v-model="name"
+      label="Name"
+      @keyup.enter="submit()"
+    ></v-text-field>
 
-    <button class="btn-dark submit" @click="submit()">Add</button>
+    <v-select
+      v-model="amountType"
+      :items="[
+        { text: 'Points', value: 'amount' },
+        { text: 'Time', value: 'timer' },
+      ]"
+    ></v-select>
+
+    <v-btn large @click="submit()">Save</v-btn>
   </div>
 </template>
 
@@ -28,8 +32,8 @@ import { HabitAmountType } from "@/store/habit/types";
 
 @Component({
   components: {
-    ToggleButton
-  }
+    ToggleButton,
+  },
 })
 export default class HabitCreate extends Vue {
   name: string | null = null;
@@ -40,7 +44,7 @@ export default class HabitCreate extends Vue {
     this.$emit("submit", {
       name: this.name,
       isGood: this.isGood,
-      amountType: this.amountType
+      amountType: this.amountType,
     });
   }
 }
@@ -51,7 +55,6 @@ export default class HabitCreate extends Vue {
   text-align: center;
 
   .name,
-  .amountType,
   .submit {
     margin: 32px auto;
     display: block;

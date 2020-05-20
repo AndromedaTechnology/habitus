@@ -8,7 +8,7 @@
         </h1>
         <!-- Edit  -->
         <div class="editContainer">
-          <button class="btn-dark edit" @click="$refs.editModal.open()">Edit</button>
+          <v-btn @click="$refs.editModal.open()">Edit</v-btn>
         </div>
       </div>
       <div class="column chart">
@@ -17,35 +17,11 @@
     </div>
 
     <sweet-modal ref="editModal">
-      <!-- Username -->
-      <div class="nameContainer">
-        <h3>Username</h3>
-        <input type="text" class="input-dark" v-model="username" />
-      </div>
-
-      <!-- First Name -->
-      <div class="nameContainer">
-        <h3>First Name</h3>
-        <input type="text" class="input-dark" v-model="firstName" />
-      </div>
-
-      <!-- Last Name -->
-      <div class="nameContainer">
-        <h3>Last Name</h3>
-        <input type="text" class="input-dark" v-model="lastName" />
-      </div>
-
-      <!-- Email -->
-      <div class="nameContainer">
-        <h3>Email</h3>
-        <input type="text" class="input-dark" v-model="email" />
-      </div>
-
-      <!-- Delete -->
-      <div class="deleteContainer">
-        <h3>Delete</h3>
-        <button class="btn-dark" @click="deleteUser()">Delete</button>
-      </div>
+      <v-text-field v-model="username" label="Username"></v-text-field>
+      <v-text-field v-model="firstName" label="First Name"></v-text-field>
+      <v-text-field v-model="lastName" label="Last Name"></v-text-field>
+      <v-text-field v-model="email" label="Email"></v-text-field>
+      <v-btn @click="deleteUser()" large>Delete</v-btn>
     </sweet-modal>
   </div>
 </template>
@@ -63,8 +39,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({
   components: {
     UserChart,
-    SweetModal
-  }
+    SweetModal,
+  },
 })
 export default class UserHeader extends Vue {
   @Prop() private user!: User;
@@ -86,7 +62,7 @@ export default class UserHeader extends Vue {
 
   @Watch("username", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   usernameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { username: value } });
@@ -94,7 +70,7 @@ export default class UserHeader extends Vue {
 
   @Watch("firstName", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   firstNameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { firstName: value } });
@@ -102,7 +78,7 @@ export default class UserHeader extends Vue {
 
   @Watch("lastName", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   lastNameChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { lastName: value } });
@@ -110,7 +86,7 @@ export default class UserHeader extends Vue {
 
   @Watch("email", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   emailChanged(value: any, oldValue: any) {
     this.updateUser({ habit: this.user, data: { email: value } });

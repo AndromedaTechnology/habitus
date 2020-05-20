@@ -1,16 +1,23 @@
 <template>
-  <div class="badge" v-if="streak">
-    <span>{{ streak }} &nbsp;</span>
-    <span>day streak</span>
-  </div>
+  <v-chip
+    large
+    v-if="streak"
+    class="ma-2"
+    :color="habit.isGood ? '#42b983' : '#b94278'"
+    text-color="white"
+  >
+    <span class="font-weight-bold">{{ streak }} day streak</span>
+  </v-chip>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Activity } from "../store/activity/types";
+import { Habit } from "../store/habit/types";
 
 @Component
 export default class HabitStreak extends Vue {
+  @Prop() private habit!: Habit;
   @Prop() private activities!: Array<Activity> | undefined;
 
   get streak(): number {

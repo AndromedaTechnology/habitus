@@ -2,43 +2,34 @@
   <div class="activityCreate" @contextmenu.prevent="$event.preventDefault()">
     <!-- Timer -->
     <div :class="{ timer: true }" v-if="habit.amountType === 'timer'">
-      <button class="btn-dark" @click="toggleTimer(0)">
-        {{ timerHandler ? "x" : "-" }}
-      </button>
+      <v-btn @click="toggleTimer(0)">{{ timerHandler ? "x" : "-" }}</v-btn>
       <vue-timepicker
         :format="timerFormat"
         v-model="timer"
         hide-clear-button
       ></vue-timepicker>
-      <button class="btn-dark" @click="toggleTimer(1)">
-        {{ timerHandler ? "x" : "+" }}
-      </button>
-      <button class="btn-dark submit" @click="submit()">Add</button>
+      <v-btn @click="toggleTimer(1)">{{ timerHandler ? "x" : "+" }}</v-btn>
+      <v-btn @click="submit()">Add</v-btn>
     </div>
 
     <!-- Amount -->
     <div :class="{ amount: true }" v-else-if="habit.amountType === 'amount'">
-      <button
-        class="btn-dark"
-        v-touch:start="onDecreaseStart"
-        v-touch:end="onDecreaseStop"
-      >
-        -
-      </button>
-      <input
-        type="text"
+      <v-btn v-touch:start="onDecreaseStart" v-touch:end="onDecreaseStop">
+        <v-icon>remove</v-icon>
+      </v-btn>
+
+      <v-text-field
+        solo
+        dense
         class="amount"
         v-model="amount"
         @keyup.enter="submit()"
-      />
-      <button
-        class="btn-dark"
-        v-touch:start="onIncreaseStart"
-        v-touch:end="onIncreaseStop"
-      >
-        +
-      </button>
-      <button class="btn-dark submit" @click="submit()">Add</button>
+      ></v-text-field>
+
+      <v-btn v-touch:start="onIncreaseStart" v-touch:end="onIncreaseStop">
+        <v-icon>add</v-icon>
+      </v-btn>
+      <v-btn @click="submit()">Add</v-btn>
     </div>
   </div>
 </template>

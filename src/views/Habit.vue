@@ -10,16 +10,15 @@
     />
 
     <!-- Edit  -->
-    <div class="habitEditContainer">
-      <button class="btn-dark edit" @click="$refs.editModal.open()">
-        Edit
-      </button>
+    <div class="habitEditContainer mt-4">
+      <v-btn medium @click="$refs.editModal.open()" large>Edit</v-btn>
     </div>
 
     <!--  Add Activity -->
     <div class="activityCreateContainer">
       <h2>Add Activity</h2>
       <ActivityCreate
+        class="mt-4"
         :habit="habit"
         @submit="activityCreateSubmit(habit, user, $event)"
       />
@@ -44,37 +43,24 @@
     </div>
 
     <sweet-modal ref="editModal">
-      <!-- Name -->
-      <div class="editPropContainer">
-        <h3>Name</h3>
-        <input type="text" class="input-dark" v-model="name" />
-      </div>
+      <v-switch
+        v-model="isGood"
+        :label="isGood ? 'Good' : 'Bad'"
+        :color="isGood ? '#42b983' : '#b94278'"
+      ></v-switch>
 
-      <!-- Is good -->
-      <div class="editPropContainer">
-        <h3>Good or Bad?</h3>
-        <toggle-button
-          class="isGood"
-          v-model="isGood"
-          :labels="{ checked: 'Good', unchecked: 'Bad' }"
-          :switch-color="{ checked: '#42b983', unchecked: '#b94278' }"
-          :font-size="16"
-          :width="128"
-          :height="32"
-        />
-      </div>
+      <v-text-field v-model="name" label="Name"></v-text-field>
 
-      <!-- Type -->
-      <div class="editPropContainer">
-        <h3>Type</h3>
-        <select v-model="amountType">
-          <option value="amount">Points</option>
-          <option value="timer">Time</option>
-        </select>
-      </div>
+      <v-select
+        v-model="amountType"
+        :items="[
+          { text: 'Points', value: 'amount' },
+          { text: 'Time', value: 'timer' },
+        ]"
+        filled
+      ></v-select>
 
-      <!-- Starts At Date -->
-      <div class="editPropContainer">
+      <div class="my-8">
         <h3>Starts At</h3>
         <datetime
           class="startsAtDate"
@@ -85,7 +71,7 @@
       </div>
 
       <!-- Ends At Date -->
-      <div class="editPropContainer">
+      <div class="my-8">
         <h3>Ends At</h3>
         <datetime
           class="endsAtDate"
@@ -95,13 +81,7 @@
         ></datetime>
       </div>
 
-      <!-- Delete -->
-      <div class="editPropContainer">
-        <h3>Delete</h3>
-        <button class="btn-dark delete" @click="habitDeleteSubmit(habit)">
-          Delete
-        </button>
-      </div>
+      <v-btn class="delete" @click="habitDeleteSubmit(habit)">Delete</v-btn>
     </sweet-modal>
   </div>
 </template>
@@ -292,11 +272,5 @@ export default class Habit extends Vue {
 .activityChart,
 .activityList {
   margin-top: 32px;
-}
-
-button.delete,
-.startsAtDateContainer,
-.endsAtDateContainer {
-  margin-top: 8px;
 }
 </style>

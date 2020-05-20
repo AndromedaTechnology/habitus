@@ -1,11 +1,14 @@
 <template>
-  <div class="activityHeader">
-    <h2 class="ago">{{ ago }} days ago</h2>
-    <h3 class="amount">
-      <span>{{ activity.amount }}</span>
+  <v-alert class="activityHeader" dark icon="mdi-flare">
+    <h3 class="mb-4">
+      <span
+        >{{ activity.amount }}
+        {{ activity.amount !== 1 ? "points" : "point" }}</span
+      >
     </h3>
-    <button class="delete" @click="deleteActivity()">Delete</button>
-  </div>
+    <v-btn @click="deleteActivity()">Delete</v-btn>
+    <h5 class="ago mt-4">{{ ago }} days ago</h5>
+  </v-alert>
 </template>
 
 <script lang="ts">
@@ -33,18 +36,4 @@ export default class ActivityHeader extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-.activityHeader {
-  background: #1f1f1f;
-  padding: 16px 32px;
-  margin: 8px;
-  border-radius: 16px;
-}
-.amount {
-  display: flex;
-}
-
-.ago {
-  margin-top: 8px;
-}
-</style>
+<style scoped lang="scss"></style>
