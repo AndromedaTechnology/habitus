@@ -138,12 +138,6 @@ export default class HabitList extends Vue {
   margin: 0px 16px 128px;
 }
 
-@media (min-width: 768px) {
-  .habitList {
-    margin: 64px;
-  }
-}
-
 .filter {
   text-align: center;
 }
