@@ -1,7 +1,7 @@
 <template>
   <div class="userCreate">
     <h1>Choose your username</h1>
-    <input type="text" v-model="username" @keyup.enter="submit()" />
+    <v-text-field solo dense v-model="username" @keyup.enter="submit()"></v-text-field>
     <v-btn @click="submit()">Go!</v-btn>
   </div>
 </template>
