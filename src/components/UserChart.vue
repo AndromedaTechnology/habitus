@@ -30,7 +30,12 @@ export default class UserChart extends Vue {
       display: false
     },
     title: {
-      display: false
+      display: true,
+      position: "bottom",
+      text: "Good vs. Bad",
+      fontSize: 16,
+      padding: 16,
+      fontColor: "#fff"
     },
     responsive: true,
     maintainAspectRatio: false
