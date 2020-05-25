@@ -30,8 +30,7 @@ export default class UserChart extends Vue {
 
   chartOptions = {
     legend: {
-      display: true,
-      position: "bottom"
+      display: false
     },
     title: {
       display: true,
