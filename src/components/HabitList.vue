@@ -19,8 +19,6 @@
         <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
           <HabitHeader :habit="habit" :activities="getActivities(habit._id)" />
 
-          <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit, user, $event)" />
-
           <ActivityChart
             class="activityChart"
             v-if="getActivities(habit._id)"
@@ -47,7 +45,6 @@ import { User } from "@/store/user/types";
 import { Activity, Activities } from "@/store/activity/types";
 import HabitHeader from "@/components/HabitHeader.vue";
 import ActivityChart from "@/components/ActivityChart.vue";
-import ActivityCreate from "@/components/ActivityCreate.vue";
 
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
@@ -55,8 +52,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
   name: "HabitList",
   components: {
     HabitHeader,
-    ActivityChart,
-    ActivityCreate
+    ActivityChart
   }
 })
 export default class HabitList extends Vue {
@@ -67,7 +63,6 @@ export default class HabitList extends Vue {
   @Getter("getActivities", { namespace: "activity" })
   getActivities: Activities | Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
-  @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
   filter: string | undefined | null = "now";
@@ -116,16 +111,6 @@ export default class HabitList extends Vue {
 
       return isValid;
     });
-  }
-
-  activityCreateSubmit(habit: Habit, user: User, amount: number) {
-    this.persistActivity({
-      habit: habit,
-      user: user,
-      amount: amount
-    });
-
-    this.fetchActivities();
   }
 }
 </script>
