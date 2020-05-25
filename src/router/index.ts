@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import Add from "../views/Add.vue";
-import AddHabit from "../views/AddHabit.vue";
 import Habit from "../views/Habit.vue";
 import Stats from "../views/Stats.vue";
 
@@ -23,11 +22,6 @@ const routes: Array<RouteConfig> = [
     path: "/add",
     name: "add",
     component: Add,
-  },
-  {
-    path: "/add-habit",
-    name: "add-habit",
-    component: AddHabit,
   },
   {
     path: "/habit/:id",
