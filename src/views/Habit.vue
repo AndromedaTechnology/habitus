@@ -8,7 +8,7 @@
           v-if="habit"
           :showStreak="true"
           :habit="habit"
-          :activities="habitActivities(habit._id)"
+          :activities="getActivities(habit._id)"
         />
 
         <!-- Edit  -->
@@ -28,16 +28,16 @@
 
         <!--  Activity Chart -->
         <ActivityChart
-          v-if="habitActivities(habit._id)"
+          v-if="getActivities(habit._id)"
           class="activityChart"
           :habit="habit"
-          :activities="habitActivities(habit._id)"
+          :activities="getActivities(habit._id)"
         />
 
         <!-- Activity List -->
         <div class="activityList">
           <ActivityHeader
-            v-for="activity in habitActivities(habit._id, true)"
+            v-for="activity in getActivities(habit._id, true)"
             :key="activity._id"
             :activity="activity"
             @delete="activityDeleteSubmit(habit, $event)"
@@ -88,7 +88,7 @@ import ActivityHeader from "@/components/ActivityHeader.vue";
 import ActivityChart from "@/components/ActivityChart.vue";
 
 import { User } from "@/store/user/types";
-import { Activity } from "@/store/activity/types";
+import { Activity, Activities } from "@/store/activity/types";
 
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
@@ -121,7 +121,8 @@ export default class Habit extends Vue {
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
   ) => Promise<Habit | undefined>;
-  @Getter("habitActivities", { namespace: "activity" }) habitActivities:
+  @Getter("getActivities", { namespace: "activity" }) getActivities:
+    | Activities
     | Array<Activity>
     | undefined;
 

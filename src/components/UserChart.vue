@@ -21,9 +21,9 @@ export default class UserChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
   @Prop() private activities!: Activities | undefined;
 
-  @Getter("habitActivities", { namespace: "activity" }) habitActivities!: (
+  @Getter("getActivities", { namespace: "activity" }) getActivities!: (
     habitId: string
-  ) => Array<Activity> | undefined;
+  ) => Activities | Array<Activity> | undefined;
 
   chartOptions = {
     legend: {
@@ -64,8 +64,8 @@ export default class UserChart extends Vue {
 
     // Add to chart
     habits?.forEach((habit: Habit) => {
-      if (this.habitActivities) {
-        const acts = this.habitActivities!(habit._id);
+      if (this.getActivities) {
+        const acts = this.getActivities!(habit._id);
         labels.push(habit.name);
         backgroundColors.push(habit.isGood ? "#42b983" : "#b94278");
         chartData.push(acts ? acts.length : 0);

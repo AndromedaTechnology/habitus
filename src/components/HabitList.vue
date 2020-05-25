@@ -17,15 +17,15 @@
     <v-row v-if="filteredHabits && filteredHabits.length" class="list">
       <v-col cols="12" sm="12">
         <div v-for="habit in filteredHabits" :key="habit._id" class="habit">
-          <HabitHeader :habit="habit" :activities="habitActivities(habit._id)" />
+          <HabitHeader :habit="habit" :activities="getActivities(habit._id)" />
 
           <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit, user, $event)" />
 
           <ActivityChart
             class="activityChart"
-            v-if="habitActivities(habit._id)"
+            v-if="getActivities(habit._id)"
             :habit="habit"
-            :activities="habitActivities(habit._id)"
+            :activities="getActivities(habit._id)"
           />
         </div>
       </v-col>
@@ -64,8 +64,8 @@ export default class HabitList extends Vue {
   @Prop() private user!: User;
 
   // Activity Store
-  @Getter("habitActivities", { namespace: "activity" })
-  habitActivities: Array<Activity> | undefined;
+  @Getter("getActivities", { namespace: "activity" })
+  getActivities: Activities | Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;

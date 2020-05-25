@@ -3,26 +3,24 @@ import { ActivityState, Activity, Activities } from "./types";
 import { RootState } from "../types";
 
 export const getters: GetterTree<ActivityState, RootState> = {
-  activities(state): Activities | undefined {
-    const { activities } = state;
-    return activities;
-  },
-  habitActivities: (state) => (
-    habitId: number,
+  getActivities: (state) => (
+    habitId: string | null = null,
     descending = false
-  ): Array<Activity> | undefined => {
-    const { activities } = state;
-    let habitActivities = activities[habitId];
-    if (!habitActivities) return undefined;
+  ): Activities | Array<Activity> | undefined => {
+    let activities: Activities | Array<Activity> | undefined = state.activities;
+
+    if (habitId) {
+      activities = activities[habitId];
+    }
 
     if (descending === true) {
-      habitActivities = habitActivities.slice().sort(function(a, b) {
+      activities = activities.slice().sort(function(a, b) {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
         return dateA > dateB ? -1 : 1;
       });
     }
 
-    return habitActivities;
+    return activities;
   },
 };

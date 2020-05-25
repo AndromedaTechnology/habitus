@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" sm="12">
-        <UserChart :habits="habits" :activities="activities" />
+        <UserChart :habits="habits" :activities="getActivities()" />
       </v-col>
     </v-row>
   </v-container>
@@ -12,7 +12,7 @@
 import UserChart from "@/components/UserChart.vue";
 
 import { Habit } from "@/store/habit/types";
-import { Activities } from "@/store/activity/types";
+import { Activities, Activity } from "@/store/activity/types";
 
 import { Action, Getter } from "vuex-class";
 import { Component, Vue } from "vue-property-decorator";
@@ -28,9 +28,8 @@ export default class Stats extends Vue {
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
 
   // Activities
-  @Getter("activities", { namespace: "activity" }) activities:
-    | Activities
-    | undefined;
+  @Getter("getActivities", { namespace: "activity" })
+  getActivities: Activities | Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
 
   mounted() {

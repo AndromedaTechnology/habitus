@@ -23,7 +23,9 @@ export const actions: ActionTree<ActivityState, RootState> = {
     // Fetch from Localstorage
 
     const data: string | null | undefined = localStorage.getItem("activities");
+
     const activities: Activities = data ? JSON.parse(data) : {};
+
     commit("activities", activities);
   },
   persistActivity(
@@ -56,16 +58,14 @@ export const actions: ActionTree<ActivityState, RootState> = {
       (Vue as any).noty.error(activity.amount + " bad experience gained!");
     }
 
-    // Append
-    let activities = getters["habitActivities"](activity.habitId);
-
     // Save
     commit("addActivity", {
       habitId: activity.habitId,
       activity: activity,
     });
 
-    activities = getters["activities"];
+    // Persist to LocalStorage
+    const activities = getters["getActivities"]();
     localStorage.setItem("activities", JSON.stringify(activities));
   },
   deleteActivities({ commit }): any {
@@ -77,14 +77,14 @@ export const actions: ActionTree<ActivityState, RootState> = {
   deleteHabitActivities({ getters, commit }, habit: Habit): any {
     commit("habitActivities", { habitId: habit._id, activities: [] });
 
-    const activities = getters["activities"];
+    const activities = getters["activities"]();
     localStorage.setItem("activities", JSON.stringify(activities));
   },
   deleteHabitActivity(
     { getters, commit },
     payload: { habit: Habit; activity: Activity }
   ): any {
-    let activities = getters["habitActivities"](payload.habit._id);
+    let activities = getters["getActivities"](payload.habit._id);
     activities = activities.filter((element: Activity) => {
       return element._id !== payload.activity._id;
     });
@@ -96,7 +96,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
     });
 
     // Persist to localStorage
-    activities = getters["activities"];
+    activities = getters["getActivities"]();
     localStorage.setItem("activities", JSON.stringify(activities));
   },
 };
