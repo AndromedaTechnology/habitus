@@ -64,9 +64,6 @@ export default class HabitList extends Vue {
   @Prop() private user!: User;
 
   // Activity Store
-  @Getter("activities", { namespace: "activity" }) activities:
-    | Activities
-    | undefined;
   @Getter("habitActivities", { namespace: "activity" })
   habitActivities: Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
