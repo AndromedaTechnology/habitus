@@ -5,9 +5,9 @@
         <!-- Filter -->
 
         <div class="filter">
-          <v-btn :class="{ active: filter === 'past' }" @click="filter = 'past'">Past</v-btn>
-          <v-btn :class="{ active: filter === 'now' }" @click="filter = 'now'">Now</v-btn>
-          <v-btn :class="{ active: filter === 'future' }" @click="filter = 'future'">Future</v-btn>
+          <v-btn :large="filter === 'past'" @click="filter = 'past'">Past</v-btn>
+          <v-btn :large="filter === 'now'" @click="filter = 'now'">Now</v-btn>
+          <v-btn :large="filter === 'future'" @click="filter = 'future'">Future</v-btn>
         </div>
       </v-col>
     </v-row>
