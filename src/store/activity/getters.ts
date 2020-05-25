@@ -17,14 +17,12 @@ export const getters: GetterTree<ActivityState, RootState> = {
       // Filter by date
 
       activities = activities.filter((element) => {
-        let valid = true;
         const createdAt = new Date(element.createdAt);
 
-        if (dateStart && dateStart.getTime() < createdAt.getTime())
-          valid = false;
-        if (dateEnd && dateEnd.getTime() < createdAt.getTime()) valid = false;
+        if (dateStart && createdAt < dateStart) return false;
+        if (dateEnd && createdAt > dateEnd) return false;
 
-        return valid;
+        return true;
       });
 
       // Sort ASC or DESC

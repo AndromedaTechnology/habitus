@@ -90,7 +90,11 @@ export default class UserChart extends Vue {
         const dateEnd = new Date();
 
         dateStart.setHours(hour);
+        dateStart.setMinutes(0);
+        dateStart.setSeconds(0);
         dateEnd.setHours(hour + 1);
+        dateEnd.setMinutes(0);
+        dateEnd.setSeconds(0);
 
         const acts = this.getActivities(habit._id, false, dateStart, dateEnd);
         datasets[datasets.length - 1].data.push(acts ? acts.length : 0);
