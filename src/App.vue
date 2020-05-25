@@ -23,7 +23,7 @@
       </v-btn>
 
       <!-- Add -->
-      <v-btn :to="{ name: 'add-habit' }" text active-class="no-active">
+      <v-btn :to="{ name: 'add' }" text active-class="no-active">
         <v-icon large>add_box</v-icon>
       </v-btn>
     </v-app-bar>

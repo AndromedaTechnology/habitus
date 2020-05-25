@@ -26,22 +26,26 @@ export const actions: ActionTree<HabitState, RootState> = {
     const habits = getters["habits"];
     localStorage.setItem("habits", JSON.stringify(habits));
   },
-  persistHabit({ state, getters, commit }, habit: Habit): any {
-    // Add _id to habit
-    habit._id =
-      Math.random()
-        .toString(36)
-        .substring(2, 15) +
-      Math.random()
-        .toString(36)
-        .substring(2, 15);
+  persistHabit({ state, getters, commit }, habit: Habit): Promise<Habit> {
+    return new Promise((resolve, reject) => {
+      habit._id =
+        Math.random()
+          .toString(36)
+          .substring(2, 15) +
+        Math.random()
+          .toString(36)
+          .substring(2, 15);
 
-    // Append
-    const habits = getters["habits"];
-    habits.push(habit);
+      // Append
+      const habits = getters["habits"];
+      habits.push(habit);
 
-    // Save
-    localStorage.setItem("habits", JSON.stringify(habits));
+      // Persist
+      localStorage.setItem("habits", JSON.stringify(habits));
+
+      // Resolve
+      resolve(habit);
+    });
   },
   deleteHabits({ commit }): any {
     // Delete from Localstorage
