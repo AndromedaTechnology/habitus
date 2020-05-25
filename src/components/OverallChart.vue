@@ -1,5 +1,5 @@
 <template>
-  <div class="userChart">
+  <div>
     <DoughnutChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="200"></DoughnutChart>
   </div>
 </template>
