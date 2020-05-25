@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" sm="12">
-        <UserChart :habits="habits" :activities="getActivities()" />
+        <OverallChart :habits="habits" :activities="getActivities()" />
         <DayChart :habits="habits" :activities="getActivities()" />
       </v-col>
     </v-row>
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import UserChart from "@/components/UserChart.vue";
+import OverallChart from "@/components/OverallChart.vue";
 import DayChart from "@/components/DayChart.vue";
 
 import { Habit } from "@/store/habit/types";
@@ -21,7 +21,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    UserChart,
+    OverallChart,
     DayChart
   }
 })

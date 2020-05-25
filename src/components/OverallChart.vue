@@ -17,7 +17,7 @@ import DoughnutChart from "@/components/DoughnutChart.vue";
     DoughnutChart
   }
 })
-export default class UserChart extends Vue {
+export default class OverallChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
   @Prop() private activities!: Activities | undefined;
 
