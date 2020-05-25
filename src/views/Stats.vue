@@ -3,6 +3,10 @@
     <v-row>
       <v-col cols="12" sm="12">
         <OverallChart :habits="habits" :activities="getActivities()" />
+      </v-col>
+    </v-row>
+    <v-row class="mt-12">
+      <v-col cols="12" sm="12">
         <DayChart :habits="habits" :activities="getActivities()" />
       </v-col>
     </v-row>
