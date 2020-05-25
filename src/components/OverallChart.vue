@@ -33,7 +33,7 @@ export default class OverallChart extends Vue {
     title: {
       display: true,
       position: "top",
-      text: "Good and Bad Habits",
+      text: "Overall",
       fontSize: 24,
       padding: 24,
       fontColor: "#fff"
