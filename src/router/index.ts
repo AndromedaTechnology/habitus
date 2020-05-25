@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import AddHabit from "../views/AddHabit.vue";
 import Habit from "../views/Habit.vue";
+import Stats from "../views/Stats.vue";
 
 Vue.use(VueRouter);
 
@@ -11,6 +12,11 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "home",
     component: Home,
+  },
+  {
+    path: "/stats",
+    name: "stats",
+    component: Stats,
   },
   {
     path: "/add-habit",

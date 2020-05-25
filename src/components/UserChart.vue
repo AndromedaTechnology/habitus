@@ -27,14 +27,15 @@ export default class UserChart extends Vue {
 
   chartOptions = {
     legend: {
-      display: false
+      display: true,
+      position: "bottom"
     },
     title: {
       display: true,
-      position: "bottom",
-      text: "Good vs. Bad",
-      fontSize: 16,
-      padding: 16,
+      position: "top",
+      text: "Good and Bad Habits",
+      fontSize: 24,
+      padding: 24,
       fontColor: "#fff"
     },
     responsive: true,

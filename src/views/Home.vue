@@ -3,13 +3,7 @@
     <v-row>
       <v-col cols="12" sm="12">
         <div v-if="user">
-          <UserHeader
-            :user="user"
-            :habits="habits"
-            :activities="activities"
-            @delete="userDeleteSubmit()"
-          />
-
+          <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
           <HabitList :habits="habits" :user="user" />
         </div>
 
@@ -22,7 +16,6 @@
 <script lang="ts">
 import { Habit } from "@/store/habit/types";
 import { User } from "@/store/user/types";
-import { Activities } from "@/store/activity/types";
 
 import UserCreate from "@/components/UserCreate.vue";
 import UserHeader from "@/components/UserHeader.vue";
@@ -53,9 +46,6 @@ export default class Home extends Vue {
   @Action("deleteHabits", { namespace: "habit" }) deleteHabits: any;
 
   // Activity Store
-  @Getter("activities", { namespace: "activity" }) activities:
-    | Activities
-    | undefined;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
   mounted() {

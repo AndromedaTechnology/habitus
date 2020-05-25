@@ -1,16 +1,15 @@
 <template>
   <v-container class="userHeader">
     <v-row>
-      <v-col cols="12" sm="12" md="6">
+      <v-col cols="12" sm="12">
+        <!-- Edit  -->
+        <v-btn v-if="allowEdit" @click="$refs.editModal.open()">Edit</v-btn>
+
+        <!-- Username -->
         <h1 class="mt-8">
           <span>@</span>
           <span>{{ user.username }}</span>
         </h1>
-        <!-- Edit  -->
-        <v-btn @click="$refs.editModal.open()">Edit</v-btn>
-      </v-col>
-      <v-col cols="12" sm="12" md="6" class="chart">
-        <UserChart :habits="habits" :activities="activities" />
       </v-col>
     </v-row>
 
@@ -26,24 +25,19 @@
 
 <script lang="ts">
 import { User } from "@/store/user/types";
-import { Habit } from "@/store/habit/types";
-import { Activities } from "@/store/activity/types";
-import UserChart from "@/components/UserChart.vue";
 
 import { SweetModal } from "sweet-modal-vue";
-import { State, Action, Getter, Mutation } from "vuex-class";
+import { Action } from "vuex-class";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   components: {
-    UserChart,
     SweetModal
   }
 })
 export default class UserHeader extends Vue {
   @Prop() private user!: User;
-  @Prop() private habits!: Array<Habit> | undefined;
-  @Prop() private activities!: Activities | undefined;
+  @Prop({ default: false, type: Boolean }) allowEdit?: boolean;
   @Action("updateUser", { namespace: "user" }) updateUser: any;
 
   username: string | undefined | null = null;
@@ -100,23 +94,5 @@ export default class UserHeader extends Vue {
 .userHeader {
   text-align: center;
   padding: 64px;
-
-  .row {
-    display: block;
-
-    .column.chart {
-      margin-top: 48px;
-    }
-
-    @media only screen and (min-width: 1024px) {
-      display: flex;
-      .column {
-        flex: 50%;
-      }
-      .column.chart {
-        margin-top: auto;
-      }
-    }
-  }
 }
 </style>
