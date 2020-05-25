@@ -10,14 +10,17 @@ export const getters: GetterTree<ActivityState, RootState> = {
     let activities: Activities | Array<Activity> | undefined = state.activities;
 
     if (habitId) {
-      activities = activities[habitId];
-    }
+      activities = activities[habitId] ? activities[habitId] : [];
 
-    if (descending === true) {
       activities = activities.slice().sort(function(a, b) {
         const dateA = new Date(a.createdAt).getTime();
         const dateB = new Date(b.createdAt).getTime();
-        return dateA > dateB ? -1 : 1;
+
+        if (descending === true) {
+          return dateA > dateB ? -1 : 1;
+        } else {
+          return dateA > dateB ? 1 : -1;
+        }
       });
     }
 
