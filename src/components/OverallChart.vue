@@ -27,8 +27,7 @@ export default class OverallChart extends Vue {
 
   chartOptions = {
     legend: {
-      display: true,
-      position: "bottom"
+      display: false
     },
     title: {
       display: true,
