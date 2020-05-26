@@ -40,6 +40,21 @@ export default class UserChart extends Vue {
       padding: 24,
       fontColor: "#fff"
     },
+    scales: {
+      yAxes: [
+        {
+          display: false
+        }
+      ],
+      xAxes: [
+        {
+          display: true,
+          ticks: {
+            fontSize: 16
+          }
+        }
+      ]
+    },
     responsive: true,
     maintainAspectRatio: false
   };
