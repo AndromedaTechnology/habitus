@@ -70,7 +70,8 @@ export default class UserChart extends Vue {
     habits = habits?.sort((a, b) => (a.isGood > b.isGood ? 1 : -1));
 
     // Labels: 0-24
-    for (let hour = 0; hour < 24; hour++) {
+    const hourStep = 4;
+    for (let hour = 0; hour < 24; hour += hourStep) {
       labels.push(hour.toString() + ":00h");
     }
 
@@ -84,14 +85,14 @@ export default class UserChart extends Vue {
       });
 
       // 0-24
-      for (let hour = 0; hour < 24; hour++) {
+      for (let hour = 0; hour < 24; hour += hourStep) {
         const dateStart = new Date();
         const dateEnd = new Date();
 
         dateStart.setHours(hour);
         dateStart.setMinutes(0);
         dateStart.setSeconds(0);
-        dateEnd.setHours(hour + 1);
+        dateEnd.setHours(hour + hourStep);
         dateEnd.setMinutes(0);
         dateEnd.setSeconds(0);
 
