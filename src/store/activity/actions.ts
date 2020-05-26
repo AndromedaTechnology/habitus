@@ -77,7 +77,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
   deleteHabitActivities({ getters, commit }, habit: Habit): any {
     commit("habitActivities", { habitId: habit._id, activities: [] });
 
-    const activities = getters["activities"]();
+    const activities = getters["getActivities"]();
     localStorage.setItem("activities", JSON.stringify(activities));
   },
   deleteHabitActivity(
