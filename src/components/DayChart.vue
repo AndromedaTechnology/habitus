@@ -49,13 +49,16 @@ export default class UserChart extends Vue {
       xAxes: [
         {
           display: true,
-          categoryPercentage: 1.0,
-          barPercentage: 0.97,
+
           ticks: {
             fontSize: 16
           }
         }
       ]
+    },
+    dataset: {
+      categoryPercentage: 1.0,
+      barPercentage: 0.97
     },
     responsive: true,
     maintainAspectRatio: false
