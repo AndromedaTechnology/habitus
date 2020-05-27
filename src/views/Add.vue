@@ -1,19 +1,38 @@
 <template>
   <v-container v-if="user">
     <v-row class="mt-12">
+      <v-col cols="12" sm="12" class="text-center">
+        <h1>Adding activity</h1>
+      </v-col>
+    </v-row>
+    <v-row class="mt-12">
       <v-col cols="12" sm="12">
         <v-combobox
+          filled
           v-model="habit"
           :items="habits"
           item-text="name"
           return-object
-          label="Select or enter new Habit name"
+          clearable
+          label="Habit"
         ></v-combobox>
+      </v-col>
+    </v-row>
+    <v-row class="mt-12" v-if="isNewHabit">
+      <v-col cols="12" sm="12" md="6" class="sentimentSelector good" @click="isNewHabitGood = true">
+        <v-icon v-if="isNewHabitGood === true">check_box</v-icon>
+        <v-icon v-else>check_box_outline_blank</v-icon>
+        <h3>Good</h3>
+      </v-col>
+      <v-col cols="12" sm="12" md="6" class="sentimentSelector bad" @click="isNewHabitGood = false">
+        <v-icon v-if="isNewHabitGood === false">check_box</v-icon>
+        <v-icon v-else>check_box_outline_blank</v-icon>
+        <h3>Bad</h3>
       </v-col>
     </v-row>
     <v-row class="mt-12" v-if="habit">
       <v-col cols="12" sm="12">
-        <ActivityCreate :habit="habit" @submit="activityCreateSubmit(habit, user, $event)" />
+        <v-btn block @click="save()">Add</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -45,6 +64,8 @@ export default class Add extends Vue {
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
 
   habit: Habit | null = null;
+  isNewHabit: boolean | null = null;
+  isNewHabitGood: boolean | null = null;
 
   mounted() {
     this.fetchUser();
@@ -56,11 +77,20 @@ export default class Add extends Vue {
     deep: true
   })
   habitChanged(value: any, oldValue: any) {
-    if (!value) return;
     if (typeof value === "string") {
+      this.isNewHabit = true;
+    } else if (typeof value === "object") {
+      this.isNewHabit = false;
+    } else {
+      this.isNewHabit = null;
+    }
+  }
+
+  save() {
+    if (this.isNewHabit === true) {
       this.persistHabit({
-        name: value,
-        isGood: true,
+        name: this.habit,
+        isGood: this.isNewHabitGood ? true : false,
         amountType: HabitAmountType.amount,
         repeatInSeconds: 0,
         startsAtDate: new Date(),
@@ -68,18 +98,39 @@ export default class Add extends Vue {
         userId: this.user?._id
       }).then((habit: Habit) => {
         this.habit = habit;
+        this.saveActivity();
       });
+    } else {
+      this.saveActivity();
     }
   }
 
-  activityCreateSubmit(habit: Habit, user: User, amount: number) {
+  saveActivity() {
     this.persistActivity({
-      habit: habit,
-      user: user,
-      amount: amount
+      habit: this.habit,
+      user: this.user,
+      amount: 1
     });
 
-    this.$router.push({ name: "habit", params: { id: habit._id } });
+    this.$router.push({ name: "habit", params: { id: this.habit!._id } });
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.sentimentSelector {
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+  }
+  &.good {
+    background: #42b983;
+  }
+  &.bad {
+    background: #b94278;
+  }
+}
+</style>
