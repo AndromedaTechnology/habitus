@@ -4,7 +4,7 @@
       <v-col cols="12" sm="12">
         <div v-if="user">
           <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
-          <HabitList :habits="habits" :user="user" />
+          <Stats :habits="habits" :activities="getActivities()" />
         </div>
 
         <UserCreate v-else @submit="userCreateSubmit($event)" />
@@ -16,10 +16,11 @@
 <script lang="ts">
 import { Habit } from "@/store/habit/types";
 import { User } from "@/store/user/types";
+import { Activities, Activity } from "@/store/activity/types";
 
-import UserCreate from "@/components/UserCreate.vue";
 import UserHeader from "@/components/UserHeader.vue";
-import HabitList from "@/components/HabitList.vue";
+import UserCreate from "@/components/UserCreate.vue";
+import Stats from "@/components/Stats.vue";
 
 import Vue from "vue";
 import { Action, Getter } from "vuex-class";
@@ -28,29 +29,33 @@ import Component from "vue-class-component";
 @Component({
   name: "Home",
   components: {
-    UserCreate,
     UserHeader,
-    HabitList
+    UserCreate,
+    Stats
   }
 })
 export default class Home extends Vue {
-  // User Store
+  // User
   @Getter("user", { namespace: "user" }) user: User | undefined;
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
   @Action("persistUser", { namespace: "user" }) persistUser: any;
   @Action("deleteUser", { namespace: "user" }) deleteUser: any;
 
-  // Habit Store
+  // Habits
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("deleteHabits", { namespace: "habit" }) deleteHabits: any;
 
-  // Activity Store
+  // Activities
+  @Getter("getActivities", { namespace: "activity" })
+  getActivities: Activities | Array<Activity> | undefined;
+  @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
   mounted() {
     this.fetchUser();
     this.fetchHabits();
+    this.fetchActivities();
   }
 
   userCreateSubmit(username: string) {
@@ -71,7 +76,4 @@ export default class Home extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.habit {
-  margin: 16px;
-}
 </style>

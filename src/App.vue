@@ -17,9 +17,9 @@
 
       <v-spacer></v-spacer>
 
-      <!-- Stats -->
-      <v-btn :to="{ name: 'stats' }" text active-class="no-active">
-        <v-icon large>bar_chart</v-icon>
+      <!-- Habits -->
+      <v-btn :to="{ name: 'habits' }" text active-class="no-active">
+        <v-icon large>view_stream</v-icon>
       </v-btn>
 
       <!-- Add -->

@@ -3,7 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
 import Add from "../views/Add.vue";
 import Habit from "../views/Habit.vue";
-import Stats from "../views/Stats.vue";
+import Habits from "../views/Habits.vue";
 
 Vue.use(VueRouter);
 
@@ -14,14 +14,14 @@ const routes: Array<RouteConfig> = [
     component: Home,
   },
   {
-    path: "/stats",
-    name: "stats",
-    component: Stats,
-  },
-  {
     path: "/add",
     name: "add",
     component: Add,
+  },
+  {
+    path: "/habits",
+    name: "habits",
+    component: Habits,
   },
   {
     path: "/habit/:id",
