@@ -2,11 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" sm="12">
-        <div v-if="user">
-          <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
-          <Stats :habits="habits" :activities="getActivities()" />
-        </div>
-
+        <UserHeader v-if="user" :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
         <UserCreate v-else @submit="userCreateSubmit($event)" />
       </v-col>
     </v-row>
@@ -14,13 +10,10 @@
 </template>
 
 <script lang="ts">
-import { Habit } from "@/store/habit/types";
 import { User } from "@/store/user/types";
-import { Activities, Activity } from "@/store/activity/types";
 
 import UserHeader from "@/components/UserHeader.vue";
 import UserCreate from "@/components/UserCreate.vue";
-import Stats from "@/components/Stats.vue";
 
 import Vue from "vue";
 import { Action, Getter } from "vuex-class";
@@ -30,8 +23,7 @@ import Component from "vue-class-component";
   name: "Home",
   components: {
     UserHeader,
-    UserCreate,
-    Stats
+    UserCreate
   }
 })
 export default class Home extends Vue {
@@ -42,20 +34,13 @@ export default class Home extends Vue {
   @Action("deleteUser", { namespace: "user" }) deleteUser: any;
 
   // Habits
-  @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
-  @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("deleteHabits", { namespace: "habit" }) deleteHabits: any;
 
   // Activities
-  @Getter("getActivities", { namespace: "activity" })
-  getActivities: Activities | Array<Activity> | undefined;
-  @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
   mounted() {
     this.fetchUser();
-    this.fetchHabits();
-    this.fetchActivities();
   }
 
   userCreateSubmit(username: string) {
@@ -67,9 +52,9 @@ export default class Home extends Vue {
 
   userDeleteSubmit() {
     this.deleteUser();
-    this.deleteHabits();
-    this.fetchHabits();
     this.fetchUser();
+
+    this.deleteHabits();
     this.deleteActivities();
   }
 }

@@ -17,14 +17,19 @@
 
       <v-spacer></v-spacer>
 
-      <!-- Habits -->
-      <v-btn :to="{ name: 'habits' }" text active-class="no-active">
-        <v-icon large>view_stream</v-icon>
-      </v-btn>
-
       <!-- Add -->
       <v-btn :to="{ name: 'add' }" text active-class="no-active">
         <v-icon large>add_box</v-icon>
+      </v-btn>
+
+      <!-- Habits -->
+      <v-btn :to="{ name: 'habits' }" text active-class="no-active">
+        <v-icon large>view_list</v-icon>
+      </v-btn>
+
+      <!-- Stats -->
+      <v-btn :to="{ name: 'stats' }" text active-class="no-active">
+        <v-icon large>assessment</v-icon>
       </v-btn>
     </v-app-bar>
 
