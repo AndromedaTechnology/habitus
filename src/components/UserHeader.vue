@@ -2,14 +2,14 @@
   <v-container class="userHeader">
     <v-row>
       <v-col cols="12" sm="12">
-        <!-- Edit  -->
-        <v-btn v-if="allowEdit" @click="$refs.editModal.open()">Edit</v-btn>
-
         <!-- Username -->
         <h1 class="mt-8">
           <span>@</span>
           <span>{{ user.username }}</span>
         </h1>
+
+        <!-- Edit  -->
+        <v-btn v-if="allowEdit" @click="$refs.editModal.open()">Edit</v-btn>
       </v-col>
     </v-row>
 
