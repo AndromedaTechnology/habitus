@@ -3,18 +3,22 @@ import { HabitState, Habit } from "./types";
 import { RootState } from "../types";
 
 export const actions: ActionTree<HabitState, RootState> = {
-  fetchHabits({ commit }): any {
-    // Fetch from Localstorage
+  fetchHabits({ commit }): Promise<Array<Habit> | null> {
+    return new Promise((resolve, reject) => {
+      // Fetch from Localstorage
 
-    const habitsLocalStorage: string | null | undefined = localStorage.getItem(
-      "habits"
-    );
+      const habitsLocalStorage:
+        | string
+        | null
+        | undefined = localStorage.getItem("habits");
 
-    const habits: Array<Habit> = habitsLocalStorage
-      ? JSON.parse(habitsLocalStorage)
-      : [];
+      const habits: Array<Habit> = habitsLocalStorage
+        ? JSON.parse(habitsLocalStorage)
+        : [];
 
-    commit("setHabits", habits);
+      commit("setHabits", habits);
+      resolve(habits);
+    });
   },
   updateHabit(
     { state, getters, commit },

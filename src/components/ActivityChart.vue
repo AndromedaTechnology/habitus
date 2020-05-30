@@ -42,6 +42,7 @@ export default class ActivityChart extends Vue {
     deep: true
   })
   onPropertyChanged(value: any, oldValue: any) {
+    if (!value) return;
     this.recalculate(value);
   }
 

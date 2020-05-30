@@ -16,16 +16,6 @@
           <v-btn medium @click="$refs.editModal.open()" large>Edit</v-btn>
         </div>
 
-        <!--  Add Activity -->
-        <div class="activityCreateContainer">
-          <h2>Add Activity</h2>
-          <ActivityCreate
-            class="mt-4"
-            :habit="habit"
-            @submit="activityCreateSubmit(habit, user, $event)"
-          />
-        </div>
-
         <!--  Activity Chart -->
         <ActivityChart
           v-if="getActivities(habit._id)"
@@ -49,9 +39,10 @@
             v-model="isGood"
             :label="isGood ? 'Good' : 'Bad'"
             :color="isGood ? '#42b983' : '#b94278'"
+            solo
           ></v-switch>
 
-          <v-text-field v-model="name" label="Name"></v-text-field>
+          <v-text-field v-model="name" label="Name" solo></v-text-field>
 
           <v-select
             v-model="amountType"
@@ -59,7 +50,7 @@
           { text: 'Points', value: 'amount' },
           { text: 'Time', value: 'timer' },
         ]"
-            filled
+            solo
           ></v-select>
 
           <div class="my-8">
@@ -73,7 +64,7 @@
             <datetime class="endsAtDate" v-model="endsAtDate" type="datetime" title="Ends at"></datetime>
           </div>
 
-          <v-btn class="delete" @click="habitDeleteSubmit(habit)">Delete</v-btn>
+          <v-btn class="delete" @click="habitDeleteSubmit(habit)" block>Delete</v-btn>
         </sweet-modal>
       </v-col>
     </v-row>
@@ -83,7 +74,6 @@
 <script lang="ts">
 import { ToggleButton } from "vue-js-toggle-button";
 import HabitHeader from "../components/HabitHeader.vue";
-import ActivityCreate from "@/components/ActivityCreate.vue";
 import ActivityHeader from "@/components/ActivityHeader.vue";
 import ActivityChart from "@/components/ActivityChart.vue";
 
@@ -93,15 +83,14 @@ import { Activity, Activities } from "@/store/activity/types";
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
 import { SweetModal } from "sweet-modal-vue";
-import { State, Action, Getter, Mutation } from "vuex-class";
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Action, Getter } from "vuex-class";
+import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   name: "Habit",
   components: {
     ToggleButton,
     HabitHeader,
-    ActivityCreate,
     ActivityChart,
     ActivityHeader,
     Datetime,
@@ -116,7 +105,6 @@ export default class Habit extends Vue {
   // Habits
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("updateHabit", { namespace: "habit" }) updateHabit: any;
-  @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
@@ -127,7 +115,6 @@ export default class Habit extends Vue {
     | undefined;
 
   // Activity
-  @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteHabitActivities", { namespace: "activity" })
   deleteHabitActivities: any;
@@ -143,10 +130,21 @@ export default class Habit extends Vue {
   amountType: string | undefined | null = null;
 
   mounted() {
-    this.habitId = this.$route.params.id;
-    this.fetchHabits();
     this.fetchUser();
     this.fetchActivities();
+  }
+
+  @Watch("$route", {
+    immediate: true,
+    deep: true
+  })
+  onHabitIdChanged(value: any, oldValue: any) {
+    if (!value) return;
+    if (value.params.id) {
+      this.habitId = value.params.id;
+    }
+
+    this.fetchHabit();
   }
 
   @Watch("habits", {
@@ -155,7 +153,6 @@ export default class Habit extends Vue {
   })
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
-    if (this.habit) return;
 
     this.fetchHabit();
   }
@@ -223,15 +220,6 @@ export default class Habit extends Vue {
     }
   }
 
-  activityCreateSubmit(habit: Habit, user: User, amount: number) {
-    this.persistActivity({
-      habit: habit,
-      user: user,
-      amount: amount
-    });
-    this.fetchActivities();
-  }
-
   activityDeleteSubmit(habit: Habit, activity: Activity) {
     this.deleteHabitActivity({
       habit: habit,
@@ -256,12 +244,6 @@ export default class Habit extends Vue {
 .habitHeader,
 .habitEditContainer {
   text-align: center;
-}
-
-.activityCreateContainer {
-  border-radius: 8px;
-  padding: 16px;
-  margin-top: 32px;
 }
 
 .activityChart,

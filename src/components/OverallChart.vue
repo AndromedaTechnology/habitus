@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DoughnutChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="220"></DoughnutChart>
+    <DoughnutChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="320"></DoughnutChart>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default class OverallChart extends Vue {
     title: {
       display: true,
       position: "top",
-      text: "Overall",
+      text: "Total",
       fontSize: 24,
       padding: 24,
       fontColor: "#fff"

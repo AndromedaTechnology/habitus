@@ -14,11 +14,11 @@
     </v-row>
 
     <sweet-modal ref="editModal">
-      <v-text-field v-model="username" label="Username"></v-text-field>
-      <v-text-field v-model="firstName" label="First Name"></v-text-field>
-      <v-text-field v-model="lastName" label="Last Name"></v-text-field>
-      <v-text-field v-model="email" label="Email"></v-text-field>
-      <v-btn @click="deleteUser()" large>Delete</v-btn>
+      <v-text-field v-model="username" label="Username" solo autocomplete="off"></v-text-field>
+      <v-text-field v-model="firstName" label="First Name" solo autocomplete="off"></v-text-field>
+      <v-text-field v-model="lastName" label="Last Name" solo autocomplete="off"></v-text-field>
+      <v-text-field v-model="email" label="Email" solo autocomplete="off"></v-text-field>
+      <v-btn @click="deleteUser()" large block>Delete</v-btn>
     </sweet-modal>
   </v-container>
 </template>

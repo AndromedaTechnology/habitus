@@ -90,10 +90,10 @@ export default class UserChart extends Vue {
     habits = habits?.sort((a, b) => (a.isGood > b.isGood ? 1 : -1));
 
     // Labels: 0-24
-    const hourStep = 4;
-    for (let hour = 0; hour < 24; hour += hourStep) {
-      labels.push(hour.toString() + ":00h");
-    }
+    const hourStep = 8;
+    labels.push("Morning");
+    labels.push("Day");
+    labels.push("Evening");
 
     habits?.forEach((habit: Habit) => {
       datasets.push({

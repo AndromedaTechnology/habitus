@@ -6,7 +6,7 @@
         <router-link :to="{ name: 'home' }">
           <v-img
             alt="Habitus Logo"
-            class="shrink mr-2"
+            class="shrink mr-2 mt-4"
             contain
             src="/img/icons/logo.png"
             transition="scale-transition"
@@ -15,39 +15,28 @@
         </router-link>
       </div>
 
-      <v-spacer></v-spacer>
-
-      <!-- Add -->
-      <v-btn :to="{ name: 'add' }" text active-class="no-active">
-        <v-icon large>add_box</v-icon>
-      </v-btn>
-
-      <!-- Habits -->
-      <v-btn :to="{ name: 'habits' }" text active-class="no-active">
-        <v-icon large>view_list</v-icon>
-      </v-btn>
-
-      <!-- Stats -->
-      <v-btn :to="{ name: 'stats' }" text active-class="no-active">
-        <v-icon large>assessment</v-icon>
-      </v-btn>
+      <Add />
     </v-app-bar>
 
     <router-view class="routerView" />
   </v-app>
 </template>
 <script lang="ts">
+import Add from "@/components/Add.vue";
+
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   name: "App",
-  components: {}
+  components: {
+    Add
+  }
 })
 export default class App extends Vue {}
 </script>
 <style lang="scss" scoped>
 .routerView {
-  margin-top: 64px;
+  margin-top: 96px;
 }
 </style>
 
@@ -61,9 +50,6 @@ body {
 }
 
 #app {
-  @media (min-width: 768px) {
-    margin: 64px;
-  }
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

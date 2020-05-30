@@ -10,18 +10,21 @@
       class="mt-8"
       v-model="name"
       label="Name"
+      solo
+      autocomplete="off"
       @keyup.enter="submit()"
     ></v-text-field>
 
     <v-select
       v-model="amountType"
+      solo
       :items="[
         { text: 'Points', value: 'amount' },
         { text: 'Time', value: 'timer' },
       ]"
     ></v-select>
 
-    <v-btn large @click="submit()">Save</v-btn>
+    <v-btn block @click="submit()">Save</v-btn>
   </div>
 </template>
 
@@ -32,8 +35,8 @@ import { HabitAmountType } from "@/store/habit/types";
 
 @Component({
   components: {
-    ToggleButton,
-  },
+    ToggleButton
+  }
 })
 export default class HabitCreate extends Vue {
   name: string | null = null;
@@ -44,7 +47,7 @@ export default class HabitCreate extends Vue {
     this.$emit("submit", {
       name: this.name,
       isGood: this.isGood,
-      amountType: this.amountType,
+      amountType: this.amountType
     });
   }
 }
