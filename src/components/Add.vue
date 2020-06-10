@@ -13,7 +13,7 @@
         ></v-select>
       </v-col>
       <v-col v-if="habit" :cols="4">
-        <v-btn class="pa-4" fill-height block @click="saveActivity()">Add</v-btn>
+        <v-btn class="pa-6" block @click="saveActivity()">Add</v-btn>
       </v-col>
     </v-row>
   </v-container>
