@@ -15,15 +15,6 @@
       @keyup.enter="submit()"
     ></v-text-field>
 
-    <v-select
-      v-model="amountType"
-      solo
-      :items="[
-        { text: 'Points', value: 'amount' },
-        { text: 'Time', value: 'timer' },
-      ]"
-    ></v-select>
-
     <v-btn block @click="submit()">Save</v-btn>
   </div>
 </template>
