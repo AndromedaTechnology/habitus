@@ -21,15 +21,10 @@
 </template>
 
 <script lang="ts">
-import { ToggleButton } from "vue-js-toggle-button";
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import { HabitAmountType } from "@/store/habit/types";
 
-@Component({
-  components: {
-    ToggleButton
-  }
-})
+@Component({})
 export default class HabitCreate extends Vue {
   name: string | null = null;
   isGood = true;

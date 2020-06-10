@@ -29,7 +29,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   name: "Add",
-  components: {}
+  components: {},
 })
 export default class Add extends Vue {
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
@@ -46,6 +46,7 @@ export default class Add extends Vue {
   habitListSelected:
     | Habit
     | {
+        _id: null;
         name: string;
         isCreateNew: boolean;
       }
@@ -59,7 +60,7 @@ export default class Add extends Vue {
 
     value.splice(0, 0, {
       name: "Create new!",
-      isCreateNew: true
+      isCreateNew: true,
     });
 
     return value;
@@ -72,7 +73,7 @@ export default class Add extends Vue {
 
   @Watch("$route", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onRouteChanged(route: any, oldRoute: any) {
     if (route.name === "habit") {
@@ -86,7 +87,7 @@ export default class Add extends Vue {
 
   @Watch("habitListSelected", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   habitListSelectedChanged(value: any, oldValue: any) {
     this.$nextTick(() => {
@@ -105,11 +106,27 @@ export default class Add extends Vue {
     });
   }
 
+  @Watch("habits", {
+    immediate: false,
+    deep: true,
+  })
+  onHabitsChanged(value: any, oldValue: any) {
+    if (!value) return;
+
+    const habitId = this.habitListSelected ? this.habitListSelected._id : null;
+
+    if (habitId) {
+      this.getHabit(habitId).then((resp: Habit | undefined) => {
+        this.habitListSelected = resp ? resp : null;
+      });
+    }
+  }
+
   saveActivity() {
     this.persistActivity({
       habit: this.habit,
       user: this.user,
-      amount: 1
+      amount: 1,
     });
 
     this.$router.push({ name: "habit", params: { id: this.habit!._id } });
@@ -117,5 +134,4 @@ export default class Add extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
