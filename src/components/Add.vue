@@ -8,7 +8,6 @@
           :items="habitList"
           item-text="name"
           return-object
-          clearable
           label="Select a Habit"
           d-inline
         ></v-select>
