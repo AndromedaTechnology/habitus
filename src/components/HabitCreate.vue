@@ -1,6 +1,7 @@
 <template>
   <div class="habitCreate">
     <v-switch
+      inset
       v-model="isGood"
       :label="isGood ? 'Good' : 'Bad'"
       :color="isGood ? '#42b983' : '#b94278'"
