@@ -2,89 +2,59 @@
   <v-container class="userHeader">
     <v-row>
       <v-col cols="12" sm="12">
-        <!-- Username -->
         <h1 class="mt-8">
           <span>@</span>
           <span>{{ user.username }}</span>
         </h1>
 
-        <!-- Edit  -->
-        <v-btn v-if="allowEdit" @click="$refs.editModal.open()">Edit</v-btn>
+        <v-btn v-if="allowEdit" @click="editDialog = true">Edit</v-btn>
       </v-col>
     </v-row>
 
-    <sweet-modal ref="editModal">
-      <v-text-field v-model="username" label="Username" solo autocomplete="off"></v-text-field>
-      <v-text-field v-model="firstName" label="First Name" solo autocomplete="off"></v-text-field>
-      <v-text-field v-model="lastName" label="Last Name" solo autocomplete="off"></v-text-field>
-      <v-text-field v-model="email" label="Email" solo autocomplete="off"></v-text-field>
-      <v-btn @click="deleteUser()" large block>Delete</v-btn>
-    </sweet-modal>
+    <v-dialog
+      v-model="editDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      scrollable
+    >
+      <UserEdit
+        :user="user"
+        @update="handleUpdate($event)"
+        @delete="handleDelete()"
+        @close="editDialog = false"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
 <script lang="ts">
 import { User } from "@/store/user/types";
 
-import { SweetModal } from "sweet-modal-vue";
+import UserEdit from "@/components/UserEdit.vue";
+
 import { Action } from "vuex-class";
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
-    SweetModal
+    UserEdit
   }
 })
 export default class UserHeader extends Vue {
   @Prop() private user!: User;
   @Prop({ default: false, type: Boolean }) allowEdit?: boolean;
+
   @Action("updateUser", { namespace: "user" }) updateUser: any;
 
-  username: string | undefined | null = null;
-  firstName: string | undefined | null = null;
-  lastName: string | undefined | null = null;
-  email: string | undefined | null = null;
+  editDialog = false;
 
-  mounted() {
-    this.username = this.user.username;
-    this.firstName = this.user.firstName;
-    this.lastName = this.user.lastName;
-    this.email = this.user.email;
+  handleUpdate(data: {}) {
+    this.updateUser({ user: this.user, data: data });
   }
 
-  @Watch("username", {
-    immediate: false,
-    deep: true
-  })
-  usernameChanged(value: any, oldValue: any) {
-    this.updateUser({ habit: this.user, data: { username: value } });
-  }
-
-  @Watch("firstName", {
-    immediate: false,
-    deep: true
-  })
-  firstNameChanged(value: any, oldValue: any) {
-    this.updateUser({ habit: this.user, data: { firstName: value } });
-  }
-
-  @Watch("lastName", {
-    immediate: false,
-    deep: true
-  })
-  lastNameChanged(value: any, oldValue: any) {
-    this.updateUser({ habit: this.user, data: { lastName: value } });
-  }
-
-  @Watch("email", {
-    immediate: false,
-    deep: true
-  })
-  emailChanged(value: any, oldValue: any) {
-    this.updateUser({ habit: this.user, data: { email: value } });
-  }
-
-  deleteUser() {
+  handleDelete() {
+    this.editDialog = false;
     this.$emit("delete");
   }
 }
