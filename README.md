@@ -21,17 +21,6 @@ Track Habits Easily.
 - Vuetify 2.2
 - PWA
 
-## TODO
-
-- Don't ask for username on first visit, allow any action: Allow for immediate app usage
-- Habit.type == "timer": Show only one stop button
-- Habit - Longest Streak: Show on Habit single page
-- Habit timer type: transform seconds to hours:minutes:seconds on graph and in ActivityList
-- Recurring Habits
-- Add Habit.type == 'checkbox': Mark Habit as done; move to 'Past' filter
-- API: enable a social component (following, including people in Habits)
-- Wording: Habits became tasks, adjust wording and project name accordingly
-
 ## Installation
 
 **Install packages**
