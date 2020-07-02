@@ -1,14 +1,14 @@
 # Habitus - Anonymous Habit Tracker
 
-[Habitus - Track Habits Easily.](https://habitus.andromeda.technology)
+[Habitus - Track Habits Easily](https://habitus.andromeda.technology)
 
 [https://habitus.andromeda.technology](https://habitus.andromeda.technology)
 
 ## Anonymity
 
-- Anonymous Habit Tracker!
-- Storing data only in your browser!
-- No registration needed, Guest/Username access.
+- Anonymous Habit Tracker
+- **Storing data only in your browser**
+- **No registration needed, Guest/Username access**
 
 ## Features
 
