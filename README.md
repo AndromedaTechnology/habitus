@@ -1,18 +1,23 @@
-# Habitus - frontend
+# Habitus - Anonymous Habit Tracker
 
-Track Habits Easily.
+[Habitus - Track Habits Easily.](https://habitus.andromeda.technology)
 
 [https://habitus.andromeda.technology](https://habitus.andromeda.technology)
 
+## Anonymity
+
+- Anonymous Habit Tracker!
+- Storing data only in your browser!
+- No registration needed, Guest/Username access.
+
 ## Features
 
-- Guest access, saving data to LocalStorage
-- Create User
-- Add Habits (Good or Bad)
-- Add Activity to Habits (Points or Time)
-- Showing Notifications for added Activity, with Sound (Good or Bad)
-- Activity for each Habit is showed as a Line graph
-- Showing User's Habits as a Doughnut chart (Good and Bad Habits)
+- Create a User
+- Create Habits (Good or Bad)
+- Create Activity on Habits
+
+- Sound Notifications for added Activity (Good and Bad sounds)
+- Graphs for User and Habit Activity
 
 ## Tech
 
