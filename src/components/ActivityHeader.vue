@@ -1,7 +1,7 @@
 <template>
   <v-alert class="activityHeader" dark :icon=" habit.isGood ? 'add' : 'remove'">
     <h3 class="mb-4">
-      <span>{{ activity.amount }} experience</span>
+      <span>{{ activity.amount }} amount</span>
     </h3>
     <p v-if="activity.note">{{ activity.note }}</p>
     <v-btn @click="deleteActivity()">Delete</v-btn>
