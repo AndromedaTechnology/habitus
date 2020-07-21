@@ -3,8 +3,8 @@
     <v-row>
       <v-col cols="12" sm="12">
         <!-- Experience -->
-        <v-chip large :color="getTotalActivityAmount() >= 0 ? '#42b983' : '#b94278'">
-          <h4>{{ getTotalActivityAmount() === 0 ? 'No' : getTotalActivityAmount() }} experience</h4>
+        <v-chip large :color="getExperienceAmount() >= 0 ? '#42b983' : '#b94278'">
+          <h4>{{ getExperienceAmount() === 0 ? 'No' : getExperienceAmount() }} experience</h4>
         </v-chip>
 
         <!-- Username -->
@@ -54,8 +54,8 @@ export default class UserHeader extends Vue {
 
   editDialog = false;
 
-  @Getter("getTotalAmount", { namespace: "activity" })
-  getTotalActivityAmount: any;
+  @Getter("getExperienceAmount", { namespace: "activity" })
+  getExperienceAmount: any;
   @Action("updateUser", { namespace: "user" }) updateUser: any;
 
   handleUpdate(data: {}) {

@@ -4,7 +4,7 @@ import { RootState } from "../types";
 import { Habit } from "@/store/habit/types";
 
 export const getters: GetterTree<ActivityState, RootState> = {
-  getTotalAmount: (state, getters, rootState, rootGetters) => (
+  getExperienceAmount: (state, getters, rootState, rootGetters) => (
     dateStart: Date | null = null,
     dateEnd: Date | null = null
   ): number => {
@@ -29,16 +29,10 @@ export const getters: GetterTree<ActivityState, RootState> = {
         return true;
       });
 
-      // Get Habit Activities Amount
-      const amount = habitActivities.reduce((accumulator, element) => {
-        const elementAmount = element.amount ? element.amount : 0;
-        return accumulator + elementAmount;
-      }, 0);
-
       if (habit.isGood) {
-        total += amount;
+        total += habitActivities.length;
       } else {
-        total -= amount;
+        total -= habitActivities.length;
       }
     }
 
