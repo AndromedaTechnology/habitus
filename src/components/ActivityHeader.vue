@@ -1,26 +1,23 @@
 <template>
-  <v-alert class="activityHeader" dark icon="mdi-flare">
+  <v-alert class="activityHeader" dark :icon=" habit.isGood ? 'add' : 'remove'">
     <h3 class="mb-4">
-      <span
-        >{{ activity.amount }}
-        {{ activity.amount !== 1 ? "points" : "point" }}</span
-      >
+      <span>{{ activity.amount }} experience</span>
     </h3>
+    <p v-if="activity.note">{{ activity.note }}</p>
     <v-btn @click="deleteActivity()">Delete</v-btn>
-    <timeago
-      :datetime="activity.createdAt"
-      :auto-update="60"
-      class="d-block mt-4"
-    ></timeago>
+    <timeago :datetime="activity.createdAt" :auto-update="60" class="d-block mt-4"></timeago>
   </v-alert>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Habit } from "../store/habit/types";
 import { Activity } from "../store/activity/types";
+
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class ActivityHeader extends Vue {
+  @Prop() private habit!: Habit;
   @Prop() private activity!: Activity;
 
   deleteActivity() {

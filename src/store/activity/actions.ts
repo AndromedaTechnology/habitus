@@ -74,13 +74,19 @@ export const actions: ActionTree<ActivityState, RootState> = {
     const activities = getters["getActivities"]();
     localStorage.setItem("activities", JSON.stringify(activities));
   },
-  deleteHabitActivity(
-    { getters, commit },
-    payload: { habit: Habit; activity: Activity }
+  updateActivity(
+    { state, getters, commit },
+    payload: { habit: Habit; activity: Activity; data: any }
   ): any {
     let activities = getters["getActivities"](payload.habit._id);
-    activities = activities.filter((element: Activity) => {
-      return element._id !== payload.activity._id;
+    activities = activities.map((element: Activity) => {
+      if (element._id === payload.activity._id) {
+        element = {
+          ...element,
+          ...payload.data,
+        };
+      }
+      return element;
     });
 
     // Save to State
@@ -92,5 +98,28 @@ export const actions: ActionTree<ActivityState, RootState> = {
     // Persist to localStorage
     activities = getters["getActivities"]();
     localStorage.setItem("activities", JSON.stringify(activities));
+  },
+  deleteHabitActivity(
+    { getters, commit },
+    payload: { habit: Habit; activity: Activity }
+  ): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let activities = getters["getActivities"](payload.habit._id);
+      activities = activities.filter((element: Activity) => {
+        return element._id !== payload.activity._id;
+      });
+
+      // Save to State
+      commit("habitActivities", {
+        habitId: payload.habit._id,
+        activities: activities,
+      });
+
+      // Persist to localStorage
+      activities = getters["getActivities"]();
+      localStorage.setItem("activities", JSON.stringify(activities));
+
+      resolve();
+    });
   },
 };

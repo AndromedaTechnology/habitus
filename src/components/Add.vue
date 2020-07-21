@@ -16,6 +16,22 @@
         <v-btn class="pa-6" block @click="saveActivity()">Add</v-btn>
       </v-col>
     </v-row>
+
+    <v-dialog
+      v-model="addedDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      scrollable
+    >
+      <ActivityAdded
+        :activity="activity"
+        :habit="habit"
+        @update="handleUpdate(activity, $event)"
+        @delete="handleDelete(activity)"
+        @close="handleClose(activity)"
+      />
+    </v-dialog>
   </v-container>
 </template>
 
@@ -24,15 +40,22 @@ import { User } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
 
+import ActivityAdded from "@/components/ActivityAdded.vue";
+
 import _ from "lodash";
 import { Action, Getter } from "vuex-class";
 import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   name: "Add",
-  components: {}
+  components: {
+    ActivityAdded
+  }
 })
 export default class Add extends Vue {
+  addedDialog = false;
+  activity: Activity | null = null;
+
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
   @Getter("user", { namespace: "user" }) user: User | undefined;
 
@@ -43,6 +66,9 @@ export default class Add extends Vue {
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
 
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
+  @Action("updateActivity", { namespace: "activity" }) updateActivity: any;
+  @Action("deleteHabitActivity", { namespace: "activity" })
+  deleteHabitActivity: any;
 
   habitListSelected:
     | Habit
@@ -129,21 +155,40 @@ export default class Add extends Vue {
       user: this.user,
       amount: 1
     }).then((activity: Activity) => {
-      this.showNotification(this.habit?.isGood, activity.amount);
+      this.activity = activity;
+      this.addedDialog = true;
+
+      this.showNotification(
+        this.habit?.isGood,
+        this.activity.amount ? this.activity.amount : 0
+      );
     });
 
     this.$router.push({ name: "habit", params: { id: this.habit!._id } });
+  }
+
+  handleUpdate(activity: Activity, data: {}) {
+    this.updateActivity({ habit: this.habit, activity: activity, data: data });
+  }
+
+  handleDelete(activity: Activity) {
+    this.addedDialog = false;
+    this.activity = null;
+    this.deleteHabitActivity({ habit: this.habit, activity: activity });
+  }
+
+  handleClose(activity: Activity) {
+    this.addedDialog = false;
+    this.activity = null;
   }
 
   showNotification(isGood = true, amount: number) {
     if (isGood) {
       const audio = new Audio("/audio/notificationGood.ogg");
       audio.play();
-      (Vue as any).noty.success(amount + " good experience gained!");
     } else {
       const audio = new Audio("/audio/notificationBad.ogg");
       audio.play();
-      (Vue as any).noty.error(amount + " bad experience gained!");
     }
   }
 }

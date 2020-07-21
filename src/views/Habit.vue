@@ -48,6 +48,7 @@
           <ActivityHeader
             v-for="activity in getActivities(habit._id, true)"
             :key="activity._id"
+            :habit="habit"
             :activity="activity"
             @delete="activityDeleteSubmit(habit, $event)"
           />
@@ -80,8 +81,8 @@ import { Component, Vue, Watch } from "vue-property-decorator";
     HabitEdit,
     ActivityHeader,
     ActivityChart,
-    Datetime,
-  },
+    Datetime
+  }
 })
 export default class Habit extends Vue {
   // User
@@ -125,7 +126,7 @@ export default class Habit extends Vue {
 
   @Watch("$route", {
     immediate: true,
-    deep: true,
+    deep: true
   })
   onRouteChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -138,7 +139,7 @@ export default class Habit extends Vue {
 
   @Watch("habits", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -148,7 +149,7 @@ export default class Habit extends Vue {
 
   fetchHabit() {
     if (this.habitId) {
-      this.getHabit(this.habitId).then((resp) => {
+      this.getHabit(this.habitId).then(resp => {
         this.habit = resp;
       });
     }
@@ -157,7 +158,7 @@ export default class Habit extends Vue {
   activityDeleteSubmit(habit: Habit, activity: Activity) {
     this.deleteHabitActivity({
       habit: habit,
-      activity: activity,
+      activity: activity
     });
     this.fetchActivities();
   }
