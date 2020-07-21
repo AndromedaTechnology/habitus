@@ -34,7 +34,7 @@ export default class UserChart extends Vue {
     },
     title: {
       display: true,
-      position: "top",
+      position: "bottom",
       text: "Today",
       fontSize: 24,
       padding: 24,
@@ -83,43 +83,66 @@ export default class UserChart extends Vue {
       data: Array<number>;
     }> = [];
 
-    // Sort habits by isGood
-    // (to group good/bad habits)
+    // Timeframe: 1 day, 3 sections
 
-    let habits = this.habits;
-    habits = habits?.sort((a, b) => (a.isGood > b.isGood ? 1 : -1));
-
-    // Labels: 0-24
     const hourStep = 8;
     labels.push("Morning");
     labels.push("Day");
     labels.push("Evening");
 
-    habits?.forEach((habit: Habit) => {
+    for (let hour = 0; hour < 24; hour += hourStep) {
+      // Date Start
+      const dateStart = new Date();
+      dateStart.setHours(hour);
+      dateStart.setMinutes(0);
+      dateStart.setSeconds(0);
+
+      // Date End
+      const dateEnd = new Date();
+      dateEnd.setHours(hour + hourStep);
+      dateEnd.setMinutes(0);
+      dateEnd.setSeconds(0);
+
+      // Get Good and Bad Activity
+      // per timeframe
+
+      let amountGood = 0;
+      let amountBad = 0;
+
+      this.habits?.forEach((habit: Habit) => {
+        const acts = this.getActivities(habit._id, false, dateStart, dateEnd);
+
+        if (habit.isGood) {
+          amountGood += acts ? acts.length : 0;
+        } else {
+          amountBad += acts ? acts.length : 0;
+        }
+      });
+
+      // Add Bad Activity
+
       datasets.push({
-        label: habit.name,
-        backgroundColor: habit.isGood ? "#42b983" : "#b94278",
+        label: "Bad Activity",
+        backgroundColor: "#b94278",
         borderColor: "#2c3e50",
         pointBackgroundColor: "#fff",
         data: []
       });
 
-      // 0-24
-      for (let hour = 0; hour < 24; hour += hourStep) {
-        const dateStart = new Date();
-        const dateEnd = new Date();
+      datasets[datasets.length - 1].data.push(amountBad);
 
-        dateStart.setHours(hour);
-        dateStart.setMinutes(0);
-        dateStart.setSeconds(0);
-        dateEnd.setHours(hour + hourStep);
-        dateEnd.setMinutes(0);
-        dateEnd.setSeconds(0);
+      // Add Good Activity
 
-        const acts = this.getActivities(habit._id, false, dateStart, dateEnd);
-        datasets[datasets.length - 1].data.push(acts ? acts.length : 0);
-      }
-    });
+      datasets.push({
+        label: "Good Activity",
+        backgroundColor: "#42b983",
+        borderColor: "#2c3e50",
+        pointBackgroundColor: "#fff",
+        data: []
+      });
+
+      datasets[datasets.length - 1].data.push(amountGood);
+    }
 
     this.chartData = {
       labels: labels,
