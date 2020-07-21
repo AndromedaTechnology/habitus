@@ -31,42 +31,36 @@ export const actions: ActionTree<ActivityState, RootState> = {
   persistActivity(
     { state, getters, commit },
     payload: { habit: Habit; user: User; amount: number }
-  ): any {
-    const activity: Activity = {
-      _id:
-        Math.random()
-          .toString(36)
-          .substring(2, 15) +
-        Math.random()
-          .toString(36)
-          .substring(2, 15),
-      habitId: payload.habit._id,
-      userId: payload.user._id,
-      amount: payload.amount,
-      createdAt: new Date(),
-    };
+  ): Promise<Activity> {
+    return new Promise((resolve, reject) => {
+      const activity: Activity = {
+        _id:
+          Math.random()
+            .toString(36)
+            .substring(2, 15) +
+          Math.random()
+            .toString(36)
+            .substring(2, 15),
+        habitId: payload.habit._id,
+        userId: payload.user._id,
+        amount: payload.amount,
+        createdAt: new Date(),
+      };
 
-    // Notification
+      // Commit
 
-    if (payload.habit.isGood) {
-      const audio = new Audio("/audio/notificationGood.ogg");
-      audio.play();
-      (Vue as any).noty.success(activity.amount + " good experience gained!");
-    } else {
-      const audio = new Audio("/audio/notificationBad.ogg");
-      audio.play();
-      (Vue as any).noty.error(activity.amount + " bad experience gained!");
-    }
+      commit("addActivity", {
+        habitId: activity.habitId,
+        activity: activity,
+      });
 
-    // Save
-    commit("addActivity", {
-      habitId: activity.habitId,
-      activity: activity,
+      // Persist to LocalStorage
+
+      const activities = getters["getActivities"]();
+      localStorage.setItem("activities", JSON.stringify(activities));
+
+      resolve(activity);
     });
-
-    // Persist to LocalStorage
-    const activities = getters["getActivities"]();
-    localStorage.setItem("activities", JSON.stringify(activities));
   },
   deleteActivities({ commit }): any {
     // Delete from Localstorage

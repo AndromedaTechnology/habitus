@@ -22,6 +22,7 @@
 <script lang="ts">
 import { User } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
+import { Activity } from "@/store/activity/types";
 
 import _ from "lodash";
 import { Action, Getter } from "vuex-class";
@@ -29,7 +30,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   name: "Add",
-  components: {},
+  components: {}
 })
 export default class Add extends Vue {
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
@@ -60,7 +61,7 @@ export default class Add extends Vue {
 
     value.splice(0, 0, {
       name: "Create new!",
-      isCreateNew: true,
+      isCreateNew: true
     });
 
     return value;
@@ -73,7 +74,7 @@ export default class Add extends Vue {
 
   @Watch("$route", {
     immediate: true,
-    deep: true,
+    deep: true
   })
   onRouteChanged(route: any, oldRoute: any) {
     if (route.name === "habit") {
@@ -87,7 +88,7 @@ export default class Add extends Vue {
 
   @Watch("habitListSelected", {
     immediate: true,
-    deep: true,
+    deep: true
   })
   habitListSelectedChanged(value: any, oldValue: any) {
     this.$nextTick(() => {
@@ -108,7 +109,7 @@ export default class Add extends Vue {
 
   @Watch("habits", {
     immediate: false,
-    deep: true,
+    deep: true
   })
   onHabitsChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -126,10 +127,24 @@ export default class Add extends Vue {
     this.persistActivity({
       habit: this.habit,
       user: this.user,
-      amount: 1,
+      amount: 1
+    }).then((activity: Activity) => {
+      this.showNotification(this.habit?.isGood, activity.amount);
     });
 
     this.$router.push({ name: "habit", params: { id: this.habit!._id } });
+  }
+
+  showNotification(isGood = true, amount: number) {
+    if (isGood) {
+      const audio = new Audio("/audio/notificationGood.ogg");
+      audio.play();
+      (Vue as any).noty.success(amount + " good experience gained!");
+    } else {
+      const audio = new Audio("/audio/notificationBad.ogg");
+      audio.play();
+      (Vue as any).noty.error(amount + " bad experience gained!");
+    }
   }
 }
 </script>
