@@ -16,6 +16,7 @@ export const getters: GetterTree<ActivityState, RootState> = {
       // Get Habit
 
       const habit = rootGetters["habit/getHabit"](habitId);
+      if (!habit) continue;
 
       // Get Habit Activities
       let habitActivities = activities[habitId] ? activities[habitId] : [];
