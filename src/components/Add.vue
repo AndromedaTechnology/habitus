@@ -62,7 +62,7 @@ export default class Add extends Vue {
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
-  ) => Promise<Habit | undefined>;
+  ) => Habit | null;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
 
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
@@ -104,9 +104,7 @@ export default class Add extends Vue {
   })
   onRouteChanged(route: any, oldRoute: any) {
     if (route.name === "habit") {
-      this.getHabit(route.params.id).then((habit: Habit | undefined) => {
-        this.habitListSelected = habit ? habit : null;
-      });
+      this.habitListSelected = this.getHabit(route.params.id);
     } else {
       this.habitListSelected = null;
     }
@@ -143,9 +141,7 @@ export default class Add extends Vue {
     const habitId = this.habitListSelected ? this.habitListSelected._id : null;
 
     if (habitId) {
-      this.getHabit(habitId).then((resp: Habit | undefined) => {
-        this.habitListSelected = resp ? resp : null;
-      });
+      this.habitListSelected = this.getHabit(habitId);
     }
   }
 

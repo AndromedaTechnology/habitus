@@ -2,12 +2,19 @@
   <v-container class="userHeader">
     <v-row>
       <v-col cols="12" sm="12">
-        <h1 class="mt-8">
+        <!-- Experience -->
+        <v-chip large :color="getTotalActivityAmount() >= 0 ? '#42b983' : '#b94278'">
+          <h4>{{ getTotalActivityAmount() === 0 ? 'No' : getTotalActivityAmount() }} experience</h4>
+        </v-chip>
+
+        <!-- Username -->
+        <h1 class="mt-4">
           <span>@</span>
           <span>{{ user.username }}</span>
         </h1>
 
-        <v-btn v-if="allowEdit" @click="editDialog = true">Edit</v-btn>
+        <!-- Edit -->
+        <v-btn class="mt-8" v-if="allowEdit" @click="editDialog = true">Edit</v-btn>
       </v-col>
     </v-row>
 
@@ -33,7 +40,7 @@ import { User } from "@/store/user/types";
 
 import UserEdit from "@/components/UserEdit.vue";
 
-import { Action } from "vuex-class";
+import { Action, Getter } from "vuex-class";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
@@ -45,9 +52,11 @@ export default class UserHeader extends Vue {
   @Prop() private user!: User;
   @Prop({ default: false, type: Boolean }) allowEdit?: boolean;
 
-  @Action("updateUser", { namespace: "user" }) updateUser: any;
-
   editDialog = false;
+
+  @Getter("getTotalAmount", { namespace: "activity" })
+  getTotalActivityAmount: any;
+  @Action("updateUser", { namespace: "user" }) updateUser: any;
 
   handleUpdate(data: {}) {
     this.updateUser({ user: this.user, data: data });

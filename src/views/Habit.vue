@@ -94,7 +94,7 @@ export default class Habit extends Vue {
 
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
-  ) => Promise<Habit | undefined>;
+  ) => Habit | null;
   @Action("updateHabit", { namespace: "habit" }) updateHabit: any;
   @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
 
@@ -149,9 +149,7 @@ export default class Habit extends Vue {
 
   fetchHabit() {
     if (this.habitId) {
-      this.getHabit(this.habitId).then(resp => {
-        this.habit = resp;
-      });
+      this.habit = this.getHabit(this.habitId);
     }
   }
 
