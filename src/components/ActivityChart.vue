@@ -53,9 +53,11 @@ export default class ActivityChart extends Vue {
     activities.forEach((activity: Activity) => {
       labels.push(activity.createdAt.toString());
 
-      let amount: number | string = activity.amount;
-      if (typeof amount === "string") {
-        amount = parseInt(amount);
+      let amount = 0;
+      if (typeof activity.amount === "string") {
+        amount = parseInt(activity.amount);
+      } else if (activity.amount) {
+        amount = activity.amount;
       }
 
       chartData.push(amount);
