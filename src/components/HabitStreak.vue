@@ -1,6 +1,5 @@
 <template>
   <v-chip
-    large
     v-if="streak"
     class="ma-2"
     :color="habit.isGood ? '#42b983' : '#b94278'"
