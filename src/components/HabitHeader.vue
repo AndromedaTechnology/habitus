@@ -12,7 +12,7 @@
       <!-- Experience -->
       <div class="mt-4">
         <v-chip :color="getHabitExperienceAmount(habit) >= 0 ? '#42b983' : '#b94278'">
-          <h4>{{ getHabitExperienceAmount(habit) === 0 ? 'No' : getHabitExperienceAmount(habit) }} experience</h4>
+          <h4>{{ getHabitExperienceAmount(habit) === 0 ? 'No' : getHabitExperienceAmount(habit) }} experiences</h4>
         </v-chip>
       </div>
 
