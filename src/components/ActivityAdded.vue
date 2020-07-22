@@ -4,7 +4,7 @@
       <v-btn icon @click="handleClose()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
-      <v-toolbar-title>Care to write your thoughts?</v-toolbar-title>
+      <v-toolbar-title>Anything to add?</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn text @click="handleClose()">Save</v-btn>
