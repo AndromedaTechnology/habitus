@@ -4,9 +4,6 @@
       :to="{ name: 'habit', params: { id: habit._id } }"
       :class="{ habitLink: true, isBad: !habit.isGood }"
     >
-      <!-- Streak -->
-      <HabitStreak v-if="showStreak" class="streak mb-4" :habit="habit" :activities="activities" />
-
       <!-- Name -->
       <h1>
         <span>{{ habit.name }}</span>
@@ -18,6 +15,9 @@
           <h4>{{ getHabitExperienceAmount(habit) === 0 ? 'No' : getHabitExperienceAmount(habit) }} experience</h4>
         </v-chip>
       </div>
+
+      <!-- Streak -->
+      <HabitStreak v-if="showStreak" class="streak mb-4" :habit="habit" :activities="activities" />
     </router-link>
   </div>
 </template>
@@ -49,7 +49,6 @@ $activeLinkColor: #42b983;
 $activeLinkBadColor: #b94278;
 .habitHeader {
   text-align: center;
-  margin: 32px 0px;
 }
 
 .habitLink {

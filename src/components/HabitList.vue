@@ -1,6 +1,6 @@
 <template>
   <v-container class="habitList" v-if="habits && habits.length && user">
-    <v-row>
+    <v-row v-if="false">
       <v-col cols="12" sm="12">
         <!-- Filter -->
 

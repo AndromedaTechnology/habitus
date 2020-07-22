@@ -2,6 +2,11 @@
   <v-container class="userHeader">
     <v-row>
       <v-col cols="12" sm="12">
+        <!-- Edit -->
+        <div v-if="allowEdit">
+          <v-btn @click="editDialog = true">Edit</v-btn>
+        </div>
+
         <!-- Username -->
         <h1 class="mt-4">
           <span>@</span>
@@ -9,14 +14,9 @@
         </h1>
 
         <!-- Experience -->
-        <v-chip :color="getExperienceAmount() >= 0 ? '#42b983' : '#b94278'">
+        <v-chip class="mt-4" :color="getExperienceAmount() >= 0 ? '#42b983' : '#b94278'">
           <h4>{{ getExperienceAmount() === 0 ? 'No' : getExperienceAmount() }} experience</h4>
         </v-chip>
-
-        <!-- Edit -->
-        <div class="mt-8" v-if="allowEdit">
-          <v-btn @click="editDialog = true">Edit</v-btn>
-        </div>
       </v-col>
     </v-row>
 
