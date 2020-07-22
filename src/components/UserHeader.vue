@@ -9,7 +9,7 @@
         </h1>
 
         <!-- Experience -->
-        <v-chip large :color="getExperienceAmount() >= 0 ? '#42b983' : '#b94278'">
+        <v-chip :color="getExperienceAmount() >= 0 ? '#42b983' : '#b94278'">
           <h4>{{ getExperienceAmount() === 0 ? 'No' : getExperienceAmount() }} experience</h4>
         </v-chip>
 
