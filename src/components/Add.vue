@@ -154,10 +154,7 @@ export default class Add extends Vue {
       this.activity = activity;
       this.addedDialog = true;
 
-      this.showNotification(
-        this.habit?.isGood,
-        this.activity.amount ? this.activity.amount : 0
-      );
+      this.playSoundNotification(this.habit?.isGood);
     });
 
     this.$router.push({ name: "habit", params: { id: this.habit!._id } });
@@ -178,7 +175,7 @@ export default class Add extends Vue {
     this.activity = null;
   }
 
-  showNotification(isGood = true, amount: number) {
+  playSoundNotification(isGood = true) {
     if (isGood) {
       const audio = new Audio("/audio/notificationGood.ogg");
       audio.play();
