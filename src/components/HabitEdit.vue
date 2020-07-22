@@ -44,44 +44,30 @@
             ></v-select>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item v-if="false">
           <v-list-item-content>
             <v-list-item-title>Start at</v-list-item-title>
-            <datetime
-              class="startsAtDate"
-              v-model="startsAtDate"
-              type="datetime"
-              title="Start at"
-            ></datetime>
+            <datetime class="startsAtDate" v-model="startsAtDate" type="datetime" title="Start at"></datetime>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item>
+        <v-list-item v-if="false">
           <v-list-item-content>
             <v-list-item-title>End at</v-list-item-title>
-            <datetime
-              class="endsAtDate"
-              v-model="endsAtDate"
-              type="datetime"
-              title="Ends at"
-            ></datetime>
+            <datetime class="endsAtDate" v-model="endsAtDate" type="datetime" title="Ends at"></datetime>
           </v-list-item-content>
         </v-list-item>
       </v-list>
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog"
-              >Delete</v-btn
-            >
+            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog">Delete</v-btn>
 
             <v-dialog v-model="deleteDialog" max-width="500px">
               <v-card>
                 <v-card-title>Delete Habit?</v-card-title>
                 <v-card-text></v-card-text>
                 <v-card-actions>
-                  <v-btn color="success" @click="deleteDialog = false"
-                    >No</v-btn
-                  >
+                  <v-btn color="success" @click="deleteDialog = false">No</v-btn>
                   <v-btn @click="handleDelete()" color="error">Yes</v-btn>
                 </v-card-actions>
               </v-card>
@@ -106,8 +92,8 @@ import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 @Component({
   name: "HabitEdit",
   components: {
-    Datetime,
-  },
+    Datetime
+  }
 })
 export default class HabitEdit extends Vue {
   @Prop() private habit!: Habit;
