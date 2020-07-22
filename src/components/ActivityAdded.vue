@@ -15,13 +15,13 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Note</v-list-item-title>
-            <v-textarea dark v-model="note" label="Note" solo></v-textarea>
+            <v-textarea light auto-grow v-model="note" label="Note" solo></v-textarea>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Amount</v-list-item-title>
-            <v-text-field v-model="amount" label="Amount" solo></v-text-field>
+            <v-text-field light v-model="amount" label="Amount" solo></v-text-field>
           </v-list-item-content>
         </v-list-item>
       </v-list>
