@@ -14,7 +14,7 @@
 
 - Create a User
 - Create Habits (Good or Bad)
-- Create Activity on Habits
+- Add Activity to Habits (with Notes and Amount)
 
 - Sound Notifications for added Activity (Good and Bad sounds)
 - Graphs for User and Habit Activity
