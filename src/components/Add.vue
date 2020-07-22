@@ -18,7 +18,7 @@
     </v-row>
 
     <v-dialog
-      v-model="addedDialog"
+      v-model="dialog"
       fullscreen
       hide-overlay
       transition="dialog-bottom-transition"
@@ -29,7 +29,7 @@
         :habit="habit"
         @update="handleUpdate(activity, $event)"
         @delete="handleDelete(activity)"
-        @close="handleClose(activity)"
+        @close="hideDialog()"
       />
     </v-dialog>
   </v-container>
@@ -53,7 +53,10 @@ import { Component, Vue, Watch } from "vue-property-decorator";
   }
 })
 export default class Add extends Vue {
-  addedDialog = false;
+  dialog = false;
+  dialogTimeout = 3000; // ms
+  dialogTimer: number | undefined = undefined;
+
   activity: Activity | null = null;
 
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
@@ -152,27 +155,37 @@ export default class Add extends Vue {
       amount: 1
     }).then((activity: Activity) => {
       this.activity = activity;
-      this.addedDialog = true;
-
+      this.showDialog();
       this.playSoundNotification(this.habit?.isGood);
     });
 
     this.$router.push({ name: "habit", params: { id: this.habit!._id } });
   }
 
+  showDialog() {
+    this.dialog = true;
+    this.dialogTimer = setTimeout(() => {
+      this.hideDialog();
+    }, this.dialogTimeout);
+  }
+
+  hideDialog() {
+    this.dialog = false;
+    this.activity = null;
+    clearTimeout(this.dialogTimer);
+  }
+
   handleUpdate(activity: Activity, data: {}) {
+    // Adding more data, cancel timeout on dialog
+    clearTimeout(this.dialogTimer);
+
+    // Persist
     this.updateActivity({ habit: this.habit, activity: activity, data: data });
   }
 
   handleDelete(activity: Activity) {
-    this.addedDialog = false;
-    this.activity = null;
+    this.hideDialog();
     this.deleteHabitActivity({ habit: this.habit, activity: activity });
-  }
-
-  handleClose(activity: Activity) {
-    this.addedDialog = false;
-    this.activity = null;
   }
 
   playSoundNotification(isGood = true) {
