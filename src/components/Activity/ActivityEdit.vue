@@ -53,41 +53,33 @@
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
 
+import { Action } from "vuex-class";
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 
 @Component({
-  name: "ActivityAdded",
-  components: {}
+  name: "ActivityEdit",
+  components: {},
 })
-export default class ActivityAdded extends Vue {
-  @Prop() private activity!: Activity;
+export default class ActivityEdit extends Vue {
   @Prop() private habit!: Habit;
+  @Prop() private activity!: Activity;
 
   amount: number | undefined | null = null;
   note: string | undefined | null = null;
-
   deleteDialog = false;
+
+  @Action("updateActivity", { namespace: "activity" }) updateActivity: any;
+  @Action("deleteHabitActivity", { namespace: "activity" })
+  deleteHabitActivity: any;
 
   @Watch("activity", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   activityChanged(newValue: any, oldValue: any) {
     if (!newValue) return;
     this.amount = newValue?.amount;
     this.note = newValue?.note;
-  }
-
-  handleUpdate(data: {}) {
-    this.$emit("update", data);
-  }
-
-  handleDelete() {
-    this.$emit("delete");
-  }
-
-  handleClose() {
-    this.$emit("close");
   }
 
   @Watch("amount")
@@ -98,6 +90,25 @@ export default class ActivityAdded extends Vue {
   @Watch("note")
   noteChanged(value: any, oldValue: any) {
     this.handleUpdate({ note: value });
+  }
+
+  handleUpdate(data: {}) {
+    this.updateActivity({
+      habit: this.habit,
+      activity: this.activity,
+      data: data,
+    });
+
+    this.$emit("updated", data);
+  }
+
+  handleDelete() {
+    this.deleteHabitActivity({ habit: this.habit, activity: this.activity });
+    this.$emit("deleted");
+  }
+
+  handleClose() {
+    this.$emit("closed");
   }
 }
 </script>

@@ -24,19 +24,19 @@
       transition="dialog-bottom-transition"
       scrollable
     >
-      <ActivityAdded
-        :activity="activity"
+      <ActivityEdit
         :habit="habit"
-        @update="handleUpdate(activity, $event)"
-        @delete="handleDelete(activity)"
-        @close="hideDialog()"
+        :activity="activity"
+        @updated="handleUpdated(activity, $event)"
+        @deleted="closeDialog()"
+        @closed="closeDialog()"
       />
     </v-dialog>
   </v-container>
 </template>
 
 <script lang="ts">
-import ActivityAdded from "@/components/Activity/ActivityAdded.vue";
+import ActivityEdit from "@/components/Activity/ActivityEdit.vue";
 
 import { User } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
@@ -49,7 +49,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 @Component({
   name: "Add",
   components: {
-    ActivityAdded,
+    ActivityEdit,
   },
 })
 export default class Add extends Vue {
@@ -69,9 +69,6 @@ export default class Add extends Vue {
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
 
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
-  @Action("updateActivity", { namespace: "activity" }) updateActivity: any;
-  @Action("deleteHabitActivity", { namespace: "activity" })
-  deleteHabitActivity: any;
 
   habitListSelected:
     | Habit
@@ -165,27 +162,19 @@ export default class Add extends Vue {
   showDialog() {
     this.dialog = true;
     this.dialogTimer = setTimeout(() => {
-      this.hideDialog();
+      this.closeDialog();
     }, this.dialogTimeout);
   }
 
-  hideDialog() {
+  closeDialog() {
     this.dialog = false;
     this.activity = null;
     clearTimeout(this.dialogTimer);
   }
 
-  handleUpdate(activity: Activity, data: {}) {
+  handleUpdated(activity: Activity, data: {}) {
     // Adding more data, cancel timeout on dialog
     clearTimeout(this.dialogTimer);
-
-    // Persist
-    this.updateActivity({ habit: this.habit, activity: activity, data: data });
-  }
-
-  handleDelete(activity: Activity) {
-    this.hideDialog();
-    this.deleteHabitActivity({ habit: this.habit, activity: activity });
   }
 
   playSoundNotification(isGood = true) {

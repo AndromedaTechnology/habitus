@@ -51,7 +51,6 @@
             :key="activity._id"
             :habit="habit"
             :activity="activity"
-            @delete="activityDeleteSubmit(habit, $event)"
           />
         </div>
       </v-col>
@@ -111,8 +110,6 @@ export default class Habit extends Vue {
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteHabitActivities", { namespace: "activity" })
   deleteHabitActivities: any;
-  @Action("deleteHabitActivity", { namespace: "activity" })
-  deleteHabitActivity: any;
 
   habitId: string | null = null;
   habit: Habit | undefined | null = null;
@@ -151,14 +148,6 @@ export default class Habit extends Vue {
     if (this.habitId) {
       this.habit = this.getHabit(this.habitId);
     }
-  }
-
-  activityDeleteSubmit(habit: Habit, activity: Activity) {
-    this.deleteHabitActivity({
-      habit: habit,
-      activity: activity,
-    });
-    this.fetchActivities();
   }
 
   handleUpdate(data: {}) {
