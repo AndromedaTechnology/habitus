@@ -5,15 +5,17 @@
 </template>
 
 <script lang="ts">
+import Chart from "@/components/Chart/Chart.vue";
+
+import { Habit } from "@/store/habit/types";
+import { Activity } from "@/store/activity/types";
+
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { Habit } from "../store/habit/types";
-import { Activity } from "../store/activity/types";
-import Chart from "@/components/Chart.vue";
 
 @Component({
   components: {
-    Chart
-  }
+    Chart,
+  },
 })
 export default class ActivityChart extends Vue {
   @Prop() private habit!: Habit;
@@ -23,23 +25,23 @@ export default class ActivityChart extends Vue {
     backgroundColor: "rgba(251, 85, 85, 0.2)",
     legend: {
       display: false,
-      position: "bottom"
+      position: "bottom",
     },
     tooltips: {
-      enabled: true
+      enabled: true,
     },
     scales: {
       xAxes: [{ display: false }],
-      yAxes: [{ display: true, ticks: { fontSize: 16 } }]
+      yAxes: [{ display: true, ticks: { fontSize: 16 } }],
     },
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
   };
   chartData: {} | undefined = {};
 
   @Watch("activities", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -71,9 +73,9 @@ export default class ActivityChart extends Vue {
           label: "Activity",
           borderColor: this.habit.isGood ? "#42b983" : "#b94278",
           borderWidth: 5,
-          fill: false
-        }
-      ]
+          fill: false,
+        },
+      ],
     };
   }
 }

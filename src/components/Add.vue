@@ -36,11 +36,11 @@
 </template>
 
 <script lang="ts">
+import ActivityAdded from "@/components/Activity/ActivityAdded.vue";
+
 import { User } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
-
-import ActivityAdded from "@/components/ActivityAdded.vue";
 
 import _ from "lodash";
 import { Action, Getter } from "vuex-class";
@@ -49,8 +49,8 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 @Component({
   name: "Add",
   components: {
-    ActivityAdded
-  }
+    ActivityAdded,
+  },
 })
 export default class Add extends Vue {
   dialog = false;
@@ -90,7 +90,7 @@ export default class Add extends Vue {
 
     value.splice(0, 0, {
       name: "Create new!",
-      isCreateNew: true
+      isCreateNew: true,
     });
 
     return value;
@@ -103,7 +103,7 @@ export default class Add extends Vue {
 
   @Watch("$route", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onRouteChanged(route: any, oldRoute: any) {
     if (route.name === "habit") {
@@ -115,7 +115,7 @@ export default class Add extends Vue {
 
   @Watch("habitListSelected", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   habitListSelectedChanged(value: any, oldValue: any) {
     this.$nextTick(() => {
@@ -136,7 +136,7 @@ export default class Add extends Vue {
 
   @Watch("habits", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   onHabitsChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -152,7 +152,7 @@ export default class Add extends Vue {
     this.persistActivity({
       habit: this.habit,
       user: this.user,
-      amount: 1
+      amount: 1,
     }).then((activity: Activity) => {
       this.activity = activity;
       this.showDialog();

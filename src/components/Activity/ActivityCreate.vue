@@ -3,11 +3,7 @@
     <!-- Timer -->
     <div :class="{ timer: true }" v-if="habit.amountType === 'timer'">
       <v-btn @click="toggleTimer(0)">{{ timerHandler ? "x" : "-" }}</v-btn>
-      <vue-timepicker
-        :format="timerFormat"
-        v-model="timer"
-        hide-clear-button
-      ></vue-timepicker>
+      <vue-timepicker :format="timerFormat" v-model="timer" hide-clear-button></vue-timepicker>
       <v-btn @click="toggleTimer(1)">{{ timerHandler ? "x" : "+" }}</v-btn>
       <v-btn @click="submit()">Add</v-btn>
     </div>
@@ -18,13 +14,7 @@
         <v-icon>remove</v-icon>
       </v-btn>
 
-      <v-text-field
-        solo
-        dense
-        class="amount"
-        v-model="amount"
-        @keyup.enter="submit()"
-      ></v-text-field>
+      <v-text-field solo dense class="amount" v-model="amount" @keyup.enter="submit()"></v-text-field>
 
       <v-btn v-touch:start="onIncreaseStart" v-touch:end="onIncreaseStop">
         <v-icon>add</v-icon>
@@ -35,10 +25,11 @@
 </template>
 
 <script lang="ts">
+import { Habit } from "@/store/habit/types";
+
 import "vue2-timepicker/dist/VueTimepicker.css";
 import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Habit } from "../store/habit/types";
 
 @Component({
   components: {

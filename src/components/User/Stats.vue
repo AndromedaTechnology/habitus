@@ -12,8 +12,8 @@
 </template>
 
 <script lang="ts">
-import OverallChart from "@/components/OverallChart.vue";
-import DayChart from "@/components/DayChart.vue";
+import OverallChart from "@/components/User/OverallChart.vue";
+import DayChart from "@/components/User/DayChart.vue";
 
 import { Habit } from "@/store/habit/types";
 import { Activities, Activity } from "@/store/activity/types";
@@ -24,8 +24,8 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   name: "Stats",
   components: {
     OverallChart,
-    DayChart
-  }
+    DayChart,
+  },
 })
 export default class Stats extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
@@ -34,7 +34,7 @@ export default class Stats extends Vue {
   get isVisible() {
     if (!this.activities) return false;
 
-    return Object.values(this.activities).find(element => {
+    return Object.values(this.activities).find((element) => {
       return element.length;
     });
   }

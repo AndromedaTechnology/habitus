@@ -16,14 +16,14 @@
 </template>
 
 <script lang="ts">
+import UserHeader from "@/components/User/UserHeader.vue";
+import UserCreate from "@/components/User/UserCreate.vue";
+import Stats from "@/components/User/Stats.vue";
+import HabitList from "@/components/Habit/HabitList.vue";
+
 import { User } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
 import { Activities, Activity } from "@/store/activity/types";
-
-import UserHeader from "@/components/UserHeader.vue";
-import UserCreate from "@/components/UserCreate.vue";
-import Stats from "@/components/Stats.vue";
-import HabitList from "@/components/HabitList.vue";
 
 import Vue from "vue";
 import { Action, Getter } from "vuex-class";
@@ -35,8 +35,8 @@ import Component from "vue-class-component";
     UserHeader,
     UserCreate,
     Stats,
-    HabitList
-  }
+    HabitList,
+  },
 })
 export default class Home extends Vue {
   // User
@@ -63,7 +63,7 @@ export default class Home extends Vue {
 
   userCreateSubmit(username: string) {
     this.persistUser({
-      username: username
+      username: username,
     });
     this.fetchUser();
   }

@@ -5,17 +5,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { State, Action, Getter } from "vuex-class";
+import DoughnutChart from "@/components/Chart/DoughnutChart.vue";
+
 import { Activity } from "@/store/activity/types";
 import { Habit } from "@/store/habit/types";
 import { Activities } from "@/store/activity/types";
-import DoughnutChart from "@/components/DoughnutChart.vue";
+
+import { State, Action, Getter } from "vuex-class";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component({
   components: {
-    DoughnutChart
-  }
+    DoughnutChart,
+  },
 })
 export default class OverallChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
@@ -27,7 +29,7 @@ export default class OverallChart extends Vue {
 
   chartOptions = {
     legend: {
-      display: false
+      display: false,
     },
     title: {
       display: true,
@@ -35,16 +37,16 @@ export default class OverallChart extends Vue {
       text: "Total",
       fontSize: 24,
       padding: 24,
-      fontColor: "#fff"
+      fontColor: "#fff",
     },
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
   };
   chartData: {} | undefined = {};
 
   @Watch("activities", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onPropertyChanged(value: any, oldValue: any) {
     this.recalculate(value);
@@ -77,9 +79,9 @@ export default class OverallChart extends Vue {
           backgroundColor: backgroundColors,
           borderColor: "#2c3e50",
           pointBackgroundColor: "#fff",
-          data: chartData
-        }
-      ]
+          data: chartData,
+        },
+      ],
     };
   }
 }

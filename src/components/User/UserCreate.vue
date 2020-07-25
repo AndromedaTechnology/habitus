@@ -7,8 +7,9 @@
 </template>
 
 <script lang="ts">
+import { User } from "@/store/user/types";
+
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { User } from "../store/user/types";
 
 @Component
 export default class UserCreate extends Vue {

@@ -5,17 +5,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { Getter } from "vuex-class";
+import BarChart from "@/components/Chart/BarChart.vue";
+
 import { Activity } from "@/store/activity/types";
 import { Habit } from "@/store/habit/types";
 import { Activities } from "@/store/activity/types";
-import BarChart from "@/components/BarChart.vue";
+
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Getter } from "vuex-class";
 
 @Component({
   components: {
-    BarChart
-  }
+    BarChart,
+  },
 })
 export default class UserChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
@@ -30,7 +32,7 @@ export default class UserChart extends Vue {
 
   chartOptions = {
     legend: {
-      display: false
+      display: false,
     },
     title: {
       display: true,
@@ -38,36 +40,36 @@ export default class UserChart extends Vue {
       text: "Today",
       fontSize: 24,
       padding: 24,
-      fontColor: "#fff"
+      fontColor: "#fff",
     },
     scales: {
       yAxes: [
         {
-          display: false
-        }
+          display: false,
+        },
       ],
       xAxes: [
         {
           display: true,
 
           ticks: {
-            fontSize: 16
-          }
-        }
-      ]
+            fontSize: 16,
+          },
+        },
+      ],
     },
     dataset: {
       categoryPercentage: 1.0,
-      barPercentage: 0.97
+      barPercentage: 0.97,
     },
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
   };
   chartData: {} | undefined = {};
 
   @Watch("activities", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onPropertyChanged(value: any, oldValue: any) {
     this.recalculate(value);
@@ -126,7 +128,7 @@ export default class UserChart extends Vue {
         backgroundColor: "#b94278",
         borderColor: "#2c3e50",
         pointBackgroundColor: "#fff",
-        data: []
+        data: [],
       });
 
       datasets[datasets.length - 1].data.push(amountBad);
@@ -138,7 +140,7 @@ export default class UserChart extends Vue {
         backgroundColor: "#42b983",
         borderColor: "#2c3e50",
         pointBackgroundColor: "#fff",
-        data: []
+        data: [],
       });
 
       datasets[datasets.length - 1].data.push(amountGood);
@@ -146,7 +148,7 @@ export default class UserChart extends Vue {
 
     this.chartData = {
       labels: labels,
-      datasets: datasets
+      datasets: datasets,
     };
   }
 }

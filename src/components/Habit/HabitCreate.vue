@@ -21,8 +21,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 import { HabitAmountType } from "@/store/habit/types";
+
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({})
 export default class HabitCreate extends Vue {
@@ -34,7 +35,7 @@ export default class HabitCreate extends Vue {
     this.$emit("submit", {
       name: this.name,
       isGood: this.isGood,
-      amountType: this.amountType
+      amountType: this.amountType,
     });
   }
 }

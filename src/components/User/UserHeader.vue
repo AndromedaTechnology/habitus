@@ -38,17 +38,17 @@
 </template>
 
 <script lang="ts">
-import { User } from "@/store/user/types";
+import UserEdit from "@/components/User/UserEdit.vue";
 
-import UserEdit from "@/components/UserEdit.vue";
+import { User } from "@/store/user/types";
 
 import { Action, Getter } from "vuex-class";
 import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
-    UserEdit
-  }
+    UserEdit,
+  },
 })
 export default class UserHeader extends Vue {
   @Prop() private user!: User;

@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { Habit, HabitAmountType } from "@/store/habit/types";
+import HabitCreate from "@/components/Habit/HabitCreate.vue";
 
-import HabitCreate from "@/components/HabitCreate.vue";
+import { Habit, HabitAmountType } from "@/store/habit/types";
 
 import Vue from "vue";
 import { Action } from "vuex-class";
@@ -21,8 +21,8 @@ import Component from "vue-class-component";
 @Component({
   name: "HabitCreateView",
   components: {
-    HabitCreate
-  }
+    HabitCreate,
+  },
 })
 export default class HabitCreateView extends Vue {
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
@@ -31,7 +31,7 @@ export default class HabitCreateView extends Vue {
     this.persistHabit({
       name: data.name,
       isGood: data.isGood,
-      amountType: data.amountType
+      amountType: data.amountType,
     }).then((habit: Habit) => {
       this.$router.push({ name: "habit", params: { id: habit._id } });
     });

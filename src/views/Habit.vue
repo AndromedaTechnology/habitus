@@ -60,14 +60,13 @@
 </template>
 
 <script lang="ts">
+import HabitEdit from "@/components/Habit/HabitEdit.vue";
+import HabitHeader from "@/components/Habit/HabitHeader.vue";
+import ActivityHeader from "@/components/Activity/ActivityHeader.vue";
+import ActivityChart from "@/components/Activity/ActivityChart.vue";
+
 import { User } from "@/store/user/types";
 import { Activity, Activities } from "@/store/activity/types";
-
-import HabitHeader from "@/components/HabitHeader.vue";
-import HabitEdit from "@/components/HabitEdit.vue";
-
-import ActivityHeader from "@/components/ActivityHeader.vue";
-import ActivityChart from "@/components/ActivityChart.vue";
 
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
@@ -82,8 +81,8 @@ import { Component, Vue, Watch } from "vue-property-decorator";
     HabitEdit,
     ActivityHeader,
     ActivityChart,
-    Datetime
-  }
+    Datetime,
+  },
 })
 export default class Habit extends Vue {
   // User
@@ -127,7 +126,7 @@ export default class Habit extends Vue {
 
   @Watch("$route", {
     immediate: true,
-    deep: true
+    deep: true,
   })
   onRouteChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -140,7 +139,7 @@ export default class Habit extends Vue {
 
   @Watch("habits", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
@@ -157,7 +156,7 @@ export default class Habit extends Vue {
   activityDeleteSubmit(habit: Habit, activity: Activity) {
     this.deleteHabitActivity({
       habit: habit,
-      activity: activity
+      activity: activity,
     });
     this.fetchActivities();
   }

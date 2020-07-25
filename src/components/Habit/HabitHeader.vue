@@ -23,16 +23,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import { Habit } from "../store/habit/types";
-import { Activity } from "../store/activity/types";
-import HabitStreak from "@/components/HabitStreak.vue";
+import HabitStreak from "@/components/Habit/HabitStreak.vue";
+
+import { Habit } from "@/store/habit/types";
+import { Activity } from "@/store/activity/types";
+
 import { Getter } from "vuex-class";
+import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
-    HabitStreak
-  }
+    HabitStreak,
+  },
 })
 export default class HabitHeader extends Vue {
   @Prop() private habit!: Habit;

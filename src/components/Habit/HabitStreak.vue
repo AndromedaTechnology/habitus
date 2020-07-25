@@ -10,9 +10,10 @@
 </template>
 
 <script lang="ts">
+import { Habit } from "@/store/habit/types";
+import { Activity } from "@/store/activity/types";
+
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Activity } from "../store/activity/types";
-import { Habit } from "../store/habit/types";
 
 @Component
 export default class HabitStreak extends Vue {
