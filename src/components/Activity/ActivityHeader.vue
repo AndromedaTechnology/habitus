@@ -1,21 +1,21 @@
 <template>
   <v-alert class="activityHeader" dark :icon=" habit.isGood ? 'add' : 'remove'">
-    <!-- Ago -->
-    <timeago class="d-block" :datetime="activity.createdAt" :auto-update="60"></timeago>
-
     <!-- Amount -->
     <h3 class="mb-4">
-      <span>{{ activity.amount }} amount</span>
+      <span>{{ activity.amount }} points</span>
     </h3>
 
     <!-- Note -->
-    <p v-if="activity.note">{{ activity.note }}</p>
+    <pre v-if="activity.note">{{ activity.note }}</pre>
 
     <!-- Edit -->
 
     <div class="mt-4">
       <v-btn @click="editDialog = true">Edit</v-btn>
     </div>
+
+    <!-- Ago -->
+    <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
 
     <v-dialog
       v-model="editDialog"
