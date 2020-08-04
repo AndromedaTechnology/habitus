@@ -1,6 +1,6 @@
-# Habitus - Anonymous Journal and Habit Tracker
+# Habitus App - Healthiest version of you
 
-[Habitus - Anonymous Journal and Habit Tracker](https://habitus.andromeda.technology)
+[Habitus - Gamified Habit Tracker and Journal](https://habitus.andromeda.technology)
 
 [https://habitus.andromeda.technology](https://habitus.andromeda.technology)
 
@@ -12,11 +12,10 @@
 
 ## Features
 
-- Create a User
-- Create Habits (Good or Bad)
+- Create Habits (Good and Bad Impact Levels)
 - Add Activity to Habits (with Notes and Amount)
 
-- Sound Notifications for added Activity (Good and Bad sounds)
+- Sound Notifications for added Activity (Good and Bad Sounds)
 - Graphs for User and Habit Activity
 
 ## Tech

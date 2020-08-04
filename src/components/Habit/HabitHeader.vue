@@ -9,10 +9,10 @@
         <span>{{ habit.name }}</span>
       </h1>
 
-      <!-- Experience -->
+      <!-- Health -->
       <div class="mt-4">
-        <v-chip :color="getHabitExperienceAmount(habit) >= 0 ? '#42b983' : '#b94278'">
-          <h4>{{ getHabitExperienceAmount(habit) === 0 ? 'No' : Math.abs( getHabitExperienceAmount(habit)) }} experiences</h4>
+        <v-chip :color="getHabitHealth(habit) >= 0 ? '#42b983' : '#b94278'">
+          <h4>{{ getHabitHealth(habit) >= 0 ? '+' + getHabitHealth(habit) : getHabitHealth(habit) }} HEALTH</h4>
         </v-chip>
       </div>
 
@@ -41,8 +41,8 @@ export default class HabitHeader extends Vue {
   @Prop() private activities!: Array<Activity> | undefined;
   @Prop({ default: false, type: Boolean }) showStreak?: boolean;
 
-  @Getter("getHabitExperienceAmount", { namespace: "activity" })
-  getHabitExperienceAmount: any;
+  @Getter("getHabitHealth", { namespace: "activity" })
+  getHabitHealth: any;
 }
 </script>
 

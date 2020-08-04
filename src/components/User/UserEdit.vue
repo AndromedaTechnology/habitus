@@ -6,9 +6,6 @@
       </v-btn>
       <v-toolbar-title>Your information</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn dark text @click="handleClose()">Save</v-btn>
-      </v-toolbar-items>
     </v-toolbar>
     <v-card-text>
       <v-list three-line>
@@ -67,7 +64,7 @@ import { User } from "@/store/user/types";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component({
-  name: "UserEdit"
+  name: "UserEdit",
 })
 export default class UserEdit extends Vue {
   @Prop() private user!: User;
@@ -101,7 +98,7 @@ export default class UserEdit extends Vue {
 
   @Watch("username", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   usernameChanged(value: any, oldValue: any) {
     this.handleUpdate({ username: value });
@@ -109,7 +106,7 @@ export default class UserEdit extends Vue {
 
   @Watch("firstName", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   firstNameChanged(value: any, oldValue: any) {
     this.handleUpdate({ firstName: value });
@@ -117,7 +114,7 @@ export default class UserEdit extends Vue {
 
   @Watch("lastName", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   lastNameChanged(value: any, oldValue: any) {
     this.handleUpdate({ lastName: value });
@@ -125,7 +122,7 @@ export default class UserEdit extends Vue {
 
   @Watch("email", {
     immediate: false,
-    deep: true
+    deep: true,
   })
   emailChanged(value: any, oldValue: any) {
     this.handleUpdate({ email: value });

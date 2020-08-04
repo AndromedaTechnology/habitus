@@ -70,7 +70,7 @@ export default class ActivityChart extends Vue {
       datasets: [
         {
           data: chartData,
-          label: "Activity",
+          label: "Amount",
           borderColor: this.habit.isGood ? "#42b983" : "#b94278",
           borderWidth: 5,
           fill: false,

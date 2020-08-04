@@ -23,12 +23,8 @@ export default class UserChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
   @Prop() private activities!: Activities | undefined;
 
-  @Getter("getActivities", { namespace: "activity" }) getActivities!: (
-    habitId: string,
-    descending: false,
-    dateStart: Date,
-    dateEnd: Date
-  ) => Array<Activity> | undefined;
+  @Getter("getHabitHealth", { namespace: "activity" })
+  getHabitHealth: any;
 
   chartOptions = {
     legend: {
@@ -51,7 +47,6 @@ export default class UserChart extends Vue {
       xAxes: [
         {
           display: true,
-
           ticks: {
             fontSize: 16,
           },
@@ -85,11 +80,27 @@ export default class UserChart extends Vue {
       data: Array<number>;
     }> = [];
 
+    datasets.push({
+      label: "Good Health",
+      backgroundColor: "#42b983",
+      borderColor: "#2c3e50",
+      pointBackgroundColor: "#fff",
+      data: [],
+    });
+
+    datasets.push({
+      label: "Bad Health",
+      backgroundColor: "#b94278",
+      borderColor: "#2c3e50",
+      pointBackgroundColor: "#fff",
+      data: [],
+    });
+
     // Timeframe: 1 day, 3 sections
 
     const hourStep = 8;
     labels.push("Morning");
-    labels.push("Day");
+    labels.push("Afternoon");
     labels.push("Evening");
 
     for (let hour = 0; hour < 24; hour += hourStep) {
@@ -105,45 +116,27 @@ export default class UserChart extends Vue {
       dateEnd.setMinutes(0);
       dateEnd.setSeconds(0);
 
-      // Get Good and Bad Activity
+      // Get Good and Bad Health
       // per timeframe
 
       let amountGood = 0;
       let amountBad = 0;
 
       this.habits?.forEach((habit: Habit) => {
-        const acts = this.getActivities(habit._id, false, dateStart, dateEnd);
+        const health = this.getHabitHealth(habit, dateStart, dateEnd);
 
         if (habit.isGood) {
-          amountGood += acts ? acts.length : 0;
+          amountGood += health;
         } else {
-          amountBad += acts ? acts.length : 0;
+          amountBad += health;
         }
       });
 
-      // Add Bad Activity
+      // Add Good Health
+      datasets[0].data.push(amountGood);
 
-      datasets.push({
-        label: "Bad Activity",
-        backgroundColor: "#b94278",
-        borderColor: "#2c3e50",
-        pointBackgroundColor: "#fff",
-        data: [],
-      });
-
-      datasets[datasets.length - 1].data.push(amountBad);
-
-      // Add Good Activity
-
-      datasets.push({
-        label: "Good Activity",
-        backgroundColor: "#42b983",
-        borderColor: "#2c3e50",
-        pointBackgroundColor: "#fff",
-        data: [],
-      });
-
-      datasets[datasets.length - 1].data.push(amountGood);
+      // Add Bad Health
+      datasets[1].data.push(amountBad);
     }
 
     this.chartData = {

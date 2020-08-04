@@ -1,14 +1,11 @@
 <template>
-  <v-card tile>
+  <v-card tile v-if="habit">
     <v-toolbar :color="habit.isGood ? '#42b983' : '#b94278'">
       <v-btn icon @click="handleClose()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
       <v-toolbar-title>Anything to add?</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn text @click="handleClose()">Save</v-btn>
-      </v-toolbar-items>
     </v-toolbar>
     <v-card-text>
       <v-list three-line>
@@ -82,14 +79,14 @@ export default class ActivityEdit extends Vue {
     this.note = newValue?.note;
   }
 
-  @Watch("amount")
-  amountChanged(value: any, oldValue: any) {
-    this.handleUpdate({ amount: value });
-  }
-
   @Watch("note")
   noteChanged(value: any, oldValue: any) {
     this.handleUpdate({ note: value });
+  }
+
+  @Watch("amount")
+  amountChanged(value: any, oldValue: any) {
+    this.handleUpdate({ amount: value });
   }
 
   handleUpdate(data: {}) {

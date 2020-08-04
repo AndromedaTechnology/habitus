@@ -10,6 +10,7 @@ export interface Habit {
   amountType: HabitAmountType;
   userId: string;
   name: string;
+  impact: number;
   startsAtDate: Date | null;
   endsAtDate: Date | null;
   repeatInSeconds: number;

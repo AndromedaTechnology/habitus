@@ -119,11 +119,13 @@ export default class Add extends Vue {
       if (value) {
         if (value.isCreateNew) {
           this.habit = null;
-          this.$router.push({ name: "habitCreate" });
+          if (this.$router.currentRoute.name !== "habitCreate") {
+            this.$router.push({ name: "habitCreate" });
+          }
           this.habitListSelected = null;
         } else if (value._id) {
           this.habit = value;
-          this.$router.push({ name: "habit", params: { id: value._id } });
+          this.redirectToHabit(value);
         }
       } else {
         this.habit = null;
@@ -156,7 +158,7 @@ export default class Add extends Vue {
       this.playSoundNotification(this.habit?.isGood);
     });
 
-    this.$router.push({ name: "habit", params: { id: this.habit!._id } });
+    this.redirectToHabit(this.habit!);
   }
 
   showDialog() {
@@ -184,6 +186,15 @@ export default class Add extends Vue {
     } else {
       const audio = new Audio("/audio/notificationBad.ogg");
       audio.play();
+    }
+  }
+
+  redirectToHabit(habit: Habit) {
+    if (
+      this.$router.currentRoute.name !== "habit" ||
+      this.$router.currentRoute.params.id !== habit._id
+    ) {
+      this.$router.push({ name: "habit", params: { id: habit._id } });
     }
   }
 }

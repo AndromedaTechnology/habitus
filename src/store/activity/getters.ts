@@ -4,12 +4,12 @@ import { RootState } from "../types";
 import { Habit } from "@/store/habit/types";
 
 export const getters: GetterTree<ActivityState, RootState> = {
-  getHabitExperienceAmount: (state, getters, rootState, rootGetters) => (
+  getHabitHealth: (state, getters, rootState, rootGetters) => (
     habit: Habit,
     dateStart: Date | null = null,
     dateEnd: Date | null = null
   ): number => {
-    let total = 0;
+    let health = 0;
 
     // Get Activities
 
@@ -26,29 +26,39 @@ export const getters: GetterTree<ActivityState, RootState> = {
       return true;
     });
 
+    // Calculate Impact
+
+    let impact = 0;
+    if (activities.length) {
+      impact = activities.reduce((total, item) => {
+        const itemImpact = habit.impact ?? 1;
+        return total + itemImpact;
+      }, 0);
+    }
+
     // Is Habit Good or Bad?
 
     if (habit.isGood) {
-      total += activities.length;
+      health += impact;
     } else {
-      total -= activities.length;
+      health -= impact;
     }
 
-    return total;
+    return health;
   },
-  getExperienceAmount: (state, getters, rootState, rootGetters) => (
+  getHealth: (state, getters, rootState, rootGetters) => (
     habitId: string | null = null,
     dateStart: Date | null = null,
     dateEnd: Date | null = null
   ): number => {
-    let total = 0;
+    let health = 0;
 
     // Habit
 
     if (habitId) {
       const habit = rootGetters["habit/getHabit"](habitId);
-      if (!habit) return total;
-      return getters["getHabitExperienceAmount"](habit);
+      if (!habit) return health;
+      return getters["getHabitHealth"](habit);
     }
 
     // Habits
@@ -58,10 +68,10 @@ export const getters: GetterTree<ActivityState, RootState> = {
     for (const habitId in activities) {
       const habit = rootGetters["habit/getHabit"](habitId);
       if (!habit) continue;
-      total += getters["getHabitExperienceAmount"](habit);
+      health += getters["getHabitHealth"](habit);
     }
 
-    return total;
+    return health;
   },
 
   getActivities: (state) => (

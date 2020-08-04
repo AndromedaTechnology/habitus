@@ -13,9 +13,9 @@
           <span>{{ user.username }}</span>
         </h1>
 
-        <!-- Experience -->
-        <v-chip class="mt-4" :color="getExperienceAmount() >= 0 ? '#42b983' : '#b94278'">
-          <h4>{{ getExperienceAmount() === 0 ? 'No' : Math.abs(getExperienceAmount()) }} experiences</h4>
+        <!-- Health -->
+        <v-chip class="mt-4" :color="getHealth() >= 0 ? '#42b983' : '#b94278'">
+          <h4>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h4>
         </v-chip>
       </v-col>
     </v-row>
@@ -56,8 +56,8 @@ export default class UserHeader extends Vue {
 
   editDialog = false;
 
-  @Getter("getExperienceAmount", { namespace: "activity" })
-  getExperienceAmount: any;
+  @Getter("getHealth", { namespace: "activity" })
+  getHealth: any;
   @Action("updateUser", { namespace: "user" }) updateUser: any;
 
   handleUpdate(data: {}) {

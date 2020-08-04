@@ -6,7 +6,7 @@
     </h3>
 
     <!-- Note -->
-    <pre v-if="activity.note">{{ activity.note }}</pre>
+    <pre class="note" v-if="activity.note">{{ activity.note }}</pre>
 
     <!-- Edit -->
 
@@ -55,4 +55,12 @@ export default class ActivityHeader extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.note {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+</style>

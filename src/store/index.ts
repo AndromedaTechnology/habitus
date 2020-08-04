@@ -5,6 +5,7 @@ import { RootState } from "./types";
 import { user } from "./user/index";
 import { habit } from "./habit/index";
 import { activity } from "./activity/index";
+import { impact } from "./impact/index";
 
 Vue.use(Vuex);
 
@@ -16,6 +17,7 @@ const store: StoreOptions<RootState> = {
     user,
     habit,
     activity,
+    impact,
   },
 };
 

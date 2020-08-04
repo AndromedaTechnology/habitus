@@ -6,23 +6,42 @@
       </v-btn>
       <v-toolbar-title>{{ this.name }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn text @click="handleClose()">Save</v-btn>
-      </v-toolbar-items>
     </v-toolbar>
     <v-card-text>
-      <v-list three-line>
+      <v-list two-line>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>Name</v-list-item-title>
-            <v-text-field v-model="name" label="Name" solo></v-text-field>
+            <v-list-item-title>
+              <h3>Name</h3>
+            </v-list-item-title>
+            <v-text-field class="ma-6" v-model="name" label="Name" solo></v-text-field>
           </v-list-item-content>
         </v-list-item>
+
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>Is it good for you</v-list-item-title>
+            <v-list-item-title>
+              <h3>Measuring</h3>
+            </v-list-item-title>
+            <v-select
+              class="ma-6"
+              v-model="amountType"
+              :items="[
+                { text: 'Amount', value: 'amount' },
+                { text: 'Time', value: 'timer' },
+              ]"
+              solo
+            ></v-select>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>
+              <h3>Effect</h3>
+            </v-list-item-title>
             <v-switch
-              class="ma-4"
+              class="ma-6"
               large
               inset
               v-model="isGood"
@@ -31,19 +50,16 @@
             ></v-switch>
           </v-list-item-content>
         </v-list-item>
+
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>How to track progress</v-list-item-title>
-            <v-select
-              v-model="amountType"
-              :items="[
-                { text: 'Points', value: 'amount' },
-                { text: 'Time', value: 'timer' },
-              ]"
-              solo
-            ></v-select>
+            <v-list-item-title>
+              <h3>Impact</h3>
+            </v-list-item-title>
+            <Impact :impact="impact" @update="impact = $event" class="px-10 mt-12 pt-12" />
           </v-list-item-content>
         </v-list-item>
+
         <v-list-item v-if="false">
           <v-list-item-content>
             <v-list-item-title>Start at</v-list-item-title>
@@ -82,18 +98,20 @@
 </template>
 
 <script lang="ts">
+import Impact from "../General/Impact.vue";
+
 import { Habit } from "@/store/habit/types";
 
 import { Datetime } from "vue-datetime";
 import "vue-datetime/dist/vue-datetime.css";
-
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 
 @Component({
   name: "HabitEdit",
   components: {
-    Datetime
-  }
+    Datetime,
+    Impact,
+  },
 })
 export default class HabitEdit extends Vue {
   @Prop() private habit!: Habit;
@@ -101,18 +119,11 @@ export default class HabitEdit extends Vue {
   name: string | undefined | null = null;
   isGood: boolean | undefined | null = null;
   amountType: string | undefined | null = null;
+  impact: number | undefined | null = null;
   startsAtDate: Date | undefined | null = null;
   endsAtDate: Date | undefined | null = null;
 
   deleteDialog = false;
-
-  mounted() {
-    this.name = this.habit?.name;
-    this.isGood = this.habit?.isGood;
-    this.amountType = this.habit?.amountType;
-    this.startsAtDate = this.habit?.startsAtDate;
-    this.endsAtDate = this.habit?.endsAtDate;
-  }
 
   handleUpdate(data: {}) {
     this.$emit("update", data);
@@ -125,6 +136,16 @@ export default class HabitEdit extends Vue {
     this.$emit("close");
   }
 
+  @Watch("habit", { deep: true, immediate: true })
+  habitChanged(value: any, oldValue: any) {
+    this.name = value ? value.name : null;
+    this.isGood = value ? value.isGood : null;
+    this.amountType = value ? value.amountType : null;
+    this.impact = value ? value.impact : null;
+    this.startsAtDate = value ? value.startsAtDate : null;
+    this.endsAtDate = value ? value.endsAtDate : null;
+  }
+
   @Watch("name")
   nameChanged(value: any, oldValue: any) {
     this.handleUpdate({ name: value });
@@ -133,6 +154,11 @@ export default class HabitEdit extends Vue {
   @Watch("isGood")
   isGoodChanged(value: any, oldValue: any) {
     this.handleUpdate({ isGood: value });
+  }
+
+  @Watch("impact")
+  impactChanged(value: any, oldValue: any) {
+    this.handleUpdate({ impact: value });
   }
 
   @Watch("startsAtDate")
