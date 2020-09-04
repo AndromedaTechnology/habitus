@@ -6,18 +6,32 @@
     >
       <!-- Name -->
       <h1>
-        <span>{{ habit.name }}</span>
+        <span v-if="habit.emoji">{{ habit.emoji }}</span>
+        &nbsp;
+        <span v-if="habit.name">{{ habit.name }}</span>
       </h1>
 
       <!-- Health -->
       <div class="mt-4">
         <v-chip :color="getHabitHealth(habit) >= 0 ? '#42b983' : '#b94278'">
-          <h4>{{ getHabitHealth(habit) >= 0 ? '+' + getHabitHealth(habit) : getHabitHealth(habit) }} HEALTH</h4>
+          <h4>
+            {{
+              getHabitHealth(habit) >= 0
+                ? "+" + getHabitHealth(habit)
+                : getHabitHealth(habit)
+            }}
+            HEALTH
+          </h4>
         </v-chip>
       </div>
 
       <!-- Streak -->
-      <HabitStreak v-if="showStreak" class="streak mb-4" :habit="habit" :activities="activities" />
+      <HabitStreak
+        v-if="showStreak"
+        class="streak mb-4"
+        :habit="habit"
+        :activities="activities"
+      />
     </router-link>
   </div>
 </template>

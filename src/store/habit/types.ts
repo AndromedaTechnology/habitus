@@ -11,6 +11,7 @@ export interface Habit {
   userId: string;
   name: string;
   impact: number;
+  emoji?: string;
   startsAtDate: Date | null;
   endsAtDate: Date | null;
   repeatInSeconds: number;

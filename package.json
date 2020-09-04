@@ -17,6 +17,7 @@
     "luxon": "^1.24.1",
     "material-design-icons-iconfont": "^5.0.1",
     "register-service-worker": "^1.7.1",
+    "v-emoji-picker": "^2.3.0",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.0",
     "vue-class-component": "^7.2.3",

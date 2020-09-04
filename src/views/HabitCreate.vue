@@ -27,9 +27,15 @@ import Component from "vue-class-component";
 export default class HabitCreateView extends Vue {
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
 
-  submit(data: { name: string; isGood: boolean; amountType: HabitAmountType }) {
+  submit(data: {
+    name: string;
+    emoji: string;
+    isGood: boolean;
+    amountType: HabitAmountType;
+  }) {
     this.persistHabit({
       name: data.name,
+      emoji: data.emoji,
       isGood: data.isGood,
       amountType: data.amountType,
     }).then((habit: Habit) => {
@@ -39,5 +45,4 @@ export default class HabitCreateView extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
