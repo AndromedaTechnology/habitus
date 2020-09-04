@@ -1,4 +1,7 @@
-# Habitus App - Healthiest version of you
+<h1 align="center">Habitus App - Healthiest version of you</h1>
+<p align="center">
+  <a href="https://habitus.andromeda.technology"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
+</p>
 
 [Habitus - Gamified Habit Tracker and Journal](https://habitus.andromeda.technology)
 
@@ -17,13 +20,14 @@
 
 - Sound Notifications for added Activity (Good and Bad Sounds)
 - Graphs for User and Habit Activity
+- Health Status
 
-## Tech
+## Technology
 
-- Vue.js 2.6
+- Progressive Web App
 - TypeScript 3.8
+- Vue.js 2.6
 - Vuetify 2.2
-- PWA
 
 ## Installation
 
