@@ -12,27 +12,31 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Note</v-list-item-title>
-            <v-textarea light auto-grow v-model="note" label="Note" solo></v-textarea>
+            <v-textarea auto-grow v-model="note" label="Note" solo></v-textarea>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Amount</v-list-item-title>
-            <v-text-field light v-model="amount" label="Amount" solo></v-text-field>
+            <v-text-field v-model="amount" label="Amount" solo></v-text-field>
           </v-list-item-content>
         </v-list-item>
       </v-list>
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog">Delete</v-btn>
+            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog"
+              >Delete</v-btn
+            >
 
             <v-dialog v-model="deleteDialog" max-width="500px">
               <v-card>
                 <v-card-title>Delete?</v-card-title>
                 <v-card-text></v-card-text>
                 <v-card-actions>
-                  <v-btn color="success" @click="deleteDialog = false">No</v-btn>
+                  <v-btn color="success" @click="deleteDialog = false"
+                    >No</v-btn
+                  >
                   <v-btn @click="handleDelete()" color="error">Yes</v-btn>
                 </v-card-actions>
               </v-card>
