@@ -1,29 +1,35 @@
 <h1 align="center">Habitus App - Healthiest version of you</h1>
 <p align="center">
   <a href="https://habitus.andromeda.technology"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
+  <br />
+  <br />
+  <a href="https://habitus.andromeda.technology">Gamified Habit Tracker and Journal</a>
+  <br />
+  <a href="https://habitus.andromeda.technology">https://habitus.andromeda.technology</a>
 </p>
 
-[Habitus - Gamified Habit Tracker and Journal](https://habitus.andromeda.technology)
+Unobtrusive and Easy to use.
 
-[https://habitus.andromeda.technology](https://habitus.andromeda.technology)
+## Usage
 
-## Anonymity
+- **Habits - Good OR Bad, Health Impact**
+- **Habit Activity** - can have Notes and Amount
 
-- Anonymous Journal and Habit Tracker
-- **Storing data only in your browser**
-- **No registration needed, Guest/Username access**
+* Sound Notifications for added Activity (Good and Bad Sounds)
+* Graphs for User and Habit Activity
 
-## Features
+- Your Health Status
 
-- Create Habits (Good and Bad Impact Levels)
-- Add Activity to Habits (with Notes and Amount)
+## Anonymous
 
-- Sound Notifications for added Activity (Good and Bad Sounds)
-- Graphs for User and Habit Activity
-- Health Status
+- Storing data in your browser
+- No registration needed
+- **Guest / Username access**
+- **Works offline**
 
 ## Technology
 
+- Installable
 - Progressive Web App
 - TypeScript 3.8
 - Vue.js 2.6
