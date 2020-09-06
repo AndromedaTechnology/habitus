@@ -33,7 +33,7 @@ export default class OverallChart extends Vue {
     },
     title: {
       display: true,
-      position: "bottom",
+      position: "top",
       text: "Total",
       fontSize: 24,
       padding: 24,

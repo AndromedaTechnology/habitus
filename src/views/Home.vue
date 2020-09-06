@@ -4,7 +4,7 @@
       <v-col cols="12" sm="12">
         <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
         <Stats :habits="habits" :activities="getActivities()" />
-        <HabitList :habits="habits" :user="user" class="mt-12" />
+        <!-- <HabitList :habits="habits" :user="user" class="mt-12" /> -->
       </v-col>
     </v-row>
     <v-row v-else>
