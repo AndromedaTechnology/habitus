@@ -6,7 +6,7 @@
           solo
           v-model="habitListSelected"
           :items="habitList"
-          item-text="name"
+          :item-text="itemText"
           return-object
           label="Select a Habit"
           d-inline
@@ -96,6 +96,10 @@ export default class Add extends Vue {
   mounted() {
     this.fetchUser();
     this.fetchHabits();
+  }
+
+  itemText(item: Habit): string {
+    return `${item.emoji ?? ""} ${item.name ?? ""}`;
   }
 
   @Watch("$route", {
