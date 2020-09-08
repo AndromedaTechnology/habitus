@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <% if (process.env.VUE_APP_ENV_GA) { %> <%= VUE_APP_ENV_GA %> <% } %>
+    <!-- GA -->
+
+    <% if (process.env.VUE_APP_ENV_GA) { %><%= VUE_APP_ENV_GA %><% } %>
+
+    <!-- Title -->
+
+    <title>
+      <% if (process.env.VUE_APP_TITLE) { %><%= VUE_APP_TITLE %><% } %>
+    </title>
+
+    <!-- Meta -->
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
@@ -9,15 +20,35 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <title>Habitus App - Healthiest version of you</title>
     <meta
       name="description"
-      content="Gamified Habit Tracker and Journal. Anonymous and Open Source."
+      content="<% if (process.env.VUE_APP_DESCRIPTION) { %><%= VUE_APP_DESCRIPTION %><% } %>"
     />
     <meta
       name="keywords"
-      content="habit tracker, journal, gamified, anonymous, open source, track, habits, simple, easy, activity, todo, guest, no-login"
+      content="<% if (process.env.VUE_APP_KEYWORDS) { %><%= VUE_APP_KEYWORDS %><% } %>"
     />
+
+    <!-- OG -->
+
+    <meta
+      property="og:title"
+      content="<% if (process.env.VUE_APP_TITLE) { %><%= VUE_APP_TITLE %><% } %>"
+    />
+    <meta
+      property="og:description"
+      content="<% if (process.env.VUE_APP_DESCRIPTION) { %><%= VUE_APP_DESCRIPTION %><% } %>"
+    />
+    <meta
+      property="og:url"
+      content="<% if (process.env.VUE_APP_URL) { %><%= VUE_APP_URL %><% } %>"
+    />
+    <!-- <meta property="og:image" content="<%= BASE_URL %>/og-image.jpg" /> -->
+    <!-- <meta property="og:image:height" content="101" /> -->
+    <!-- <meta property="og:image:width" content="192" /> -->
+
+    <!-- Fonts -->
+
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
