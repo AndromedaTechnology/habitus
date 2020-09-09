@@ -1,11 +1,11 @@
 <h1 align="center">Habitus App - Healthiest version of you</h1>
 <p align="center">
-  <a href="https://habitus.andromeda.technology"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
+  <a href="https://habitus.today"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
   <br />
   <br />
-  <a href="https://habitus.andromeda.technology">Gamified Habit Tracker and Journal</a>
+  <a href="https://habitus.today">Gamified Habit Tracker and Journal</a>
   <br />
-  <a href="https://habitus.andromeda.technology">https://habitus.andromeda.technology</a>
+  <a href="https://habitus.today">https://habitus.today</a>
 </p>
 
 Unobtrusive and Easy to use.
