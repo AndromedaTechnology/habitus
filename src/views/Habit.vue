@@ -1,61 +1,64 @@
 <template>
-  <v-container v-if="user && habit">
-    <v-row>
-      <v-col cols="12" sm="12">
-        <!-- Edit -->
-        <div class="text-center mt-4">
-          <v-btn @click="editDialog = true" large>Edit</v-btn>
-        </div>
+  <div v-if="user && habit">
+    <v-alert text class="pa-12">
+      <!-- Edit -->
+      <div class="text-center mt-4">
+        <v-btn @click="editDialog = true" large>Edit</v-btn>
+      </div>
 
-        <!-- Header -->
+      <!-- Header -->
 
-        <HabitHeader
-          class="mt-4 text-center"
-          v-if="habit"
-          :showStreak="true"
-          :habit="habit"
-          :activities="getActivities(habit._id)"
-        />
+      <HabitHeader
+        class="mt-4 text-center"
+        v-if="habit"
+        :showStreak="true"
+        :habit="habit"
+        :activities="getActivities(habit._id)"
+      />
+    </v-alert>
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="12">
+          <!-- Edit  -->
 
-        <!-- Edit  -->
+          <v-dialog
+            v-model="editDialog"
+            fullscreen
+            hide-overlay
+            transition="dialog-bottom-transition"
+            scrollable
+          >
+            <HabitEdit
+              :habit="habit"
+              @update="handleUpdate($event)"
+              @delete="handleDelete()"
+              @close="editDialog = false"
+            />
+          </v-dialog>
 
-        <v-dialog
-          v-model="editDialog"
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
-          scrollable
-        >
-          <HabitEdit
+          <!--  Activity Chart -->
+
+          <ActivityChart
+            v-if="getActivities(habit._id)"
+            class="activityChart"
             :habit="habit"
-            @update="handleUpdate($event)"
-            @delete="handleDelete()"
-            @close="editDialog = false"
+            :activities="getActivities(habit._id)"
           />
-        </v-dialog>
 
-        <!--  Activity Chart -->
+          <!-- Activity List -->
 
-        <ActivityChart
-          v-if="getActivities(habit._id)"
-          class="activityChart"
-          :habit="habit"
-          :activities="getActivities(habit._id)"
-        />
-
-        <!-- Activity List -->
-
-        <div class="activityList">
-          <ActivityHeader
-            v-for="activity in getActivities(habit._id, true)"
-            :key="activity._id"
-            :habit="habit"
-            :activity="activity"
-          />
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+          <div class="activityList">
+            <ActivityHeader
+              v-for="activity in getActivities(habit._id, true)"
+              :key="activity._id"
+              :habit="habit"
+              :activity="activity"
+            />
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script lang="ts">

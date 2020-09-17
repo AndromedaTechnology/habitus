@@ -1,21 +1,26 @@
 <template>
-  <v-container>
-    <v-row v-if="user">
-      <v-col cols="12" sm="12">
-        <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
-        <Stats :habits="habits" :activities="getActivities()" />
-        <ActivityList
-          :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
-        />
-        <!-- <HabitList :habits="habits" :user="user" class="mt-12" /> -->
-      </v-col>
-    </v-row>
-    <v-row v-else>
-      <v-col cols="12" sm="12">
-        <UserCreate @submit="userCreateSubmit($event)" />
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <v-alert text v-if="user">
+      <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
+    </v-alert>
+
+    <v-container>
+      <v-row v-if="user">
+        <v-col cols="12" sm="12">
+          <Stats :habits="habits" :activities="getActivities()" />
+          <ActivityList
+            :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
+          />
+          <!-- <HabitList :habits="habits" :user="user" class="mt-12" /> -->
+        </v-col>
+      </v-row>
+      <v-row v-else>
+        <v-col cols="12" sm="12">
+          <UserCreate @submit="userCreateSubmit($event)" />
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script lang="ts">
