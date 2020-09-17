@@ -1,8 +1,9 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" sm="12">
-        <h1 class="text-center">Creating new Habit</h1>
+      <v-col cols="12" sm="8" offset-sm="2" class="pa-8">
+        <h1 class="text-center pa-8">Creating new Habit</h1>
+
         <HabitCreate @submit="submit($event)" />
       </v-col>
     </v-row>

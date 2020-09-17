@@ -1,13 +1,7 @@
 <template>
   <div class="habitCreate">
-    <v-switch
-      inset
-      v-model="isGood"
-      :label="isGood ? 'Good' : 'Bad'"
-      :color="isGood ? '#42b983' : '#b94278'"
-    ></v-switch>
-
     <HabitNameEmojiInput
+      class="pa-8"
       :name="name"
       :emoji="emoji"
       @set:name="name = $event"
@@ -20,6 +14,14 @@
         }
       "
     />
+
+    <v-switch
+      class="pa-8"
+      inset
+      v-model="isGood"
+      :label="isGood ? 'Good' : 'Bad'"
+      :color="isGood ? '#42b983' : '#b94278'"
+    ></v-switch>
 
     <v-btn block @click="submit()">Save</v-btn>
   </div>

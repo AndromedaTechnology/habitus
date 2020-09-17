@@ -5,18 +5,17 @@
     </v-alert>
 
     <v-container>
-      <v-row v-if="user">
-        <v-col cols="12" sm="12">
-          <Stats :habits="habits" :activities="getActivities()" />
-          <ActivityList
-            :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
-          />
-          <!-- <HabitList :habits="habits" :user="user" class="mt-12" /> -->
-        </v-col>
-      </v-row>
-      <v-row v-else>
-        <v-col cols="12" sm="12">
-          <UserCreate @submit="userCreateSubmit($event)" />
+      <v-row>
+        <v-col cols="12" sm="8" offset-sm="2">
+          <div v-if="user">
+            <Stats :habits="habits" :activities="getActivities()" />
+            <ActivityList
+              :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
+            />
+          </div>
+          <div v-else>
+            <UserCreate @submit="userCreateSubmit($event)" />
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -27,7 +26,6 @@
 import UserHeader from "@/components/User/UserHeader.vue";
 import UserCreate from "@/components/User/UserCreate.vue";
 import Stats from "@/components/User/Stats.vue";
-import HabitList from "@/components/Habit/HabitList.vue";
 import ActivityList from "@/components/Activity/ActivityList.vue";
 
 import { User } from "@/store/user/types";
@@ -44,7 +42,6 @@ import Component from "vue-class-component";
     UserHeader,
     UserCreate,
     Stats,
-    HabitList,
     ActivityList,
   },
 })
