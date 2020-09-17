@@ -4,7 +4,7 @@
     <router-link
       v-if="showHabit"
       :to="{name: 'habit', params: {id: habit._id}}"
-      :class="{'habit': true, 'isGood': habit.isGood, 'isBad': !habit.isGood}"
+      :class="{'habit': true}"
     >
       <h2 class="mb-4">
         <span>{{ habit.name }}</span>
@@ -77,12 +77,7 @@ export default class ActivityHeader extends Vue {
 }
 </style>
 <style lang="scss" scoped>
-.habit {
-  &.isGood {
-    color: #42b983;
-  }
-  &.isBad {
-    color: #b94278;
-  }
+a.habit {
+  color: inherit;
 }
 </style>
