@@ -19,6 +19,7 @@ Unobtrusive and Easy to use.
 * Graphs for User and Habit Activity
 
 - Your Health Status
+- Daily Overview
 
 ## Anonymous
 
