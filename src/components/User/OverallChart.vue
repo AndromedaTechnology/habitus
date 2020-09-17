@@ -60,7 +60,7 @@ export default class OverallChart extends Vue {
     // Sort habits by isGood
     // (to group good/bad habits)
 
-    let habits = this.habits;
+    let habits = this.habits?.slice();
     habits = habits?.sort((a, b) => (a.isGood > b.isGood ? 1 : -1));
 
     // Add to chart

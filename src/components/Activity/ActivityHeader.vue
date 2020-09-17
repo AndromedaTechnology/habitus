@@ -1,12 +1,23 @@
 <template>
-  <v-alert class="activityHeader" dark :icon=" habit.isGood ? 'add' : 'remove'">
-    <!-- Amount -->
-    <h3 class="mb-4">
-      <span>{{ activity.amount }} points</span>
-    </h3>
+  <v-alert class="activityHeader" dark :icon="habit.isGood ? 'add' : 'remove'">
+    <!-- Habit  -->
+    <router-link
+      v-if="showHabit"
+      :to="{name: 'habit', params: {id: habit._id}}"
+      :class="{'habit': true, 'isGood': habit.isGood, 'isBad': !habit.isGood}"
+    >
+      <h2 class="mb-4">
+        <span>{{ habit.name }}</span>
+      </h2>
+    </router-link>
 
     <!-- Note -->
     <pre class="note" v-if="activity.note">{{ activity.note }}</pre>
+
+    <!-- Amount -->
+    <h4 class="my-4">
+      <span>{{ activity.amount }} amount</span>
+    </h4>
 
     <!-- Edit -->
 
@@ -50,6 +61,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class ActivityHeader extends Vue {
   @Prop() private habit!: Habit;
   @Prop() private activity!: Activity;
+  @Prop({ default: false, type: Boolean }) showHabit?: boolean;
 
   editDialog = false;
 }
@@ -62,5 +74,15 @@ export default class ActivityHeader extends Vue {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
+}
+</style>
+<style lang="scss" scoped>
+.habit {
+  &.isGood {
+    color: #42b983;
+  }
+  &.isBad {
+    color: #b94278;
+  }
 }
 </style>

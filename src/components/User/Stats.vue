@@ -1,13 +1,11 @@
 <template>
   <v-container v-if="isVisible">
-    <v-row>
-      <v-col cols="12" sm="12">
-        <DayChart :habits="habits" :activities="activities" />
-      </v-col>
-    </v-row>
-    <v-row class="mt-8">
-      <v-col cols="12" sm="12">
+    <v-row class="my-12">
+      <v-col cols="12" sm="12" md="6">
         <OverallChart :habits="habits" :activities="activities" />
+      </v-col>
+      <v-col cols="12" sm="12" md="6">
+        <DayChart :habits="habits" :activities="activities" />
       </v-col>
     </v-row>
   </v-container>
@@ -31,14 +29,10 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class Stats extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
-  @Prop() private activities!: Activities | Array<Activity> | undefined;
+  @Prop() private activities!: Array<Activity> | undefined;
 
   get isVisible() {
-    if (!this.activities) return false;
-
-    return Object.values(this.activities).find((element) => {
-      return element.length;
-    });
+    return this.activities && this.activities.length;
   }
 }
 </script>

@@ -74,19 +74,29 @@ export const getters: GetterTree<ActivityState, RootState> = {
     return health;
   },
 
+  getActivityState: (state) => (): Activities | undefined => {
+    const value: Activities | undefined = state.activities;
+    return value;
+  },
+
   getActivities: (state) => (
-    habitId: string | null = null,
+    habitId: string | undefined = undefined,
     descending = false,
     dateStart: Date | null = null,
     dateEnd: Date | null = null
-  ): Activities | Array<Activity> | undefined => {
-    let activities: Activities | Array<Activity> | undefined = state.activities;
+  ): Array<Activity> | undefined => {
+    let activities: Array<Activity> = [];
+    const stateActivities: Activities | undefined = state.activities;
 
-    if (!habitId) {
-      return activities;
+    if (habitId) {
+      activities = stateActivities[habitId] ? stateActivities[habitId] : [];
+    } else {
+      // Merge activities from all habits
+
+      for (const [habitId, habitActivity] of Object.entries(stateActivities)) {
+        activities = [...activities, ...habitActivity];
+      }
     }
-
-    activities = activities[habitId] ? activities[habitId] : [];
 
     // Filter by date
 

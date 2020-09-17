@@ -104,7 +104,6 @@ export default class Habit extends Vue {
   // Activity
 
   @Getter("getActivities", { namespace: "activity" }) getActivities:
-    | Activities
     | Array<Activity>
     | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;

@@ -56,7 +56,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
 
       // Persist to LocalStorage
 
-      const activities = getters["getActivities"]();
+      const activities = getters["getActivityState"]();
       localStorage.setItem("activities", JSON.stringify(activities));
 
       resolve(activity);
@@ -71,7 +71,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
   deleteHabitActivities({ getters, commit }, habit: Habit): any {
     commit("habitActivities", { habitId: habit._id, activities: [] });
 
-    const activities = getters["getActivities"]();
+    const activities = getters["getActivityState"]();
     localStorage.setItem("activities", JSON.stringify(activities));
   },
   updateActivity(
@@ -96,7 +96,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
     });
 
     // Persist to localStorage
-    activities = getters["getActivities"]();
+    activities = getters["getActivityState"]();
     localStorage.setItem("activities", JSON.stringify(activities));
   },
   deleteHabitActivity(
@@ -116,7 +116,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
       });
 
       // Persist to localStorage
-      activities = getters["getActivities"]();
+      activities = getters["getActivityState"]();
       localStorage.setItem("activities", JSON.stringify(activities));
 
       resolve();

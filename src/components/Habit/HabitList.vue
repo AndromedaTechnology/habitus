@@ -61,7 +61,7 @@ export default class HabitList extends Vue {
 
   // Activity Store
   @Getter("getActivities", { namespace: "activity" })
-  getActivities: Activities | Array<Activity> | undefined;
+  getActivities: Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 

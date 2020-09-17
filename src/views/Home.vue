@@ -4,6 +4,9 @@
       <v-col cols="12" sm="12">
         <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
         <Stats :habits="habits" :activities="getActivities()" />
+        <ActivityList
+          :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
+        />
         <!-- <HabitList :habits="habits" :user="user" class="mt-12" /> -->
       </v-col>
     </v-row>
@@ -20,6 +23,7 @@ import UserHeader from "@/components/User/UserHeader.vue";
 import UserCreate from "@/components/User/UserCreate.vue";
 import Stats from "@/components/User/Stats.vue";
 import HabitList from "@/components/Habit/HabitList.vue";
+import ActivityList from "@/components/Activity/ActivityList.vue";
 
 import { User } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
@@ -36,6 +40,7 @@ import Component from "vue-class-component";
     UserCreate,
     Stats,
     HabitList,
+    ActivityList,
   },
 })
 export default class Home extends Vue {
@@ -52,13 +57,24 @@ export default class Home extends Vue {
 
   // Activities
   @Getter("getActivities", { namespace: "activity" })
-  getActivities: Activities | Array<Activity> | undefined;
+  getActivities: Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
+
+  activityListDateStart: Date | null = null;
+  activityListDateEnd: Date | null = null;
 
   mounted() {
     this.fetchUser();
     this.fetchActivities();
+  }
+
+  setActivityListDates(start: Date | null = null, end: Date | null = null) {
+    this.activityListDateStart = new Date();
+    this.activityListDateStart.setHours(0, 0, 0, 0);
+
+    this.activityListDateEnd = new Date();
+    this.activityListDateEnd.setHours(23, 59, 59, 999);
   }
 
   userCreateSubmit(username: string) {
