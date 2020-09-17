@@ -67,6 +67,7 @@ export default class Home extends Vue {
   mounted() {
     this.fetchUser();
     this.fetchActivities();
+    this.setActivityListDates();
   }
 
   setActivityListDates(start: Date | null = null, end: Date | null = null) {
