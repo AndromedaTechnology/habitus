@@ -3,7 +3,6 @@
     <v-alert text v-if="user">
       <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
     </v-alert>
-
     <v-container>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2">
@@ -13,28 +12,40 @@
               :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
             />
           </div>
-          <div v-else>
-            <UserCreate @submit="userCreateSubmit($event)" />
+          <div v-else class="mt-12">
+            <Welcome
+              v-if="!isWelcomeDone"
+              @done="isWelcomeDone = true"
+            />
+            <v-slide-y-transition>
+              <UserCreate
+                v-show="isWelcomeDone"
+                @submit="userCreateSubmit($event)"
+              />
+            </v-slide-y-transition>
           </div>
         </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
-
 <script lang="ts">
-import UserHeader from "@/components/User/UserHeader.vue";
-import UserCreate from "@/components/User/UserCreate.vue";
-import Stats from "@/components/User/Stats.vue";
-import ActivityList from "@/components/Activity/ActivityList.vue";
-
-import { User } from "@/store/user/types";
-import { Habit } from "@/store/habit/types";
-import { Activities, Activity } from "@/store/activity/types";
-
 import Vue from "vue";
 import { Action, Getter } from "vuex-class";
 import Component from "vue-class-component";
+
+import Welcome from '@/components/General/Welcome.vue';
+
+import { User } from "@/store/user/types";
+import UserCreate from "@/components/User/UserCreate.vue";
+import UserHeader from "@/components/User/UserHeader.vue";
+
+import Stats from "@/components/User/Stats.vue";
+
+import { Activity } from "@/store/activity/types";
+import ActivityList from "@/components/Activity/ActivityList.vue";
+
+import { Habit } from "@/store/habit/types";
 
 @Component({
   name: "Home",
@@ -42,6 +53,7 @@ import Component from "vue-class-component";
     UserHeader,
     UserCreate,
     Stats,
+    Welcome,
     ActivityList,
   },
 })
@@ -62,6 +74,8 @@ export default class Home extends Vue {
   getActivities: Array<Activity> | undefined;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
+
+  isWelcomeDone = false;
 
   activityListDateStart: Date | null = null;
   activityListDateEnd: Date | null = null;
@@ -97,6 +111,3 @@ export default class Home extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

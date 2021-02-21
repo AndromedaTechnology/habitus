@@ -25,6 +25,7 @@
     "vue-property-decorator": "^8.4.1",
     "vue-router": "^3.1.6",
     "vue-timeago": "^5.1.2",
+    "vue-typer": "^1.2.0",
     "vue2-timepicker": "^1.0.8",
     "vue2-touch-events": "^2.2.1",
     "vuejs-noty": "^0.1.3",
