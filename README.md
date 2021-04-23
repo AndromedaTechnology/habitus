@@ -36,6 +36,12 @@ Unobtrusive and Easy to use.
 - Vue.js 2.6
 - Vuetify 2.2
 
+## Preview
+
+![User page](https://i.imgur.com/v8HgZjy.png)
+
+[Check the gallery](https://imgur.com/gallery/9X7WC6U).
+
 ## Installation
 
 **Install packages**
