@@ -10,6 +10,8 @@
 
 Unobtrusive and Easy to use.
 
+Anonymous.
+
 ## Usage
 
 - **Habits - Good OR Bad, Health Impact**
@@ -21,18 +23,18 @@ Unobtrusive and Easy to use.
 - Your Health Status
 - Daily Overview
 
+## Preview
+
+![User page](https://i.imgur.com/v8HgZjy.png)
+
+[Check the gallery](https://imgur.com/gallery/9X7WC6U).
+
 ## Anonymous
 
 - Storing data in your browser
 - No registration needed
 - **Guest / Username access**
 - **Works offline**
-
-## Preview
-
-![User page](https://i.imgur.com/v8HgZjy.png)
-
-[Check the gallery](https://imgur.com/gallery/9X7WC6U).
 
 ## Technology
 
