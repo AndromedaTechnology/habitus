@@ -28,6 +28,12 @@ Unobtrusive and Easy to use.
 - **Guest / Username access**
 - **Works offline**
 
+## Preview
+
+![User page](https://i.imgur.com/v8HgZjy.png)
+
+[Check the gallery](https://imgur.com/gallery/9X7WC6U).
+
 ## Technology
 
 - Installable
@@ -35,12 +41,6 @@ Unobtrusive and Easy to use.
 - TypeScript 3.8
 - Vue.js 2.6
 - Vuetify 2.2
-
-## Preview
-
-![User page](https://i.imgur.com/v8HgZjy.png)
-
-[Check the gallery](https://imgur.com/gallery/9X7WC6U).
 
 ## Installation
 
