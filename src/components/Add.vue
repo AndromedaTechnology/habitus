@@ -17,59 +17,41 @@
       </v-col>
     </v-row>
 
-    <v-dialog
-      v-model="dialog"
-      fullscreen
-      hide-overlay
-      transition="dialog-bottom-transition"
-      scrollable
-    >
-      <ActivityEdit
-        :habit="habit"
-        :activity="activity"
-        @updated="handleUpdated(activity, $event)"
-        @deleted="closeDialog()"
-        @closed="closeDialog()"
-      />
-    </v-dialog>
+    <ActivityEditDialog
+      v-if="isDialogVisible"
+      :habit="habit"
+      :activity="activity"
+      @closed="hideDialog()"
+    />
   </v-container>
 </template>
-
 <script lang="ts">
-import ActivityEdit from "@/components/Activity/ActivityEdit.vue";
-
+import _ from "lodash";
 import { User } from "@/store/user/types";
+import { Action, Getter } from "vuex-class";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
-
-import _ from "lodash";
-import { Action, Getter } from "vuex-class";
 import { Component, Vue, Watch } from "vue-property-decorator";
-
+import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
   name: "Add",
   components: {
-    ActivityEdit,
+    ActivityEditDialog,
   },
 })
 export default class Add extends Vue {
-  dialog = false;
-  dialogTimeout = 3000; // ms
-  dialogTimer: number | undefined = undefined;
-
-  activity: Activity | null = null;
-
-  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
   @Getter("user", { namespace: "user" }) user: User | undefined;
-
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
   ) => Habit | null;
+  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
-
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
 
+  habit?: Habit;
+  activity?: Activity;
+  isDialogVisible = false;
   habitListSelected:
     | Habit
     | {
@@ -78,28 +60,20 @@ export default class Add extends Vue {
         isCreateNew: boolean;
       }
     | null = null;
-  habit: Habit | null = null;
 
   get habitList(): Array<Habit> {
     const value = this.habits ? _.cloneDeep(this.habits) : [];
-
     // 'Create new' item
-
     value.splice(0, 0, {
       name: "Create new!",
       isCreateNew: true,
     });
-
     return value;
   }
 
   mounted() {
     this.fetchUser();
     this.fetchHabits();
-  }
-
-  itemText(item: Habit): string {
-    return `${item.emoji ?? ""} ${item.name ?? ""}`;
   }
 
   @Watch("$route", {
@@ -122,7 +96,7 @@ export default class Add extends Vue {
     this.$nextTick(() => {
       if (value) {
         if (value.isCreateNew) {
-          this.habit = null;
+          this.habit = undefined;
           if (this.$router.currentRoute.name !== "habitCreate") {
             this.$router.push({ name: "habitCreate" });
           }
@@ -132,25 +106,24 @@ export default class Add extends Vue {
           this.redirectToHabit(value);
         }
       } else {
-        this.habit = null;
+        this.habit = undefined;
       }
     });
   }
-
   @Watch("habits", {
-    immediate: false,
     deep: true,
+    immediate: false,
   })
   onHabitsChanged(value: any, oldValue: any) {
     if (!value) return;
-
     const habitId = this.habitListSelected ? this.habitListSelected._id : null;
-
     if (habitId) {
       this.habitListSelected = this.getHabit(habitId);
     }
   }
-
+  itemText(item: Habit): string {
+    return `${item.emoji ?? ""} ${item.name ?? ""}`;
+  }
   saveActivity() {
     this.persistActivity({
       habit: this.habit,
@@ -164,25 +137,13 @@ export default class Add extends Vue {
 
     this.redirectToHabit(this.habit!);
   }
-
   showDialog() {
-    this.dialog = true;
-    this.dialogTimer = setTimeout(() => {
-      this.closeDialog();
-    }, this.dialogTimeout);
+    this.isDialogVisible = true;
   }
-
-  closeDialog() {
-    this.dialog = false;
-    this.activity = null;
-    clearTimeout(this.dialogTimer);
+  hideDialog() {
+    this.isDialogVisible = false;
+    this.activity = undefined;
   }
-
-  handleUpdated(activity: Activity, data: {}) {
-    // Adding more data, cancel timeout on dialog
-    clearTimeout(this.dialogTimer);
-  }
-
   playSoundNotification(isGood = true) {
     if (isGood) {
       const audio = new Audio("/audio/notificationGood.ogg");
@@ -192,7 +153,6 @@ export default class Add extends Vue {
       audio.play();
     }
   }
-
   redirectToHabit(habit: Habit) {
     if (
       this.$router.currentRoute.name !== "habit" ||
@@ -203,5 +163,3 @@ export default class Add extends Vue {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
