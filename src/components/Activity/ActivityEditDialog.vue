@@ -17,6 +17,7 @@
       <ActivityEdit
         :habit="habit"
         :activity="activity"
+        @click.native="stopInterval()"
         @updated="handleUpdated(activity, $event)"
         @deleted="closeDialog()"
         @closed="closeDialog()"
