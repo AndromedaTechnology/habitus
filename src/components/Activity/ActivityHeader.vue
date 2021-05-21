@@ -18,7 +18,10 @@
     </h4>
     <!-- Edit Button -->
     <div class="mt-4">
-      <v-btn @click="editDialog = true">Edit</v-btn>
+      <v-btn @click="editDialog = true" large>
+        <v-icon class="pr-4">edit</v-icon>
+        <h3>Edit</h3>
+      </v-btn>
     </div>
     <!-- Ago -->
     <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>

@@ -3,7 +3,10 @@
     <v-alert text class="pa-12">
       <!-- Edit Button -->
       <div class="text-center mt-4">
-        <v-btn @click="editDialog = true" large>Edit</v-btn>
+        <v-btn @click="editDialog = true" large>
+          <v-icon class="pr-4">edit</v-icon>
+          <h3>Edit</h3>
+        </v-btn>
       </div>
       <!-- Header -->
       <HabitHeader

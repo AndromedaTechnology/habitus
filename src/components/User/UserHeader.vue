@@ -5,10 +5,12 @@
         <v-col cols="12" sm="12" class="pa-12">
           <!-- Edit Button -->
           <v-btn
+            large
             v-if="allowEdit"
             @click="editDialog = true"
           >
-            Edit
+            <v-icon class="pr-4">edit</v-icon>
+            <h3>Edit</h3>
           </v-btn>
           <!-- Username -->
           <h1 class="mt-4">
