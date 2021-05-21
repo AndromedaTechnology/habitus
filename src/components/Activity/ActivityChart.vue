@@ -3,15 +3,12 @@
     <chart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="200"></chart>
   </div>
 </template>
-
 <script lang="ts">
-import Chart from "@/components/Chart/Chart.vue";
-
+import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
+import Chart from "@/components/Chart/Chart.vue";
 import { Activity } from "@/store/activity/types";
-
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-
 @Component({
   components: {
     Chart,
@@ -20,6 +17,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 export default class ActivityChart extends Vue {
   @Prop() private habit!: Habit;
   @Prop() private activities!: Array<Activity>;
+
+  colors: any = COLORS;
 
   chartOptions = {
     backgroundColor: "rgba(251, 85, 85, 0.2)",
@@ -71,7 +70,7 @@ export default class ActivityChart extends Vue {
         {
           data: chartData,
           label: "Amount",
-          borderColor: this.habit.isGood ? "#42b983" : "#b94278",
+          borderColor: this.habit.isGood ? this.colors.GOOD : this.colors.BAD,
           borderWidth: 5,
           fill: false,
         },

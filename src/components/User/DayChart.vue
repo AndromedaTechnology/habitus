@@ -3,17 +3,13 @@
     <BarChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="320"></BarChart>
   </div>
 </template>
-
 <script lang="ts">
-import BarChart from "@/components/Chart/BarChart.vue";
-
-import { Activity } from "@/store/activity/types";
+import { Getter } from "vuex-class";
+import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
 import { Activities } from "@/store/activity/types";
-
+import BarChart from "@/components/Chart/BarChart.vue";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { Getter } from "vuex-class";
-
 @Component({
   components: {
     BarChart,
@@ -22,9 +18,9 @@ import { Getter } from "vuex-class";
 export default class UserChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
   @Prop() private activities!: Activities | undefined;
+  @Getter("getHabitHealth", { namespace: "activity" }) getHabitHealth: any;
 
-  @Getter("getHabitHealth", { namespace: "activity" })
-  getHabitHealth: any;
+  colors: any = COLORS;
 
   chartOptions = {
     legend: {
@@ -82,7 +78,7 @@ export default class UserChart extends Vue {
 
     datasets.push({
       label: "Good Health",
-      backgroundColor: "#42b983",
+      backgroundColor: this.colors.GOOD,
       borderColor: "#2c3e50",
       pointBackgroundColor: "#fff",
       data: [],
@@ -90,7 +86,7 @@ export default class UserChart extends Vue {
 
     datasets.push({
       label: "Bad Health",
-      backgroundColor: "#b94278",
+      backgroundColor: this.colors.BAD,
       borderColor: "#2c3e50",
       pointBackgroundColor: "#fff",
       data: [],

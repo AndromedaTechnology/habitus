@@ -1,6 +1,6 @@
 <template>
   <v-card tile v-if="habit">
-    <v-toolbar :color="habit.isGood ? '#42b983' : '#b94278'">
+    <v-toolbar :color="habit.isGood ? colors.GOOD : colors.BAD">
       <v-btn icon @click="handleClose()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -44,6 +44,7 @@
 </template>
 <script lang="ts">
 import { Action } from "vuex-class";
+import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
 import DeleteDialog from '../General/DeleteDialog.vue';
@@ -57,6 +58,8 @@ import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 export default class ActivityEdit extends Vue {
   @Prop() private habit!: Habit;
   @Prop() private activity!: Activity;
+
+  colors: any = COLORS;
 
   deleteDialog = false;
   note: string | undefined | null = null;

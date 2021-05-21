@@ -3,17 +3,14 @@
     <DoughnutChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="320"></DoughnutChart>
   </div>
 </template>
-
 <script lang="ts">
-import DoughnutChart from "@/components/Chart/DoughnutChart.vue";
-
-import { Activity } from "@/store/activity/types";
+import { Getter } from "vuex-class";
+import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
+import { Activity } from "@/store/activity/types";
 import { Activities } from "@/store/activity/types";
-
-import { State, Action, Getter } from "vuex-class";
+import DoughnutChart from "@/components/Chart/DoughnutChart.vue";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-
 @Component({
   components: {
     DoughnutChart,
@@ -26,6 +23,8 @@ export default class OverallChart extends Vue {
   @Getter("getActivities", { namespace: "activity" }) getActivities!: (
     habitId: string
   ) => Array<Activity> | undefined;
+
+  colors: any = COLORS;
 
   chartOptions = {
     legend: {
@@ -67,7 +66,7 @@ export default class OverallChart extends Vue {
     habits?.forEach((habit: Habit) => {
       const acts = this.getActivities(habit._id);
       labels.push(habit.name);
-      backgroundColors.push(habit.isGood ? "#42b983" : "#b94278");
+      backgroundColors.push(habit.isGood ? this.colors.GOOD : this.colors.BAD);
       chartData.push(acts ? acts.length : 0);
     });
 
@@ -86,5 +85,3 @@ export default class OverallChart extends Vue {
   }
 }
 </script>
-
-<style scoped lang="scss"></style>

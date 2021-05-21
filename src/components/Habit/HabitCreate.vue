@@ -5,7 +5,7 @@
       v-model="isGood"
       class="px-8 py-4"
       :label="isGood ? 'Good' : 'Bad'"
-      :color="isGood ? '#42b983' : '#b94278'"
+      :color="isGood ? colors.GOOD : colors.BAD"
     ></v-switch>
     <HabitNameEmojiInput
       :name="name"
@@ -24,6 +24,7 @@
   </v-alert>
 </template>
 <script lang="ts">
+import { COLORS } from "@/helpers/enums";
 import { HabitAmountType } from "@/store/habit/types";
 import { Component, Vue } from "vue-property-decorator";
 import HabitNameEmojiInput from "./HabitNameEmojiInput.vue";
@@ -37,6 +38,8 @@ export default class HabitCreate extends Vue {
   emoji: string | null = null;
   isGood = true;
   amountType = HabitAmountType.amount;
+
+  colors: any = COLORS;
 
   submit() {
     this.$emit("submit", {

@@ -18,7 +18,7 @@
             <span>{{ user.username }}</span>
           </h1>
           <!-- Health -->
-          <v-chip class="mt-4" :color="getHealth() >= 0 ? '#42b983' : '#b94278'">
+          <v-chip class="mt-4" :color="getHealth() >= 0 ? colors.GOOD : colors.BAD">
             <h4>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h4>
           </v-chip>
         </v-col>
@@ -42,6 +42,7 @@
   </v-alert>
 </template>
 <script lang="ts">
+import { COLORS } from "@/helpers/enums";
 import { User } from "@/store/user/types";
 import { Action, Getter } from "vuex-class";
 import UserEdit from "@/components/User/UserEdit.vue";
@@ -58,6 +59,7 @@ export default class UserHeader extends Vue {
   @Getter("getHealth", { namespace: "activity" }) getHealth: any;
 
   editDialog = false;
+  colors: any = COLORS;
 
   handleUpdate(data: {}) {
     this.updateUser({ user: this.user, data: data });

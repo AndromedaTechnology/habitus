@@ -2,40 +2,36 @@
   <v-chip
     v-if="streak"
     class="ma-2"
-    :color="habit.isGood ? '#42b983' : '#b94278'"
+    :color="habit.isGood ? colors.GOOD : colors.BAD"
     text-color="white"
   >
     <span class="font-weight-bold">{{ streak }} day streak</span>
   </v-chip>
 </template>
-
 <script lang="ts">
+import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
-
 import { Component, Prop, Vue } from "vue-property-decorator";
-
 @Component
 export default class HabitStreak extends Vue {
   @Prop() private habit!: Habit;
   @Prop() private activities!: Array<Activity> | undefined;
 
+  colors: any = COLORS;
+
   get streak(): number {
     if (!this.activities) return 0;
-
     let streak = 0;
     const currentDate = new Date();
-
     let exists = false;
     do {
       exists = this.activities.some((activity: Activity) => {
         return this.areDatesSameDay(new Date(activity.createdAt), currentDate);
       });
-
       if (exists) ++streak;
       currentDate.setDate(currentDate.getDate() - 1);
     } while (exists);
-
     return streak;
   }
 
@@ -48,5 +44,3 @@ export default class HabitStreak extends Vue {
   }
 }
 </script>
-
-<style scoped lang="scss"></style>

@@ -1,6 +1,6 @@
 <template>
   <v-card tile>
-    <v-toolbar flat dark color="#42b983">
+    <v-toolbar flat dark :color="colors.GOOD">
       <v-btn icon dark @click="handleClose()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -55,6 +55,7 @@
   </v-card>
 </template>
 <script lang="ts">
+import { COLORS } from "@/helpers/enums";
 import { User } from "@/store/user/types";
 import DeleteDialog from '../General/DeleteDialog.vue';
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
@@ -73,6 +74,8 @@ export default class UserEdit extends Vue {
   email: string | undefined | null = null;
 
   deleteDialog = false;
+
+  colors: any = COLORS;
 
   mounted() {
     this.username = this.user.username;
@@ -127,6 +130,3 @@ export default class UserEdit extends Vue {
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>

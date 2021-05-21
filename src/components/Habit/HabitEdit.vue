@@ -1,6 +1,6 @@
 <template>
   <v-card tile>
-    <v-toolbar :color="isGood ? '#42b983' : '#b94278'">
+    <v-toolbar :color="isGood ? colors.GOOD : colors.BAD">
       <v-btn icon @click="handleClose()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -53,7 +53,7 @@
               inset
               v-model="isGood"
               :label="isGood ? 'Good' : 'Bad'"
-              :color="isGood ? '#42b983' : '#b94278'"
+              :color="isGood ? colors.GOOD : colors.BAD"
             ></v-switch>
           </v-list-item-content>
         </v-list-item>
@@ -116,6 +116,7 @@
 </template>
 <script lang="ts">
 import { Datetime } from "vue-datetime";
+import { COLORS } from "@/helpers/enums";
 import Impact from "../General/Impact.vue";
 import "vue-datetime/dist/vue-datetime.css";
 import { Habit } from "@/store/habit/types";
@@ -143,6 +144,7 @@ export default class HabitEdit extends Vue {
   endsAtDate: Date | undefined | null = null;
 
   deleteDialog = false;
+  colors: any = COLORS;
 
   handleUpdate(data: {}) {
     this.$emit("update", data);
