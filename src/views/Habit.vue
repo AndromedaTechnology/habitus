@@ -17,7 +17,7 @@
         :activities="getActivities(habit._id)"
       />
     </v-alert>
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2">
           <!-- Edit Dialog -->

@@ -6,12 +6,13 @@
       :allowEdit="true"
       @delete="userDeleteSubmit()"
     />
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2">
           <div v-if="user">
             <Stats :habits="habits" :activities="getActivities()" />
             <ActivityList
+              class="mt-12"
               :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
             />
           </div>
