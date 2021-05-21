@@ -1,30 +1,35 @@
 <template>
-  <v-alert class="activityHeader" dark :icon="habit.isGood ? 'add' : 'remove'">
-    <!-- Habit  -->
-    <router-link
-      v-if="showHabit"
-      :to="{name: 'habit', params: {id: habit._id}}"
-      :class="{'habit': true}"
-    >
-      <h2 class="mb-4">
-        <span>{{ habit.name }}</span>
-      </h2>
-    </router-link>
-    <!-- Note -->
-    <pre class="note" v-if="activity.note">{{ activity.note }}</pre>
-    <!-- Amount -->
-    <h4 class="my-4">
-      <span>{{ activity.amount }} amount</span>
-    </h4>
-    <!-- Edit Button -->
-    <div class="mt-4">
-      <v-btn @click="editDialog = true" large>
+  <v-alert text class="pa-0" :color="habit.isGood ? colors.GOOD : colors.BAD">
+    <div class="px-8 py-4">
+      <!-- Note -->
+      <pre class="note" v-if="activity.note">{{ activity.note }}</pre>
+      <!-- Amount -->
+      <h4 class="my-4">
+        <span>{{ activity.amount }} amount</span>
+      </h4>
+      <!-- Ago -->
+      <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
+    </div>
+    <v-toolbar>
+      <!-- Habit Emoji and Name  -->
+      <router-link
+        v-if="showHabit"
+        :to="{name: 'habit', params: {id: habit._id}}"
+        :class="{'habit': true}"
+      >
+        <h3>
+          <span v-if="habit.emoji">{{ habit.emoji }}</span>
+          &nbsp;
+          <span>{{ habit.name }}</span>
+        </h3>
+      </router-link>
+      <div class="flex-grow-1"></div>
+      <!-- Edit Button -->
+      <v-btn @click="editDialog = true" large text>
         <v-icon class="pr-4">edit</v-icon>
         <h3>Edit</h3>
       </v-btn>
-    </div>
-    <!-- Ago -->
-    <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
+    </v-toolbar>
     <!-- Edit Dialog -->
     <ActivityEditDialog
       v-if="editDialog"
@@ -36,6 +41,7 @@
 </template>
 <script lang="ts">
 import { Habit } from "@/store/habit/types";
+import { COLORS } from '../../helpers/enums';
 import { Activity } from "@/store/activity/types";
 import { Component, Prop, Vue } from "vue-property-decorator";
 import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
@@ -49,6 +55,7 @@ export default class ActivityHeader extends Vue {
   @Prop() private activity!: Activity;
   @Prop({ default: false, type: Boolean }) showHabit?: boolean;
   editDialog = false;
+  colors: any = COLORS;
 }
 </script>
 <style scoped lang="scss">
