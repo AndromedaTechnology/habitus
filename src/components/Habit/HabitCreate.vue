@@ -1,40 +1,37 @@
 <template>
-  <div class="habitCreate">
-    <HabitNameEmojiInput
-      class="pa-8"
-      :name="name"
-      :emoji="emoji"
-      @set:name="name = $event"
-      @set:emoji="emoji = $event"
-      @submit="
-        ($event) => {
-          name = $event.name;
-          emoji = $event.emoji;
-          submit();
-        }
-      "
-    />
-
+  <v-alert class="py-4">
     <v-switch
-      class="pa-8"
       inset
       v-model="isGood"
+      class="px-8 py-4"
       :label="isGood ? 'Good' : 'Bad'"
       :color="isGood ? '#42b983' : '#b94278'"
     ></v-switch>
-
-    <v-btn block @click="submit()">Save</v-btn>
-  </div>
+    <HabitNameEmojiInput
+      :name="name"
+      :emoji="emoji"
+      class="px-8 py-4"
+      @set:name="name = $event"
+      @set:emoji="emoji = $event"
+      @submit="submit()"
+    />
+    <v-btn block @click="submit()" x-large class="py-4">
+      <v-icon>save</v-icon>
+      <h3>
+        Save
+      </h3>
+    </v-btn>
+  </v-alert>
 </template>
-
 <script lang="ts">
 import { HabitAmountType } from "@/store/habit/types";
-
-import HabitNameEmojiInput from "./HabitNameEmojiInput.vue";
-
 import { Component, Vue } from "vue-property-decorator";
-
-@Component({ components: { HabitNameEmojiInput } })
+import HabitNameEmojiInput from "./HabitNameEmojiInput.vue";
+@Component({
+  components: {
+    HabitNameEmojiInput
+  }
+})
 export default class HabitCreate extends Vue {
   name: string | null = null;
   emoji: string | null = null;
@@ -51,15 +48,3 @@ export default class HabitCreate extends Vue {
   }
 }
 </script>
-
-<style scoped lang="scss">
-.habitCreate {
-  text-align: center;
-
-  .name,
-  .submit {
-    margin: 32px auto;
-    display: block;
-  }
-}
-</style>
