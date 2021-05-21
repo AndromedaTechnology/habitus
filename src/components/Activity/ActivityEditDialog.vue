@@ -9,7 +9,7 @@
     <v-sheet>
       <v-progress-linear
         v-if="progressValue"
-        color="light-green darken-4"
+        :color="habit.isGood ? colors.GOOD : colors.BAD"
         height="20"
         stream
         :value="progressValue"
@@ -30,6 +30,7 @@
  * TODO: Simplify.
  */
 import _ from "lodash";
+import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
 import { Component, Prop, Vue } from "vue-property-decorator";
@@ -44,6 +45,8 @@ export default class ActivityEditDialog extends Vue {
   @Prop({ type: Object, required: true, default: undefined }) habit!: Habit;
   @Prop({ type: Object, required: true, default: undefined }) activity!: Activity;
   @Prop({ type: Boolean, required: false, default: false }) isTemporary!: boolean;
+
+  colors: any = COLORS;
 
   totalSeconds = 5;
   intervalId: any = null;
