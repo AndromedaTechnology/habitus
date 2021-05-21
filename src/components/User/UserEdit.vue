@@ -37,34 +37,31 @@
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog">Delete</v-btn>
-
-            <v-dialog v-model="deleteDialog" max-width="500px">
-              <v-card>
-                <v-card-title>Delete everything?</v-card-title>
-                <v-card-text></v-card-text>
-                <v-card-actions>
-                  <v-btn color="success" @click="deleteDialog = false">No</v-btn>
-                  <v-btn @click="handleDelete()" color="error">Yes</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
+            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog">
+              Delete
+            </v-btn>
+            <DeleteDialog
+              v-if="deleteDialog"
+              name="everything"
+              @no="deleteDialog = false"
+              @yes="handleDelete()"
+            ></DeleteDialog>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-card-text>
-
     <div style="flex: 1 1 auto;"></div>
   </v-card>
 </template>
-
 <script lang="ts">
 import { User } from "@/store/user/types";
-
+import DeleteDialog from '../General/DeleteDialog.vue';
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-
 @Component({
   name: "UserEdit",
+  components: {
+    DeleteDialog,
+  }
 })
 export default class UserEdit extends Vue {
   @Prop() private user!: User;

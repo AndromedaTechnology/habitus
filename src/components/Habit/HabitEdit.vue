@@ -97,46 +97,36 @@
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog"
-              >Delete</v-btn
-            >
-
-            <v-dialog v-model="deleteDialog" max-width="500px">
-              <v-card>
-                <v-card-title>Delete Habit?</v-card-title>
-                <v-card-text></v-card-text>
-                <v-card-actions>
-                  <v-btn color="success" @click="deleteDialog = false"
-                    >No</v-btn
-                  >
-                  <v-btn @click="handleDelete()" color="error">Yes</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
+            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog">
+              Delete
+            </v-btn>
+            <DeleteDialog
+              v-if="deleteDialog"
+              name="Habit"
+              @no="deleteDialog = false"
+              @yes="handleDelete()"
+            ></DeleteDialog>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-card-text>
-
     <div style="flex: 1 1 auto;"></div>
   </v-card>
 </template>
-
 <script lang="ts">
-import Impact from "../General/Impact.vue";
-import HabitNameEmojiInput from "./HabitNameEmojiInput.vue";
-
-import { Habit } from "@/store/habit/types";
-
 import { Datetime } from "vue-datetime";
+import Impact from "../General/Impact.vue";
 import "vue-datetime/dist/vue-datetime.css";
+import { Habit } from "@/store/habit/types";
+import DeleteDialog from '../General/DeleteDialog.vue';
+import HabitNameEmojiInput from "./HabitNameEmojiInput.vue";
 import { Component, Vue, Watch, Prop } from "vue-property-decorator";
-
 @Component({
   name: "HabitEdit",
   components: {
-    Datetime,
     Impact,
+    Datetime,
+    DeleteDialog,
     HabitNameEmojiInput,
   },
 })
@@ -158,6 +148,7 @@ export default class HabitEdit extends Vue {
   }
 
   handleDelete() {
+    this.deleteDialog = false;
     this.$emit("delete");
   }
   handleClose() {
