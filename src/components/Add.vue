@@ -21,6 +21,7 @@
       v-if="isDialogVisible"
       :habit="habit"
       :activity="activity"
+      :isTemporary="true"
       @closed="hideDialog()"
     />
   </v-container>
