@@ -1,8 +1,11 @@
 <template>
   <div>
-    <v-alert text v-if="user">
-      <UserHeader :user="user" :allowEdit="true" @delete="userDeleteSubmit()" />
-    </v-alert>
+    <UserHeader
+      v-if="user"
+      :user="user"
+      :allowEdit="true"
+      @delete="userDeleteSubmit()"
+    />
     <v-container>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2">
@@ -31,22 +34,16 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import { User } from "@/store/user/types";
+import { Habit } from "@/store/habit/types";
 import { Action, Getter } from "vuex-class";
 import Component from "vue-class-component";
-
+import Stats from "@/components/User/Stats.vue";
+import { Activity } from "@/store/activity/types";
 import Welcome from '@/components/General/Welcome.vue';
-
-import { User } from "@/store/user/types";
 import UserCreate from "@/components/User/UserCreate.vue";
 import UserHeader from "@/components/User/UserHeader.vue";
-
-import Stats from "@/components/User/Stats.vue";
-
-import { Activity } from "@/store/activity/types";
 import ActivityList from "@/components/Activity/ActivityList.vue";
-
-import { Habit } from "@/store/habit/types";
-
 @Component({
   name: "Home",
   components: {
