@@ -97,8 +97,9 @@
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-btn x-large class="ma-2" @click="deleteDialog = !deleteDialog">
-              Delete
+            <v-btn class="py-4" @click="deleteDialog = !deleteDialog" x-large>
+              <v-icon>delete</v-icon>
+              <h3>Delete</h3>
             </v-btn>
             <DeleteDialog
               v-if="deleteDialog"
