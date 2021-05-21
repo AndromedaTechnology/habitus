@@ -26,7 +26,6 @@
         </show-at>
       </v-col>
     </v-row>
-
     <ActivityEditDialog
       v-if="isDialogVisible"
       :habit="habit"
@@ -37,6 +36,9 @@
   </v-container>
 </template>
 <script lang="ts">
+/**
+ * TODO: Simplify.
+ */
 import _ from "lodash";
 import {showAt} from 'vue-breakpoints';
 import { User } from "@/store/user/types";
@@ -55,14 +57,13 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 export default class Add extends Vue {
   @Getter("user", { namespace: "user" }) user: User | undefined;
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
-  @Getter("getHabit", { namespace: "habit" }) getHabit!: (
-    habitId: string
-  ) => Habit | null;
+  @Getter("getHabit", { namespace: "habit" }) getHabit!: (habitId: string) => Habit | null;
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
 
-  habit?: Habit;
+  routeHabitId: string | null = null;
+  habit: Habit | null = null;
   activity?: Activity;
   isDialogVisible = false;
   habitListSelected:
@@ -90,14 +91,16 @@ export default class Add extends Vue {
   }
 
   @Watch("$route", {
-    immediate: true,
     deep: true,
+    immediate: true,
   })
   onRouteChanged(route: any, oldRoute: any) {
     if (route.name === "habit") {
+      this.routeHabitId = route.params.id;
       this.habitListSelected = this.getHabit(route.params.id);
     } else {
-      this.habitListSelected = null;
+      this.routeHabitId = null;
+      this.$set(this, "habitListSelected", null );
     }
   }
 
@@ -109,7 +112,7 @@ export default class Add extends Vue {
     this.$nextTick(() => {
       if (value) {
         if (value.isCreateNew) {
-          this.habit = undefined;
+          this.habit = null;
           if (this.$router.currentRoute.name !== "habitCreate") {
             this.$router.push({ name: "habitCreate" });
           }
@@ -119,7 +122,7 @@ export default class Add extends Vue {
           this.redirectToHabit(value);
         }
       } else {
-        this.habit = undefined;
+        this.habit = null;
       }
     });
   }
@@ -129,9 +132,8 @@ export default class Add extends Vue {
   })
   onHabitsChanged(value: any, oldValue: any) {
     if (!value) return;
-    const habitId = this.habitListSelected ? this.habitListSelected._id : null;
-    if (habitId) {
-      this.habitListSelected = this.getHabit(habitId);
+    if (this.routeHabitId) {
+      this.habitListSelected = this.getHabit(this.routeHabitId);
     }
   }
   itemText(item: Habit): string {
