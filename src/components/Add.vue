@@ -13,7 +13,17 @@
         ></v-select>
       </v-col>
       <v-col v-if="habit" :cols="4">
-        <v-btn class="pa-6" block @click="saveActivity()">Add</v-btn>
+        <show-at breakpoint="small">
+          <v-btn class="py-6" block @click="saveActivity()">
+            <v-icon>add</v-icon>
+          </v-btn>
+        </show-at>
+        <show-at breakpoint="mediumAndAbove">
+          <v-btn class="py-6" block @click="saveActivity()">
+            <v-icon class="pr-4">add</v-icon>
+            <h3>Add</h3>
+          </v-btn>
+        </show-at>
       </v-col>
     </v-row>
 
@@ -28,6 +38,7 @@
 </template>
 <script lang="ts">
 import _ from "lodash";
+import {showAt} from 'vue-breakpoints';
 import { User } from "@/store/user/types";
 import { Action, Getter } from "vuex-class";
 import { Habit } from "@/store/habit/types";
@@ -37,6 +48,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
   name: "Add",
   components: {
+    showAt,
     ActivityEditDialog,
   },
 })
