@@ -80,7 +80,6 @@ import ActivityHeader from "@/components/Activity/ActivityHeader.vue";
 export default class Habit extends Vue {
   // User
   @Getter("user", { namespace: "user" }) user: User | undefined;
-  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
   // Habit
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
@@ -89,23 +88,16 @@ export default class Habit extends Vue {
   @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
   // Habits
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
-  @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   // Activity
   @Getter("getActivities", { namespace: "activity" }) getActivities:
     | Array<Activity>
     | undefined;
-  @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteHabitActivities", { namespace: "activity" })
   deleteHabitActivities: any;
 
   editDialog = false;
   habitId: string | null = null;
   habit: Habit | undefined | null = null;
-
-  mounted() {
-    this.fetchUser();
-    this.fetchActivities();
-  }
 
   @Watch("$route", {
     immediate: true,

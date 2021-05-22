@@ -58,8 +58,6 @@ export default class Add extends Vue {
   @Getter("user", { namespace: "user" }) user: User | undefined;
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (habitId: string) => Habit | null;
-  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
-  @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
 
   routeHabitId: string | null = null;
@@ -83,11 +81,6 @@ export default class Add extends Vue {
       isCreateNew: true,
     });
     return value;
-  }
-
-  mounted() {
-    this.fetchUser();
-    this.fetchHabits();
   }
 
   @Watch("$route", {

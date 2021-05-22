@@ -62,7 +62,6 @@ export default class HabitList extends Vue {
   // Activity Store
   @Getter("getActivities", { namespace: "activity" })
   getActivities: Array<Activity> | undefined;
-  @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
   filter: string | undefined | null = "now";
@@ -75,10 +74,6 @@ export default class HabitList extends Vue {
   filterChanged(value: any, oldValue: any) {
     if (!value) return;
     this.filterHabits(value);
-  }
-
-  mounted() {
-    this.fetchActivities();
   }
 
   filterHabits(filter: string) {

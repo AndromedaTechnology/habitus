@@ -32,9 +32,15 @@ import { Component, Vue } from "vue-property-decorator";
   }
 })
 export default class App extends Vue {
+  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
   @Action("fetchNotes", { namespace: "note" }) fetchNotes: any;
+  @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
+  @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
   mounted() {
+    this.fetchUser();
     this.fetchNotes();
+    this.fetchHabits();
+    this.fetchActivities();
   }
 }
 </script>
