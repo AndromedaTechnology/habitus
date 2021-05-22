@@ -43,7 +43,7 @@ import ActivityChart from "@/components/Activity/ActivityChart.vue";
 
 import { Habit } from "@/store/habit/types";
 import { User } from "@/store/user/types";
-import { Activity, Activities } from "@/store/activity/types";
+import { Activity } from "@/store/activity/types";
 
 import { Action, Getter } from "vuex-class";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";

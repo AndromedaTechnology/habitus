@@ -1,8 +1,17 @@
 <template>
   <div class="userCreate">
-    <h1>Choose your username</h1>
-    <v-text-field solo dense v-model="username" @keyup.enter="submit()"></v-text-field>
-    <v-btn @click="submit()">Go!</v-btn>
+    <h1 class="mb-12">Choose your username</h1>
+    <v-text-field
+      solo
+      x-large
+      v-model="username"
+      placeholder="Username"
+      @keyup.enter="submit()"
+    ></v-text-field>
+    <v-btn @click="submit()" block x-large>
+      <v-icon class="mr-4">save</v-icon>
+      <h3>Go!</h3>
+    </v-btn>
   </div>
 </template>
 

@@ -10,21 +10,17 @@
     </v-row>
   </v-container>
 </template>
-
 <script lang="ts">
-import OverallChart from "@/components/User/OverallChart.vue";
-import DayChart from "@/components/User/DayChart.vue";
-
 import { Habit } from "@/store/habit/types";
-import { Activities, Activity } from "@/store/activity/types";
-
+import { Activity } from "@/store/activity/types";
+import DayChart from "@/components/User/DayChart.vue";
+import OverallChart from "@/components/User/OverallChart.vue";
 import { Component, Vue, Prop } from "vue-property-decorator";
-
 @Component({
   name: "Stats",
   components: {
-    OverallChart,
     DayChart,
+    OverallChart,
   },
 })
 export default class Stats extends Vue {
@@ -36,6 +32,3 @@ export default class Stats extends Vue {
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>

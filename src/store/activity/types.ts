@@ -7,12 +7,9 @@ export interface Activity {
   createdAt: Date;
 }
 
+export type ActivityCreateDto = ActivityUpdateDto;
 export type ActivityUpdateDto = Omit<Activity, "_id" | "createdAt">;
 
 export interface ActivityState {
-  activities: Activities;
-}
-
-export interface Activities {
-  [habitId: string]: Array<Activity>;
+  activities: Array<Activity>;
 }

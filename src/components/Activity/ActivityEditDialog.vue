@@ -9,7 +9,7 @@
     <v-sheet>
       <v-progress-linear
         v-if="progressValue"
-        :color="habit.isGood ? colors.GOOD : colors.BAD"
+        :color="color"
         height="20"
         stream
         :value="progressValue"
@@ -42,7 +42,7 @@ import ActivityEdit from "@/components/Activity/ActivityEdit.vue";
   },
 })
 export default class ActivityEditDialog extends Vue {
-  @Prop({ type: Object, required: true, default: undefined }) habit!: Habit;
+  @Prop({ type: Object, required: false, default: undefined }) habit?: Habit;
   @Prop({ type: Object, required: true, default: undefined }) activity!: Activity;
   @Prop({ type: Boolean, required: false, default: false }) isTemporary!: boolean;
 
@@ -53,6 +53,13 @@ export default class ActivityEditDialog extends Vue {
 
   ticksPassed = 0;
   ticksPerSecond = 10;
+
+  get color() {
+    if (this.habit) {
+      return this.habit.isGood ? this.colors.GOOD : this.colors.BAD;
+    }
+    return undefined;
+  }
 
   get totalTicks() {
     return this.totalSeconds * this.ticksPerSecond;

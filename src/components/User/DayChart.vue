@@ -7,7 +7,7 @@
 import { Getter } from "vuex-class";
 import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
-import { Activities } from "@/store/activity/types";
+import { Activity } from "@/store/activity/types";
 import BarChart from "@/components/Chart/BarChart.vue";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({
@@ -17,7 +17,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 })
 export default class UserChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
-  @Prop() private activities!: Activities | undefined;
+  @Prop() private activities!: Array<Activity> | undefined;
   @Getter("getHabitHealth", { namespace: "activity" }) getHabitHealth: any;
 
   colors: any = COLORS;
@@ -63,10 +63,10 @@ export default class UserChart extends Vue {
     deep: true,
   })
   onPropertyChanged(value: any, oldValue: any) {
-    this.recalculate(value);
+    this.recalculate();
   }
 
-  recalculate(activities: Activities | undefined) {
+  recalculate() {
     const labels: string[] = [];
     const datasets: Array<{
       label: string;

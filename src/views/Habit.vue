@@ -61,6 +61,7 @@ import { Datetime } from "vue-datetime";
 import { User } from "@/store/user/types";
 import "vue-datetime/dist/vue-datetime.css";
 import { Action, Getter } from "vuex-class";
+import { Habit as HabitType } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
 import HabitEdit from "@/components/Habit/HabitEdit.vue";
 import HabitHeader from "@/components/Habit/HabitHeader.vue";
@@ -83,21 +84,21 @@ export default class Habit extends Vue {
   // Habit
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
-  ) => Habit | null;
+  ) => HabitType | null;
   @Action("updateHabit", { namespace: "habit" }) updateHabit: any;
   @Action("deleteHabit", { namespace: "habit" }) deleteHabit: any;
   // Habits
-  @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
+  @Getter("habits", { namespace: "habit" }) habits: Array<HabitType> | undefined;
   // Activity
   @Getter("getActivities", { namespace: "activity" }) getActivities:
     | Array<Activity>
     | undefined;
   @Action("deleteHabitActivities", { namespace: "activity" })
-  deleteHabitActivities: any;
+  deleteHabitActivities!: (habitId: string) => any;
 
   editDialog = false;
   habitId: string | null = null;
-  habit: Habit | undefined | null = null;
+  habit: HabitType | undefined | null = null;
 
   @Watch("$route", {
     immediate: true,
@@ -132,7 +133,7 @@ export default class Habit extends Vue {
 
   handleDelete() {
     this.editDialog = false;
-    this.deleteHabitActivities(this.habit);
+    this.deleteHabitActivities(this.habit!._id);
     this.deleteHabit(this.habit);
     this.$router.push({ name: "home" });
   }

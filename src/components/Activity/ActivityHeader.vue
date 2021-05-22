@@ -1,21 +1,9 @@
 <template>
-  <v-alert text class="pa-0" :color="habit.isGood ? colors.GOOD : colors.BAD">
-    <div class="px-8 py-4">
-      <!-- Amount -->
-      <h4 v-if="activity.amount" class="my-4">
-        <span>Amount: {{ activity.amount }}</span>
-      </h4>
-      <!-- Note -->
-      <v-alert v-if="note && note.content" text>
-        <pre class="note">{{ note.content }}</pre>
-      </v-alert>
-      <!-- Ago -->
-      <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
-    </div>
+  <v-alert text class="pa-0" :color="color">
     <v-toolbar>
       <!-- Habit Emoji and Name  -->
       <router-link
-        v-if="showHabit"
+        v-if="showHabit && habit"
         :to="{name: 'habit', params: {id: habit._id}}"
         :class="{'habit': true}"
       >
@@ -32,6 +20,18 @@
         <h3>Edit</h3>
       </v-btn>
     </v-toolbar>
+    <div class="px-8 py-4">
+      <!-- Note -->
+      <div v-if="note && note.content" class="my-4">
+        <pre class="note">{{ note.content }}</pre>
+      </div>
+      <!-- Amount -->
+      <h4 v-if="activity.amount" class="my-4">
+        <span>Amount: {{ activity.amount }}</span>
+      </h4>
+      <!-- Ago -->
+      <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
+    </div>
     <!-- Edit Dialog -->
     <ActivityEditDialog
       v-if="editDialog"
@@ -55,7 +55,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
   },
 })
 export default class ActivityHeader extends Vue {
-  @Prop() private habit!: Habit;
+  @Prop() private habit?: Habit;
   @Prop() private activity!: Activity;
   @Prop({ default: false, type: Boolean }) showHabit?: boolean;
 
@@ -65,6 +65,13 @@ export default class ActivityHeader extends Vue {
   editDialog = false;
   colors: any = COLORS;
   note: Note | null = null;
+
+  get color() {
+    if (this.habit) {
+      return this.habit.isGood ? this.colors.GOOD : this.colors.BAD;
+    }
+    return undefined;
+  }
 
   @Watch("notes", {
     deep: true,

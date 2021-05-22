@@ -1,7 +1,6 @@
 <template>
   <div>
     <UserHeader
-      v-if="user"
       :user="user"
       :allowEdit="true"
       @delete="userDeleteSubmit()"
@@ -9,25 +8,11 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2">
-          <div v-if="user">
-            <Stats :habits="habits" :activities="getActivities()" />
-            <ActivityList
-              class="mt-12"
-              :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
-            />
-          </div>
-          <div v-else class="mt-12">
-            <Welcome
-              v-if="!isWelcomeDone"
-              @done="isWelcomeDone = true"
-            />
-            <v-slide-y-transition>
-              <UserCreate
-                v-show="isWelcomeDone"
-                @submit="userCreateSubmit($event)"
-              />
-            </v-slide-y-transition>
-          </div>
+          <Stats :habits="habits" :activities="getActivities()" />
+          <ActivityList
+            class="mt-12"
+            :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -41,17 +26,13 @@ import { Action, Getter } from "vuex-class";
 import Component from "vue-class-component";
 import Stats from "@/components/User/Stats.vue";
 import { Activity } from "@/store/activity/types";
-import Welcome from '@/components/General/Welcome.vue';
-import UserCreate from "@/components/User/UserCreate.vue";
 import UserHeader from "@/components/User/UserHeader.vue";
 import ActivityList from "@/components/Activity/ActivityList.vue";
 @Component({
   name: "Home",
   components: {
-    UserHeader,
-    UserCreate,
     Stats,
-    Welcome,
+    UserHeader,
     ActivityList,
   },
 })
@@ -59,7 +40,6 @@ export default class Home extends Vue {
   // User
   @Getter("user", { namespace: "user" }) user: User | undefined;
   @Action("fetchUser", { namespace: "user" }) fetchUser: any;
-  @Action("persistUser", { namespace: "user" }) persistUser: any;
   @Action("deleteUser", { namespace: "user" }) deleteUser: any;
 
   // Habits
@@ -71,8 +51,6 @@ export default class Home extends Vue {
   @Getter("getActivities", { namespace: "activity" })
   getActivities: Array<Activity> | undefined;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
-
-  isWelcomeDone = false;
 
   activityListDateStart: Date | null = null;
   activityListDateEnd: Date | null = null;
@@ -87,13 +65,6 @@ export default class Home extends Vue {
 
     this.activityListDateEnd = new Date();
     this.activityListDateEnd.setHours(23, 59, 59, 999);
-  }
-
-  userCreateSubmit(username: string) {
-    this.persistUser({
-      username: username,
-    });
-    this.fetchUser();
   }
 
   userDeleteSubmit() {

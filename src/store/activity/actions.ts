@@ -1,20 +1,17 @@
 /* eslint-disable @typescript-eslint/class-name-casing */
 /* eslint-disable @typescript-eslint/camelcase */
-import { ActionTree } from "vuex";
 import {
   Activity,
-  Activities,
   ActivityState,
   ActivityUpdateDto,
+  ActivityCreateDto,
 } from "./types";
+import { ActionTree } from "vuex";
 import { RootState } from "../types";
-import { User } from "../user/types";
-import { Habit } from "../habit/types";
 import { Vue } from "vue-property-decorator";
 
 import VueNoty from "vuejs-noty";
 import "vuejs-noty/dist/vuejs-noty.css";
-
 Vue.use(VueNoty, {
   theme: "metroui",
   layout: "bottomRight",
@@ -23,65 +20,64 @@ Vue.use(VueNoty, {
   },
 });
 
+export const LOCALSTORAGE_KEY_ACTIVITIES = "activities";
+
 export const actions: ActionTree<ActivityState, RootState> = {
   fetchActivities({ commit }): any {
-    // Fetch from Localstorage
-
-    const data: string | null | undefined = localStorage.getItem("activities");
-
-    const activities: Activities = data ? JSON.parse(data) : {};
-
+    const data: string | null | undefined = localStorage.getItem(
+      LOCALSTORAGE_KEY_ACTIVITIES
+    );
+    const activities: Array<Activity> = data ? JSON.parse(data) : [];
     commit("activities", activities);
   },
-  persistActivity(
+  createActivity(
     { state, getters, commit },
-    payload: { habit: Habit; user: User; amount: number }
+    payload: ActivityCreateDto
   ): Promise<Activity> {
     return new Promise((resolve, reject) => {
       const activity: Activity = {
         _id:
           Math.random().toString(36).substring(2, 15) +
           Math.random().toString(36).substring(2, 15),
-        habitId: payload.habit._id,
-        userId: payload.user._id,
-        amount: payload.amount,
+        ...payload,
         createdAt: new Date(),
       };
 
-      // Commit
-
-      commit("addActivity", {
-        habitId: activity.habitId,
-        activity: activity,
-      });
+      commit("addActivity", activity);
 
       // Persist to LocalStorage
-
-      const activities = getters["getActivityState"]();
-      localStorage.setItem("activities", JSON.stringify(activities));
+      const activities = getters["getActivities"]();
+      localStorage.setItem(
+        LOCALSTORAGE_KEY_ACTIVITIES,
+        JSON.stringify(activities)
+      );
 
       resolve(activity);
     });
   },
   deleteActivities({ commit }): any {
     // Delete from Localstorage
-
-    commit("activities", {});
-    localStorage.removeItem("activities");
+    commit("activities", []);
+    localStorage.removeItem(LOCALSTORAGE_KEY_ACTIVITIES);
   },
-  deleteHabitActivities({ getters, commit }, habit: Habit): any {
-    commit("habitActivities", { habitId: habit._id, activities: [] });
-
-    const activities = getters["getActivityState"]();
-    localStorage.setItem("activities", JSON.stringify(activities));
+  deleteHabitActivities({ getters, commit }, habitId: string): any {
+    let activities = getters["getActivities"]();
+    activities = activities.filter((activity: Activity) => {
+      return activity.habitId !== habitId;
+    });
+    commit("activities", activities);
+    localStorage.setItem(
+      LOCALSTORAGE_KEY_ACTIVITIES,
+      JSON.stringify(activities)
+    );
   },
   updateActivity(
     { state, getters, commit },
-    payload: { habit: Habit; activity: Activity; data: ActivityUpdateDto }
+    payload: { id: string; data: ActivityUpdateDto }
   ): any {
-    let activities = getters["getActivities"](payload.habit._id);
+    let activities = getters["getActivities"]();
     activities = activities.map((element: Activity) => {
-      if (element._id === payload.activity._id) {
+      if (element._id === payload.id) {
         element = {
           ...element,
           ...payload.data,
@@ -91,34 +87,32 @@ export const actions: ActionTree<ActivityState, RootState> = {
     });
 
     // Save to State
-    commit("habitActivities", {
-      habitId: payload.habit._id,
-      activities: activities,
-    });
+    commit("activities", activities);
 
     // Persist to localStorage
-    activities = getters["getActivityState"]();
-    localStorage.setItem("activities", JSON.stringify(activities));
+    localStorage.setItem(
+      LOCALSTORAGE_KEY_ACTIVITIES,
+      JSON.stringify(activities)
+    );
   },
   deleteHabitActivity(
     { getters, commit },
-    payload: { habit: Habit; activity: Activity }
+    payload: { id: string }
   ): Promise<any> {
     return new Promise((resolve, reject) => {
-      let activities = getters["getActivities"](payload.habit._id);
+      let activities = getters["getActivities"]();
       activities = activities.filter((element: Activity) => {
-        return element._id !== payload.activity._id;
+        return element._id !== payload.id;
       });
 
       // Save to State
-      commit("habitActivities", {
-        habitId: payload.habit._id,
-        activities: activities,
-      });
+      commit("activities", activities);
 
       // Persist to localStorage
-      activities = getters["getActivityState"]();
-      localStorage.setItem("activities", JSON.stringify(activities));
+      localStorage.setItem(
+        LOCALSTORAGE_KEY_ACTIVITIES,
+        JSON.stringify(activities)
+      );
 
       resolve();
     });

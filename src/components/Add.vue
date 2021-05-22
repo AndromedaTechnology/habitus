@@ -44,8 +44,8 @@ import {showAt} from 'vue-breakpoints';
 import { User } from "@/store/user/types";
 import { Action, Getter } from "vuex-class";
 import { Habit } from "@/store/habit/types";
-import { Activity } from "@/store/activity/types";
 import { Component, Vue, Watch } from "vue-property-decorator";
+import { Activity, ActivityCreateDto } from "@/store/activity/types";
 import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
   name: "Add",
@@ -58,7 +58,7 @@ export default class Add extends Vue {
   @Getter("user", { namespace: "user" }) user: User | undefined;
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (habitId: string) => Habit | null;
-  @Action("persistActivity", { namespace: "activity" }) persistActivity: any;
+  @Action("createActivity", { namespace: "activity" }) createActivity!: (data: ActivityCreateDto) => any;
 
   routeHabitId: string | null = null;
   habit: Habit | null = null;
@@ -133,9 +133,9 @@ export default class Add extends Vue {
     return `${item.emoji ?? ""} ${item.name ?? ""}`;
   }
   saveActivity() {
-    this.persistActivity({
-      habit: this.habit,
-      user: this.user,
+    this.createActivity({
+      habitId: this.habit?._id,
+      userId: this.user?._id,
       amount: 1,
     }).then((activity: Activity) => {
       this.activity = activity;

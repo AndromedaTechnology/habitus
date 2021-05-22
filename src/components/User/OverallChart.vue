@@ -8,7 +8,6 @@ import { Getter } from "vuex-class";
 import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
-import { Activities } from "@/store/activity/types";
 import DoughnutChart from "@/components/Chart/DoughnutChart.vue";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({
@@ -18,7 +17,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 })
 export default class OverallChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
-  @Prop() private activities!: Activities | undefined;
+  @Prop() private activities!: Array<Activity> | undefined;
 
   @Getter("getActivities", { namespace: "activity" }) getActivities!: (
     habitId: string
@@ -48,10 +47,10 @@ export default class OverallChart extends Vue {
     deep: true,
   })
   onPropertyChanged(value: any, oldValue: any) {
-    this.recalculate(value);
+    this.recalculate();
   }
 
-  recalculate(activities: Activities | undefined) {
+  recalculate() {
     const labels: string[] = [];
     const chartData: number[] = [];
     const backgroundColors: string[] = [];

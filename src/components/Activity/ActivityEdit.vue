@@ -1,11 +1,18 @@
 <template>
-  <v-card tile v-if="habit">
-    <v-toolbar :color="habit.isGood ? colors.GOOD : colors.BAD">
+  <v-card tile>
+    <v-toolbar :color="color">
       <v-btn icon @click="handleClose()">
         <v-icon>mdi-close</v-icon>
       </v-btn>
-      <v-toolbar-title>Anything to add?</v-toolbar-title>
+      <v-toolbar-title>{{ toolbarName }}</v-toolbar-title>
       <v-spacer></v-spacer>
+      <router-link
+        v-if="habit"
+        :to="{name: 'habit', params: {id: habit._id}}"
+        :class="{'habit': true}"
+      >
+        <v-icon>launch</v-icon>
+      </router-link>
     </v-toolbar>
     <v-card-text>
       <v-list three-line>
@@ -59,7 +66,7 @@ import { ActivityUpdateDto } from "@/store/activity/types";
   },
 })
 export default class ActivityEdit extends Vue {
-  @Prop() private habit!: Habit;
+  @Prop() private habit?: Habit;
   @Prop() private activity!: Activity;
 
   @Getter("notes", { namespace: "note" }) notes!: Array<Note> | undefined;
@@ -67,13 +74,27 @@ export default class ActivityEdit extends Vue {
   @Action("updateNote", { namespace: "note" }) updateNote!: (data: {id: string; data: NoteCreateDto}) => any;
   @Action("createNote", { namespace: "note" }) createNote!: (data: NoteCreateDto) => any;
 
-  @Action("updateActivity", { namespace: "activity" }) updateActivity: any;
-  @Action("deleteHabitActivity", { namespace: "activity" }) deleteHabitActivity: any;
+  @Action("updateActivity", { namespace: "activity" }) updateActivity!: (payload: { id: string; data: ActivityUpdateDto }) => any;
+  @Action("deleteHabitActivity", { namespace: "activity" }) deleteHabitActivity!: (payload: { id: string }) => any;
 
   colors: any = COLORS;
   deleteDialog = false;
   noteContent: string | null = null;
   amount: number | undefined | null = null;
+
+  get color() {
+    if (this.habit) {
+      return this.habit.isGood ? this.colors.GOOD : this.colors.BAD;
+    }
+    return undefined;
+  }
+
+  get toolbarName() {
+    if (this.habit) {
+      return `${this.habit.emoji ?? ''} ${this.habit.name}`;
+    }
+    return "Anything to add?";
+  }
 
   @Watch("activity", {
     deep: true,
@@ -129,8 +150,7 @@ export default class ActivityEdit extends Vue {
 
   handleUpdateActivity(data: ActivityUpdateDto) {
     this.updateActivity({
-      habit: this.habit,
-      activity: this.activity,
+      id: this.activity._id,
       data: data,
     });
 
@@ -139,7 +159,7 @@ export default class ActivityEdit extends Vue {
 
   handleDelete() {
     this.deleteDialog = false;
-    this.deleteHabitActivity({ habit: this.habit, activity: this.activity });
+    this.deleteHabitActivity({ id: this.activity._id });
     this.$emit("deleted");
   }
 

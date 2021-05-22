@@ -1,30 +1,16 @@
 import { MutationTree } from "vuex";
-import { ActivityState, Activity, Activities } from "./types";
-import { Habit } from "../habit/types";
-import { habit } from "../habit";
-import { activity } from ".";
+import { ActivityState, Activity } from "./types";
 
 export const mutations: MutationTree<ActivityState> = {
-  activities(state, activities: Activities) {
+  activities(state, activities: Array<Activity>) {
     state.activities = activities;
   },
-  habitActivities(
-    state,
-    payload: { habitId: string; activities: Array<Activity> }
-  ) {
-    state.activities[payload.habitId] = payload.activities;
-  },
-  addActivity(state, payload: { habitId: string; activity: Activity }) {
-    let data = state.activities[payload.habitId];
+  addActivity(state, payload: Activity) {
+    let data = state.activities;
     if (!data) {
       data = [];
     }
-
-    data.push(payload.activity);
-
-    state.activities = {
-      ...state.activities,
-      [payload.habitId]: data,
-    };
+    data.push(payload);
+    state.activities = data;
   },
 };

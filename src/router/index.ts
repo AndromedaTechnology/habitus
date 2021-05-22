@@ -2,8 +2,9 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
 import Home from "../views/Home.vue";
-import HabitCreate from "../views/HabitCreate.vue";
 import Habit from "../views/Habit.vue";
+import Input from "../views/Input.vue";
+import HabitCreate from "../views/HabitCreate.vue";
 
 Vue.use(VueRouter);
 
@@ -11,6 +12,11 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "home",
+    component: Input,
+  },
+  {
+    path: "/user",
+    name: "user",
     component: Home,
   },
   {
