@@ -1,11 +1,13 @@
 export interface Activity {
   _id: string;
-  habitId: string;
-  userId: string;
+  habitId?: string;
+  userId?: string;
+  noteId?: string;
   amount?: number;
-  note?: string;
   createdAt: Date;
 }
+
+export type ActivityUpdateDto = Omit<Activity, "_id" | "createdAt">;
 
 export interface ActivityState {
   activities: Activities;

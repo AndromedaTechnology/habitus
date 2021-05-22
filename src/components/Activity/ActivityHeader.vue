@@ -1,12 +1,14 @@
 <template>
   <v-alert text class="pa-0" :color="habit.isGood ? colors.GOOD : colors.BAD">
     <div class="px-8 py-4">
-      <!-- Note -->
-      <pre class="note" v-if="activity.note">{{ activity.note }}</pre>
       <!-- Amount -->
-      <h4 class="my-4">
-        <span>{{ activity.amount }} amount</span>
+      <h4 v-if="activity.amount" class="my-4">
+        <span>Amount: {{ activity.amount }}</span>
       </h4>
+      <!-- Note -->
+      <v-alert v-if="note && note.content" text>
+        <pre class="note">{{ note.content }}</pre>
+      </v-alert>
       <!-- Ago -->
       <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
     </div>
@@ -40,10 +42,12 @@
   </v-alert>
 </template>
 <script lang="ts">
+import { Getter } from "vuex-class";
+import { Note } from "@/store/note/types";
 import { Habit } from "@/store/habit/types";
 import { COLORS } from '../../helpers/enums';
 import { Activity } from "@/store/activity/types";
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
   components: {
@@ -54,8 +58,21 @@ export default class ActivityHeader extends Vue {
   @Prop() private habit!: Habit;
   @Prop() private activity!: Activity;
   @Prop({ default: false, type: Boolean }) showHabit?: boolean;
+
+  @Getter("notes", { namespace: "note" }) notes!: Array<Note> | undefined;
+  @Getter("note", { namespace: "note" }) getNote!: (id: string) => Note | undefined;
+
   editDialog = false;
   colors: any = COLORS;
+  note: Note | null = null;
+
+  @Watch("notes", {
+    deep: true,
+    immediate: true,
+  })
+  notesChanged(newValue: any, oldValue: any) {
+    this.note = this.activity.noteId ? (this.getNote(this.activity.noteId) ?? null) : null;
+  }
 }
 </script>
 <style scoped lang="scss">

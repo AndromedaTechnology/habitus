@@ -22,17 +22,21 @@
   </v-app>
 </template>
 <script lang="ts">
+import { Action } from "vuex-class";
 import Add from "@/components/Add.vue";
-
 import { Component, Vue } from "vue-property-decorator";
-
 @Component({
   name: "App",
   components: {
     Add
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Action("fetchNotes", { namespace: "note" }) fetchNotes: any;
+  mounted() {
+    this.fetchNotes();
+  }
+}
 </script>
 <style lang="scss" scoped>
 .routerView {

@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/class-name-casing */
 /* eslint-disable @typescript-eslint/camelcase */
 import { ActionTree } from "vuex";
-import { ActivityState, Activity, Activities } from "./types";
-import { Habit } from "../habit/types";
-import { User } from "../user/types";
+import {
+  Activity,
+  Activities,
+  ActivityState,
+  ActivityUpdateDto,
+} from "./types";
 import { RootState } from "../types";
+import { User } from "../user/types";
+import { Habit } from "../habit/types";
 import { Vue } from "vue-property-decorator";
 
 import VueNoty from "vuejs-noty";
@@ -35,12 +40,8 @@ export const actions: ActionTree<ActivityState, RootState> = {
     return new Promise((resolve, reject) => {
       const activity: Activity = {
         _id:
-          Math.random()
-            .toString(36)
-            .substring(2, 15) +
-          Math.random()
-            .toString(36)
-            .substring(2, 15),
+          Math.random().toString(36).substring(2, 15) +
+          Math.random().toString(36).substring(2, 15),
         habitId: payload.habit._id,
         userId: payload.user._id,
         amount: payload.amount,
@@ -76,7 +77,7 @@ export const actions: ActionTree<ActivityState, RootState> = {
   },
   updateActivity(
     { state, getters, commit },
-    payload: { habit: Habit; activity: Activity; data: any }
+    payload: { habit: Habit; activity: Activity; data: ActivityUpdateDto }
   ): any {
     let activities = getters["getActivities"](payload.habit._id);
     activities = activities.map((element: Activity) => {
