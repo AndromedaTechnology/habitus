@@ -60,14 +60,16 @@
 
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title>
-              <h2 class="text-center">Impact</h2>
-            </v-list-item-title>
-            <Impact
-              :impact="impact"
-              @update="impact = $event"
-              class="px-10 mt-12 pt-12"
-            />
+            <v-alert text class="pa-8">
+              <v-list-item-title>
+                <h2 class="text-center">Impact</h2>
+              </v-list-item-title>
+              <Impact
+                :impact="impact"
+                @update="impact = $event"
+                class="px-10 mt-12 pt-12"
+              />
+            </v-alert>
           </v-list-item-content>
         </v-list-item>
 
