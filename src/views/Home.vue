@@ -1,7 +1,7 @@
 <template>
   <div>
     <UserHeader
-      :user="user"
+      :user="currentUser"
       :allowEdit="true"
       @delete="userDeleteSubmit()"
     />
@@ -38,9 +38,9 @@ import ActivityList from "@/components/Activity/ActivityList.vue";
 })
 export default class Home extends Vue {
   // User
-  @Getter("user", { namespace: "user" }) user: User | undefined;
-  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
-  @Action("deleteUser", { namespace: "user" }) deleteUser: any;
+  @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
+  @Action("deleteUser", { namespace: "user" }) deleteUser!: (id: string) => any;
+  @Action("setCurrentUserId", { namespace: "user" }) setCurrentUserId!: (id: string | undefined) => any;
 
   // Habits
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
@@ -68,8 +68,8 @@ export default class Home extends Vue {
   }
 
   userDeleteSubmit() {
-    this.deleteUser();
-    this.fetchUser();
+    this.deleteUser(this.currentUser!._id);
+    this.setCurrentUserId(undefined);
 
     this.deleteHabits();
     this.fetchHabits();

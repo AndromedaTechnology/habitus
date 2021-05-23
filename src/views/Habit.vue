@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user && habit">
+  <div v-if="currentUser && habit">
     <v-alert text class="pa-12">
       <!-- Edit Button -->
       <div class="text-center mt-4">
@@ -79,8 +79,8 @@ import ActivityHeader from "@/components/Activity/ActivityHeader.vue";
   },
 })
 export default class Habit extends Vue {
-  // User
-  @Getter("user", { namespace: "user" }) user: User | undefined;
+  // CurrentUser
+  @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
   // Habit
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string

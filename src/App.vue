@@ -13,13 +13,13 @@
             width="40"
           />
         </router-link>
-        <router-link v-if="user" :to="{ name: 'user' }" class="mt-4 mx-4">
+        <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
           <v-icon x-large>person_outline</v-icon>
         </router-link>
       </div>
       <Add />
     </v-app-bar>
-    <router-view v-if="user" class="routerView" />
+    <router-view v-if="currentUser" class="routerView" />
     <v-container v-else>
       <v-row>
         <v-col cols="12" class="mt-12 pt-12">
@@ -42,10 +42,10 @@
 </template>
 <script lang="ts">
 import Add from "@/components/Add.vue";
-import { User } from "./store/user/types";
-import { Action, Getter } from "vuex-class";
+import { Action, Getter} from "vuex-class";
 import Welcome from '@/components/General/Welcome.vue';
 import { Component, Vue } from "vue-property-decorator";
+import { User, UserCreateDto } from "./store/user/types";
 import UserCreate from "@/components/User/UserCreate.vue";
 @Component({
   name: "App",
@@ -56,27 +56,32 @@ import UserCreate from "@/components/User/UserCreate.vue";
   }
 })
 export default class App extends Vue {
-  @Getter("user", { namespace: "user" }) user: User | undefined;
-  @Action("fetchUser", { namespace: "user" }) fetchUser: any;
+  @Action("fetchUsers", { namespace: "user" }) fetchUsers: any;
+  @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
+  @Action("fetchCurrentUserId", { namespace: "user" }) fetchCurrentUserId: any;
+  @Action("createUser", { namespace: "user" }) createUser!: (data: UserCreateDto) => any;
+  @Action("setCurrentUserId", { namespace: "user" }) setCurrentUserId!: (id: string) => any;
+
   @Action("fetchNotes", { namespace: "note" }) fetchNotes: any;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
-  @Action("persistUser", { namespace: "user" }) persistUser: any;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
 
   isWelcomeDone = false;
 
   mounted() {
-    this.fetchUser();
+    this.fetchUsers();
+    this.fetchCurrentUserId();
+
     this.fetchNotes();
     this.fetchHabits();
     this.fetchActivities();
   }
 
-  userCreateSubmit(username: string) {
-    this.persistUser({
+  async userCreateSubmit(username: string) {
+    const user: User = await this.createUser({
       username: username,
     });
-    this.fetchUser();
+    this.setCurrentUserId(user._id);
   }
 }
 </script>

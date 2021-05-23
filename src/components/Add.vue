@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="user" fluid>
+  <v-container v-if="currentUser" fluid>
     <v-row class="mt-12">
       <v-col :cols="habit ? 8 : 12">
         <v-select
@@ -55,7 +55,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
   },
 })
 export default class Add extends Vue {
-  @Getter("user", { namespace: "user" }) user: User | undefined;
+  @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (habitId: string) => Habit | null;
   @Action("createActivity", { namespace: "activity" }) createActivity!: (data: ActivityCreateDto) => any;
@@ -135,7 +135,7 @@ export default class Add extends Vue {
   saveActivity() {
     this.createActivity({
       habitId: this.habit?._id,
-      userId: this.user?._id,
+      userId: this.currentUser?._id,
       amount: 1,
     }).then((activity: Activity) => {
       this.activity = activity;

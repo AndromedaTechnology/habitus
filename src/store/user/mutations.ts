@@ -1,14 +1,30 @@
 import { MutationTree } from "vuex";
-import { UserState, User } from "./types";
+import { UserState, User, UserUpdateDto } from "./types";
 
 export const mutations: MutationTree<UserState> = {
-  setUser(state, payload: User) {
-    state.user = payload;
+  setCurrentUserId(state, payload: string | undefined) {
+    state.currentUserId = payload;
   },
-  updateUser(state, payload: { user: User; data: any }) {
-    state.user = {
-      ...state.user,
-      ...payload.data,
-    };
+  setUsers(state, payload: Array<User> | undefined) {
+    state.users = payload;
+  },
+  addUser(state, payload: User) {
+    state.users = [...(state.users ?? []), payload];
+  },
+  updateUser(state, payload: { id: string; data: UserUpdateDto }) {
+    state.users = state.users?.map((user: User) => {
+      if (user._id === payload.id) {
+        return {
+          ...user,
+          ...payload.data,
+        };
+      }
+      return user;
+    });
+  },
+  removeUser(state, id: string) {
+    state.users = state.users?.filter((user: User) => {
+      return user._id !== id;
+    });
   },
 };

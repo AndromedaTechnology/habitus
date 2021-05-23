@@ -1,11 +1,17 @@
 export interface User {
   _id: string;
-  username: string;
+  username?: string;
   firstName?: string;
   lastName?: string;
   email?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface UserState {
-  user?: User;
+  currentUserId?: string;
+  users?: Array<User>;
 }
+
+export type UserCreateDto = UserUpdateDto;
+export type UserUpdateDto = Omit<User, "_id">;

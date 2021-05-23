@@ -1,10 +1,19 @@
 import { GetterTree } from "vuex";
-import { UserState, User } from "./types";
 import { RootState } from "../types";
+import { UserState, User } from "./types";
 
 export const getters: GetterTree<UserState, RootState> = {
-  user(state): User | undefined {
-    const { user } = state;
-    return user;
+  currentUserId(state): string | undefined {
+    const { currentUserId } = state;
+    return currentUserId;
+  },
+  currentUser(state): User | undefined {
+    const { currentUserId, users } = state;
+    const currentUser = users?.find((user) => user._id === currentUserId);
+    return currentUser;
+  },
+  users(state): Array<User> | undefined {
+    const { users } = state;
+    return users;
   },
 };

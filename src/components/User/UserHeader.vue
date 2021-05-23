@@ -43,9 +43,9 @@
 </template>
 <script lang="ts">
 import { COLORS } from "@/helpers/enums";
-import { User } from "@/store/user/types";
 import { Action, Getter } from "vuex-class";
 import UserEdit from "@/components/User/UserEdit.vue";
+import { User, UserUpdateDto } from "@/store/user/types";
 import { Vue, Component, Prop } from "vue-property-decorator";
 @Component({
   components: {
@@ -55,14 +55,18 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 export default class UserHeader extends Vue {
   @Prop() private user!: User;
   @Prop({ default: false, type: Boolean }) allowEdit?: boolean;
-  @Action("updateUser", { namespace: "user" }) updateUser: any;
+
   @Getter("getHealth", { namespace: "activity" }) getHealth: any;
+  @Action("updateUser", { namespace: "user" }) updateUser!: (data: { id: string; data: UserUpdateDto } ) => any;
 
   editDialog = false;
   colors: any = COLORS;
 
-  handleUpdate(data: {}) {
-    this.updateUser({ user: this.user, data: data });
+  handleUpdate(data: UserUpdateDto) {
+    this.updateUser({
+      id: this.user._id,
+      data: data
+    });
   }
   handleDelete() {
     this.editDialog = false;

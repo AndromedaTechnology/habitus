@@ -55,7 +55,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
   },
 })
 export default class Input extends Vue {
-  @Getter("user", { namespace: "user" }) user: User | undefined;
+  @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("createNote", { namespace: "note" }) createNote!: (data: NoteCreateDto) => any;
   @Action("createActivity", { namespace: "activity" }) createActivity!: (data: ActivityCreateDto) => any;
@@ -103,7 +103,7 @@ export default class Input extends Vue {
 
     this.createActivity({
       habitId: habitId,
-      userId: this.user?._id,
+      userId: this.currentUser?._id,
       noteId: noteId,
     }).then((activity: Activity) => {
       this.activity = activity;
