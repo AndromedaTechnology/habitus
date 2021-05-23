@@ -1,6 +1,11 @@
 <template>
   <div>
-    <DoughnutChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="320"></DoughnutChart>
+    <DoughnutChart
+      v-if="chartData"
+      :chartData="chartData"
+      :options="chartOptions"
+      :height="320"
+    ></DoughnutChart>
   </div>
 </template>
 <script lang="ts">
@@ -8,6 +13,7 @@ import { Getter } from "vuex-class";
 import { COLORS } from "@/helpers/enums";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
+import { HabitHelpers } from '@/store/habit/helpers';
 import DoughnutChart from "@/components/Chart/DoughnutChart.vue";
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({
@@ -59,12 +65,12 @@ export default class OverallChart extends Vue {
     // (to group good/bad habits)
 
     let habits = this.habits?.slice();
-    habits = habits?.sort((a, b) => (a.isGood > b.isGood ? 1 : -1));
+    habits = HabitHelpers.sortHabitsByIsGood(habits);
 
     // Add to chart
     habits?.forEach((habit: Habit) => {
       const acts = this.getActivities(habit._id);
-      labels.push(habit.name);
+      labels.push(habit.name ?? "");
       backgroundColors.push(habit.isGood ? this.colors.GOOD : this.colors.BAD);
       chartData.push(acts ? acts.length : 0);
     });

@@ -6,15 +6,17 @@ export enum HabitAmountType {
 
 export interface Habit {
   _id: string;
-  isGood: boolean;
-  amountType: HabitAmountType;
-  userId: string;
-  name: string;
-  impact: number;
+  isGood?: boolean;
+  amountType?: HabitAmountType;
+  userId?: string;
+  name?: string;
+  impact?: number;
   emoji?: string;
-  startsAtDate: Date | null;
-  endsAtDate: Date | null;
-  repeatInSeconds: number;
+  startsAtDate?: Date;
+  endsAtDate?: Date;
+  repeatInSeconds?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface HabitState {
