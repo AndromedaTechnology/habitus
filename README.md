@@ -69,3 +69,16 @@ Anonymous.
 **Lints and fixes files**
 
 `npm run lint`
+
+## Habitus API
+
+Tested and written in `TypeScript`,
+
+using `Koa.js` and `MongoDB`.
+
+Join the open-source development [here](https://github.com/AndromedaTechnology/habitus-api).
+
+## Powered by
+
+- Contributors
+- [Andromeda Technology](https://andromeda.technology)
