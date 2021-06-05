@@ -1,5 +1,6 @@
 export interface Activity {
   _id: string;
+  emotionId?: string;
   habitId?: string;
   userId?: string;
   noteId?: string;

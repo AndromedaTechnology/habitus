@@ -13,14 +13,14 @@
       <!-- Health -->
       <div class="mt-4">
         <v-chip :color="getHabitHealth(habit) >= 0 ? colors.GOOD : colors.BAD">
-          <h4>
+          <h3>
             {{
               getHabitHealth(habit) >= 0
                 ? "+" + getHabitHealth(habit)
                 : getHabitHealth(habit)
             }}
             HEALTH
-          </h4>
+          </h3>
         </v-chip>
       </div>
       <!-- Streak -->

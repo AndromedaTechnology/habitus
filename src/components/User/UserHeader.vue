@@ -19,7 +19,7 @@
           </h1>
           <!-- Health -->
           <v-chip class="mt-4" :color="getHealth() >= 0 ? colors.GOOD : colors.BAD">
-            <h4>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h4>
+            <h3>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h3>
           </v-chip>
         </v-col>
       </v-row>

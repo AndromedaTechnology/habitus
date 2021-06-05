@@ -21,14 +21,28 @@
       </v-btn>
     </v-toolbar>
     <div class="px-8 py-4">
+      <!-- Emotion -->
+      <v-list-item v-if="activity.emotionId && getEmotion(activity.emotionId)">
+        <v-list-item-content>
+          <EmotionItem
+            :emotion="getEmotion(activity.emotionId)"
+          />
+        </v-list-item-content>
+      </v-list-item>
       <!-- Note -->
-      <div v-if="note && note.content" class="my-4">
-        <pre class="note">{{ note.content }}</pre>
-      </div>
+      <v-list-item v-if="note && note.content">
+        <v-list-item-content>
+          <pre class="note">{{ note.content }}</pre>
+        </v-list-item-content>
+      </v-list-item>
       <!-- Amount -->
-      <h4 v-if="activity.amount" class="my-4">
-        <span>Amount: {{ activity.amount }}</span>
-      </h4>
+      <v-list-item v-if="activity.amount">
+        <v-list-item-content>
+          <h4>
+            <span>Amount: {{ activity.amount }}</span>
+          </h4>
+        </v-list-item-content>
+      </v-list-item>
       <!-- Ago -->
       <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
     </div>
@@ -46,11 +60,14 @@ import { Getter } from "vuex-class";
 import { Note } from "@/store/note/types";
 import { Habit } from "@/store/habit/types";
 import { COLORS } from '../../helpers/enums';
+import { Emotion } from "@/store/emotion/types";
 import { Activity } from "@/store/activity/types";
+import EmotionItem from '../Emotion/EmotionItem.vue';
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
   components: {
+    EmotionItem,
     ActivityEditDialog,
   },
 })
@@ -61,6 +78,8 @@ export default class ActivityHeader extends Vue {
 
   @Getter("notes", { namespace: "note" }) notes!: Array<Note> | undefined;
   @Getter("note", { namespace: "note" }) getNote!: (id: string) => Note | undefined;
+
+  @Getter("getEmotion", { namespace: "emotion" }) getEmotion!: (id: string) => Emotion | undefined;
 
   editDialog = false;
   colors: any = COLORS;

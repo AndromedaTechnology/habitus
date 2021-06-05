@@ -14,7 +14,7 @@
           />
         </router-link>
         <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
-          <v-icon x-large>person_outline</v-icon>
+          <v-icon x-large>face</v-icon>
         </router-link>
       </div>
       <Add />
@@ -62,6 +62,7 @@ export default class App extends Vue {
   @Action("createUser", { namespace: "user" }) createUser!: (data: UserCreateDto) => any;
   @Action("setCurrentUserId", { namespace: "user" }) setCurrentUserId!: (id: string) => any;
 
+  @Action("fetchEmotions", { namespace: "emotion" }) fetchEmotions: any;
   @Action("fetchNotes", { namespace: "note" }) fetchNotes: any;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
@@ -72,6 +73,7 @@ export default class App extends Vue {
     this.fetchUsers();
     this.fetchCurrentUserId();
 
+    this.fetchEmotions();
     this.fetchNotes();
     this.fetchHabits();
     this.fetchActivities();

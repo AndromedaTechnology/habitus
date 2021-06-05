@@ -16,6 +16,15 @@
     </v-toolbar>
     <v-card-text>
       <v-list three-line>
+        <v-list-item v-if="activity.emotionId && getEmotion(activity.emotionId)">
+          <v-list-item-content>
+            <v-list-item-title>Feeling</v-list-item-title>
+            <EmotionItem
+              class="my-4"
+              :emotion="getEmotion(activity.emotionId)"
+            />
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>Note</v-list-item-title>
@@ -50,24 +59,29 @@
   </v-card>
 </template>
 <script lang="ts">
-import { Action, Getter } from "vuex-class";
 import { COLORS } from "@/helpers/enums";
-import { Habit } from "@/store/habit/types";
-import { Activity } from "@/store/activity/types";
-import DeleteDialog from '../General/DeleteDialog.vue';
-import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import { Note } from "@/store/note/types";
+import { Habit } from "@/store/habit/types";
+import { Action, Getter } from "vuex-class";
+import { Emotion } from "@/store/emotion/types";
+import { Activity } from "@/store/activity/types";
 import { NoteCreateDto } from "@/store/note/types";
+import EmotionItem from '../Emotion/EmotionItem.vue';
+import DeleteDialog from '../General/DeleteDialog.vue';
 import { ActivityUpdateDto } from "@/store/activity/types";
+import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 @Component({
   name: "ActivityEdit",
   components: {
+    EmotionItem,
     DeleteDialog,
   },
 })
 export default class ActivityEdit extends Vue {
   @Prop() private habit?: Habit;
   @Prop() private activity!: Activity;
+
+  @Getter("getEmotion", { namespace: "emotion" }) getEmotion!: (id: string) => Emotion | undefined;
 
   @Getter("notes", { namespace: "note" }) notes!: Array<Note> | undefined;
   @Getter("note", { namespace: "note" }) getNote!: (id: string) => Note | undefined;

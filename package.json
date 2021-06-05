@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/chart.js": "^2.9.20",
     "@types/vue-datetime": "^1.0.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
     "luxon": "^1.24.1",
