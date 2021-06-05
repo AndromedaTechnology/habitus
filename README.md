@@ -78,6 +78,14 @@ using `Koa.js` and `MongoDB`.
 
 Join the open-source development [here](https://github.com/AndromedaTechnology/habitus-api).
 
+## API Config (optional)
+
+**.env**
+```
+VUE_APP_API_URL=""
+VUE_APP_API_PREFIX=""
+```
+
 ## Powered by
 
 - Contributors
