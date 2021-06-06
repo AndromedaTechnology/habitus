@@ -2,6 +2,7 @@ import { ActionTree } from "vuex";
 import { RootState } from "../types";
 import { HabitHelpers } from "./helpers";
 import { HabitState, Habit } from "./types";
+import { UserHabitHelpers } from "./userHelpers";
 
 export const actions: ActionTree<HabitState, RootState> = {
   async fetchHabits({ commit }): Promise<Array<Habit>> {
@@ -17,7 +18,7 @@ export const actions: ActionTree<HabitState, RootState> = {
       habitId: payload.habit._id,
       data: payload.data
     });
-    HabitHelpers.persistUserHabits(getters["userHabits"]);
+    UserHabitHelpers.persistUserHabits(getters["userHabits"]);
   },
   persistHabit({ state, getters, commit }, habit: Habit): Promise<Habit> {
     return new Promise((resolve, reject) => {
@@ -30,15 +31,15 @@ export const actions: ActionTree<HabitState, RootState> = {
           .toString(36)
           .substring(2, 15);
       commit("addHabit", habit);
-      HabitHelpers.persistUserHabits(getters["userHabits"]);
+      UserHabitHelpers.persistUserHabits(getters["userHabits"]);
       resolve(habit);
     });
   },
   deleteHabit({ getters, commit }, habit: Habit): any {
     commit("removeHabit", habit._id);
-    HabitHelpers.persistUserHabits(getters["userHabits"]);
+    UserHabitHelpers.persistUserHabits(getters["userHabits"]);
   },
   deleteHabits({ commit }): any {
-    HabitHelpers.persistUserHabits([]);
+    UserHabitHelpers.persistUserHabits([]);
   },
 };
