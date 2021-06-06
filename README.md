@@ -3,7 +3,7 @@
   <a href="https://habitus.today"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
   <br />
   <br />
-  <a href="https://habitus.today">Gamified Habit Tracker and Journal</a>
+  <a href="https://habitus.today">Gamified Habit, Emotion Tracker and Journal</a>
   <br />
   <a href="https://habitus.today">https://habitus.today</a>
 </p>
@@ -14,8 +14,9 @@ Anonymous.
 
 ## Usage
 
-- **Habits - Good OR Bad, Health Impact**
-- **Habit Activity** - can have Notes and Amount
+- **Emotions**
+- **Notes**
+- **Habits - Good/Bad, Impact on Health**
 
 * Sound Notifications for added Activity (Good and Bad Sounds)
 * Graphs for User and Habit Activity
