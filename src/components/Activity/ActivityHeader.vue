@@ -44,7 +44,7 @@
       <div class="flex-grow-1"></div>
       <!-- Edit Button -->
       <v-btn @click="editDialog = true" large text>
-        <v-icon>edit</v-icon>
+        <v-icon class="pr-4">edit</v-icon>
         <h3>Edit</h3>
       </v-btn>
     </v-toolbar>
