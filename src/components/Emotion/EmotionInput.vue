@@ -1,7 +1,7 @@
 <template>
-  <v-alert v-if="emotions && emotions.length">
-    <h1 class="text-center">How do you feel?</h1>
-    <div class="pa-8 text-center">
+  <v-alert v-if="emotions && emotions.length" class="text-center">
+    <div class="pa-12">
+      <h1>How do you feel?</h1>
       <EmotionItem
         class="ma-4"
         v-for="(emotion) in emotions"

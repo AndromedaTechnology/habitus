@@ -1,3 +1,6 @@
+export const LOCALSTORAGE_KEY_HABITS = "habits";
+export const LOCALSTORAGE_KEY_HABITS_GLOBAL = "habits_global";
+
 export enum HabitAmountType {
   amount = "amount",
   timer = "timer",

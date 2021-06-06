@@ -2,7 +2,7 @@
   <div v-if="currentUser && habit">
     <v-alert text class="pa-12">
       <!-- Edit Button -->
-      <div class="text-center mt-4">
+      <div v-if="isEditable" class="text-center mt-4">
         <v-btn @click="editDialog = true" large>
           <v-icon class="pr-4">edit</v-icon>
           <h3>Edit</h3>
@@ -99,6 +99,10 @@ export default class Habit extends Vue {
   editDialog = false;
   habitId: string | null = null;
   habit: HabitType | undefined | null = null;
+
+  get isEditable() {
+    return this.habit?.userId ?? false;
+  }
 
   @Watch("$route", {
     immediate: true,

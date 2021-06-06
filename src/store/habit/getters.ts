@@ -1,20 +1,28 @@
 import { GetterTree } from "vuex";
-import { HabitState, Habit } from "./types";
 import { RootState } from "../types";
+import { HabitState, Habit } from "./types";
 
 export const getters: GetterTree<HabitState, RootState> = {
   habits(state): Array<Habit> | undefined {
     const { habits } = state;
     return habits;
   },
-  getHabit: (state) => (habitId: string): Habit | null => {
+  userHabits(state): Array<Habit> | undefined {
     const { habits } = state;
-    if (!habits) return null;
-
-    const habit = habits.find((element: Habit) => {
-      return element._id === habitId;
+    return habits?.filter(item => {
+      return item.userId ? true : false;
     });
-
-    return habit ? habit : null;
+  },
+  globalHabits(state): Array<Habit> | undefined {
+    const { habits } = state;
+    return habits?.filter(item => {
+      return !item.userId ? true : false;
+    });
+  },
+  getHabit: (state) => (habitId: string): Habit | undefined => {
+    const { habits } = state;
+    return habits?.find((item: Habit) => {
+      return item._id === habitId;
+    });
   },
 };

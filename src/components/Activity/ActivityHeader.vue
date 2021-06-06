@@ -1,6 +1,6 @@
 <template>
-  <v-alert text class="pa-0" :color="color">
-    <v-toolbar>
+  <v-alert class="pa-0" :color="color">
+    <v-toolbar color="rgba(0,0,0,0.2)">
       <!-- Habit Emoji and Name  -->
       <router-link
         v-if="showHabit && habit"
@@ -13,14 +13,8 @@
           <span>{{ habit.name }}</span>
         </h3>
       </router-link>
-      <div class="flex-grow-1"></div>
-      <!-- Edit Button -->
-      <v-btn @click="editDialog = true" large text>
-        <v-icon class="pr-4">edit</v-icon>
-        <h3>Edit</h3>
-      </v-btn>
     </v-toolbar>
-    <div class="px-8 py-4">
+    <div class="px-8 py-0">
       <!-- Emotion -->
       <v-list-item v-if="activity.emotionId && getEmotion(activity.emotionId)">
         <v-list-item-content>
@@ -43,9 +37,17 @@
           </h4>
         </v-list-item-content>
       </v-list-item>
-      <!-- Ago -->
-      <timeago class="d-block mt-4" :datetime="activity.createdAt" :auto-update="60"></timeago>
     </div>
+    <v-toolbar color="rgba(0,0,0,0.2)" class="px-4">
+      <!-- Ago -->
+      <timeago class="d-block" :datetime="activity.createdAt" :auto-update="60"></timeago>
+      <div class="flex-grow-1"></div>
+      <!-- Edit Button -->
+      <v-btn @click="editDialog = true" large text>
+        <v-icon>edit</v-icon>
+        <h3>Edit</h3>
+      </v-btn>
+    </v-toolbar>
     <!-- Edit Dialog -->
     <ActivityEditDialog
       v-if="editDialog"

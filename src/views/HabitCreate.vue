@@ -10,7 +10,8 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { Action } from "vuex-class";
+import { User } from "@/store/user/types";
+import { Action, Getter } from "vuex-class";
 import Component from "vue-class-component";
 import HabitCreate from "@/components/Habit/HabitCreate.vue";
 import { Habit, HabitAmountType } from "@/store/habit/types";
@@ -22,6 +23,7 @@ import { Habit, HabitAmountType } from "@/store/habit/types";
 })
 export default class HabitCreateView extends Vue {
   @Action("persistHabit", { namespace: "habit" }) persistHabit: any;
+  @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
 
   submit(data: {
     name: string;
@@ -30,6 +32,7 @@ export default class HabitCreateView extends Vue {
     amountType: HabitAmountType;
   }) {
     this.persistHabit({
+      userId: this.currentUser?._id,
       name: data.name,
       emoji: data.emoji,
       isGood: data.isGood,
