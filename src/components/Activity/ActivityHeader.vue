@@ -1,9 +1,9 @@
 <template>
   <v-alert class="pa-0" :color="color">
-    <v-toolbar color="rgba(0,0,0,0.2)">
+    <v-toolbar color="rgba(0,0,0,0.2)" v-if="habit">
       <!-- Habit Emoji and Name  -->
       <router-link
-        v-if="showHabit && habit"
+        v-if="showHabit"
         :to="{name: 'habit', params: {id: habit._id}}"
         :class="{'habit': true}"
       >
