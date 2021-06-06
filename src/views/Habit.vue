@@ -49,6 +49,7 @@
               :key="activity._id"
               :habit="habit"
               :activity="activity"
+              class="my-12"
             />
           </div>
         </v-col>

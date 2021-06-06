@@ -1,20 +1,21 @@
 <template>
   <div>
-    <div v-for="activity in activities" :key="activity.id">
-      <ActivityHeader :habit="getHabit(activity.habitId)" :activity="activity" :showHabit="true" />
-    </div>
+    <ActivityHeader
+      v-for="activity in activities"
+      :habit="getHabit(activity.habitId)"
+      :activity="activity"
+      :showHabit="true"
+      :key="activity.id"
+      class="my-12"
+    />
   </div>
 </template>
-
 <script lang="ts">
-import ActivityHeader from "@/components/Activity/ActivityHeader.vue";
-
+import { Getter } from "vuex-class";
 import { Habit } from "@/store/habit/types";
 import { Activity } from "@/store/activity/types";
-
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Getter } from "vuex-class";
-
+import ActivityHeader from "@/components/Activity/ActivityHeader.vue";
 @Component({
   components: {
     ActivityHeader,
@@ -22,12 +23,8 @@ import { Getter } from "vuex-class";
 })
 export default class ActivityList extends Vue {
   @Prop() private activities!: Array<Activity>;
-
   @Getter("getHabit", { namespace: "habit" }) getHabit!: (
     habitId: string
   ) => Habit | null;
 }
 </script>
-
-<style scoped lang="scss">
-</style>
