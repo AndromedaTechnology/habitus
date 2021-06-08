@@ -56,10 +56,11 @@ export default class App extends Vue {
 
   mounted() {
     this.fetchUsers();
-    const currentUserId = this.fetchCurrentUserId();
-    if (!currentUserId) {
-      this.userCreateSubmit(CURRENT_USER_INITIAL_USERNAME);
-    }
+    this.fetchCurrentUserId().then((currentUserId: string | undefined) => {
+      if (!currentUserId) {
+        this.userCreateSubmit(CURRENT_USER_INITIAL_USERNAME);
+      }
+    });
 
     this.fetchEmotions();
     this.fetchNotes();
