@@ -21,7 +21,7 @@ export const actions: ActionTree<UserState, RootState> = {
    * Fetch CurrentUserId, Users
    */
 
-  fetchCurrentUserId({ commit }): any {
+  fetchCurrentUserId({ commit }): string |undefined {
     const itemLs: string | null = localStorage.getItem(
       LOCALSTORAGE_KEY_CURRENT_USER_ID
     );
@@ -29,6 +29,7 @@ export const actions: ActionTree<UserState, RootState> = {
       ? JSON.parse(itemLs)
       : undefined;
     commit("setCurrentUserId", currentUserId);
+    return currentUserId;
   },
   fetchUsers({ commit }): any {
     const itemsLs: string | null = localStorage.getItem(LOCALSTORAGE_KEY_USERS);
