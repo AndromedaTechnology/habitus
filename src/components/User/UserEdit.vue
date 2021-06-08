@@ -50,11 +50,13 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <Info class="my-12" />
     </v-card-text>
     <div style="flex: 1 1 auto;"></div>
   </v-card>
 </template>
 <script lang="ts">
+import Info from '../General/Info.vue';
 import { COLORS } from "@/helpers/enums";
 import { User } from "@/store/user/types";
 import DeleteDialog from '../General/DeleteDialog.vue';
@@ -62,6 +64,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component({
   name: "UserEdit",
   components: {
+    Info,
     DeleteDialog,
   }
 })
