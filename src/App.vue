@@ -43,6 +43,7 @@ import { CURRENT_USER_INITIAL_USERNAME, User, UserCreateDto } from "./store/user
 export default class App extends Vue {
   @Action("fetchUsers", { namespace: "user" }) fetchUsers: any;
   @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
+  @Getter("currentUserId", { namespace: "user" }) currentUserId: string | undefined;
   @Action("fetchCurrentUserId", { namespace: "user" }) fetchCurrentUserId: any;
   @Action("createUser", { namespace: "user" }) createUser!: (data: UserCreateDto) => any;
   @Action("setCurrentUserId", { namespace: "user" }) setCurrentUserId!: (id: string) => any;
@@ -68,11 +69,11 @@ export default class App extends Vue {
     this.fetchActivities();
   }
 
-  @Watch("currentUser", {
-    deep: true,
+  @Watch("currentUserId", {
+    deep: false,
     immediate: false,
   })
-  currentUserChanged(value: any, oldValue: any) {
+  currentUserIdChanged(value: any, oldValue: any) {
     if (!value) {
       this.userCreateSubmit(CURRENT_USER_INITIAL_USERNAME);
     }
