@@ -1,15 +1,17 @@
 <template>
   <v-alert v-if="emotions && emotions.length" class="text-center">
-    <div class="pa-12">
+    <div class="py-12 my-12">
       <h1>How do you feel?</h1>
-      <EmotionItem
-        class="ma-4"
-        v-for="(emotion) in emotions"
-        x-large
-        :emotion="emotion"
-        :key="emotion._id"
-        @click.native="emitSelectedId(emotion._id)"
-      />
+      <div class="mt-4">
+        <EmotionItem
+          class="ma-4"
+          v-for="(emotion) in emotions"
+          x-large
+          :emotion="emotion"
+          :key="emotion._id"
+          @click.native="emitSelectedId(emotion._id)"
+        />
+      </div>
     </div>
   </v-alert>
 </template>

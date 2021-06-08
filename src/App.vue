@@ -23,18 +23,7 @@
     <v-container v-else>
       <v-row>
         <v-col cols="12" class="mt-12 pt-12">
-          <div class="mt-12 pt-12">
-            <Welcome
-              v-if="!isWelcomeDone"
-              @done="isWelcomeDone = true"
-            />
-            <v-slide-y-transition>
-              <UserCreate
-                v-show="isWelcomeDone"
-                @submit="userCreateSubmit($event)"
-              />
-            </v-slide-y-transition>
-          </div>
+            Preparing everything for you...
         </v-col>
       </v-row>
     </v-container>
@@ -43,16 +32,12 @@
 <script lang="ts">
 import Add from "@/components/Add.vue";
 import { Action, Getter} from "vuex-class";
-import Welcome from '@/components/General/Welcome.vue';
-import { Component, Vue } from "vue-property-decorator";
-import { User, UserCreateDto } from "./store/user/types";
-import UserCreate from "@/components/User/UserCreate.vue";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import { CURRENT_USER_INITIAL_USERNAME, User, UserCreateDto } from "./store/user/types";
 @Component({
   name: "App",
   components: {
     Add,
-    Welcome,
-    UserCreate,
   }
 })
 export default class App extends Vue {
@@ -71,12 +56,25 @@ export default class App extends Vue {
 
   mounted() {
     this.fetchUsers();
-    this.fetchCurrentUserId();
+    const currentUserId = this.fetchCurrentUserId();
+    if (!currentUserId) {
+      this.userCreateSubmit(CURRENT_USER_INITIAL_USERNAME);
+    }
 
     this.fetchEmotions();
     this.fetchNotes();
     this.fetchHabits();
     this.fetchActivities();
+  }
+
+  @Watch("currentUser", {
+    deep: true,
+    immediate: false,
+  })
+  currentUserChanged(value: any, oldValue: any) {
+    if (!value) {
+      this.userCreateSubmit(CURRENT_USER_INITIAL_USERNAME);
+    }
   }
 
   async userCreateSubmit(username: string) {

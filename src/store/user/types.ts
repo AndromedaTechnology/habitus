@@ -1,3 +1,5 @@
+export const CURRENT_USER_INITIAL_USERNAME = "you";
+
 export interface User {
   _id: string;
   username?: string;
