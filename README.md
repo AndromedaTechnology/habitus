@@ -99,7 +99,7 @@ VUE_APP_API_PREFIX=""
 - [Twitter](https://twitter.com/HabitusToday)
 
 <br/>
-<h3 style="text-align: center">
+<h3 align="center">
   Crafted with ❤️ <br />
   by contributors around the 🌍 World and <a href="https://andromeda.technology/">🌌 Andromeda</a>.
 </h3>
