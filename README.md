@@ -1,18 +1,23 @@
-<h1 align="center">Habitus App - Healthiest version of you</h1>
+<h1 align="center">Habitus App</h1>
 <p align="center">
   <a href="https://habitus.today"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
   <br />
   <br />
-  <a href="https://habitus.today">Gamified Habit, Emotion Tracker and Journal</a>
+  <a href="https://habitus.today">Gamified Habit, Emotion Tracker and Journal.</a>
+  <br />
+  <a href="https://habitus.today">Healthiest version of you.</a>
   <br />
   <a href="https://habitus.today">https://habitus.today</a>
+  <br />
+  <br />
+  <a href="https://app.netlify.com/sites/andromeda-habitus/deploys"><img src="https://api.netlify.com/api/v1/badges/697e3f91-eed9-460f-8f92-14ed2f9da5fb/deploy-status" alt="Netlify Status" /></a>
 </p>
 
 Unobtrusive and Easy to use.
 
 Anonymous.
 
-## Usage
+## 🏄‍♂️ Features
 
 - **Emotions**
 - **Notes**
@@ -30,7 +35,7 @@ Anonymous.
 
 [Check the gallery](https://imgur.com/gallery/9X7WC6U).
 
-## Anonymous
+## Anonymous, Offline-first
 
 - Storing data in your browser
 - No registration needed
@@ -45,7 +50,7 @@ Anonymous.
 - Vue.js 2.6
 - Vuetify 2.2
 
-## Installation
+## Install, Run and Contribute
 
 **Install packages**
 
@@ -71,23 +76,30 @@ Anonymous.
 
 `npm run lint`
 
-## Habitus API
+## 🛠 API
 
 Tested and written in `TypeScript`,
 
 using `Koa.js` and `MongoDB`.
 
-Join the open-source development [here](https://github.com/AndromedaTechnology/habitus-api).
+[Join the open-source development](https://github.com/AndromedaTechnology/habitus-api).
 
-## API Config (optional)
+### Frontend config (optional)
 
-**.env**
+`.env` file holds API connection configuration.
+
 ```
 VUE_APP_API_URL=""
 VUE_APP_API_PREFIX=""
 ```
 
-## Powered by
+## Social
 
-- Contributors
-- [Andromeda Technology](https://andromeda.technology)
+- [Medium](https://medium.com/@habitus.today)
+- [Twitter](https://twitter.com/HabitusToday)
+
+<br/>
+<h3 style="text-align: center">
+  Crafted with ❤️ <br />
+  by contributors around the 🌍 World and <a href="https://andromeda.technology/">🌌 Andromeda</a>.
+</h3>
