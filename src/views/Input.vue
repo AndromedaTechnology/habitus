@@ -1,7 +1,7 @@
 <template>
   <div>
     <EmotionInput
-      class="py-12"
+      class="my-12 py-12"
       :emotions="emotions"
       v-if="emotions && emotions.length"
       @selectedId="handleSaveEmotion($event)"
