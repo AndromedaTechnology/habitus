@@ -10,7 +10,10 @@
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2" class="pa-8">
           <v-alert text class="py-8">
-            <v-textarea v-model="noteContent" placeholder="Write down your thoughts..." solo></v-textarea>
+            <div class="mb-4">
+              <h1>✍️ What are you thinking about?</h1>
+            </div>
+            <v-textarea v-model="noteContent" placeholder="What are you thinking about?" solo></v-textarea>
             <v-btn block x-large @click="handleCreateNote()">
               <v-icon class="pr-4">save</v-icon>
               <h3>Save</h3>
