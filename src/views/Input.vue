@@ -9,7 +9,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2" class="pa-8">
-          <v-alert text class="py-8">
+          <v-alert text class="pa-8">
             <div class="mb-4">
               <h1>✍️ What are you thinking about?</h1>
             </div>
@@ -19,7 +19,10 @@
               <h3>Save</h3>
             </v-btn>
           </v-alert>
-          <div class="py-8">
+          <v-alert text class="pa-8">
+            <div class="mb-4">
+              <h1>🚀 What did you do?</h1>
+            </div>
             <v-row>
               <v-col v-for="(habit, index) in habits" :key="habit._id" cols="12" :sm="getColumnSize(index, habits.length)">
                 <v-alert
@@ -36,7 +39,7 @@
                 </v-alert>
               </v-col>
             </v-row>
-          </div>
+          </v-alert>
           <ActivityEditDialog
             v-if="isDialogVisible"
             :habit="habit"
