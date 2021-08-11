@@ -21,7 +21,7 @@
           </v-alert>
           <v-alert text class="pa-8">
             <div class="mb-4">
-              <h1>🚀 What did you do?</h1>
+              <h1>🧘‍♀️ What did you do?</h1>
             </div>
             <v-row>
               <v-col v-for="(habit, index) in habits" :key="habit._id" cols="12" :sm="getColumnSize(index, habits.length)">
