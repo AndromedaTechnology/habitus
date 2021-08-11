@@ -9,7 +9,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2" class="pa-8">
-          <v-alert text class="pa-8">
+          <v-alert text class="pa-8" elevation="12">
             <div class="mb-4">
               <h1>✍️ What are you thinking about?</h1>
             </div>
@@ -19,7 +19,7 @@
               <h3>Save</h3>
             </v-btn>
           </v-alert>
-          <v-alert text class="pa-8">
+          <v-alert text class="pa-8" elevation="12">
             <div class="mb-4">
               <h1>🧘‍♀️ What did you do?</h1>
             </div>
@@ -49,6 +49,11 @@
           />
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols="12" sm="12" md="6" offset-md="3" lg="4" offset-lg="4">
+          <Info class="my-12" />
+        </v-col>
+      </v-row>
     </v-container>
   </div>
 </template>
@@ -60,6 +65,7 @@ import Component from "vue-class-component";
 import { Action, Getter } from "vuex-class";
 import { Habit } from "@/store/habit/types";
 import { Emotion } from "@/store/emotion/types";
+import Info from '../components/General/Info.vue';
 import { NoteCreateDto } from "@/store/note/types";
 import EmotionInput from '../components/Emotion/EmotionInput.vue';
 import { Activity, ActivityCreateDto } from "@/store/activity/types";
@@ -67,6 +73,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
   name: "Input",
   components: {
+    Info,
     EmotionInput,
     ActivityEditDialog,
   },
