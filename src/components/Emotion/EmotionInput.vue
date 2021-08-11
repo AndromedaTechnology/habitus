@@ -1,19 +1,32 @@
 <template>
-  <v-alert v-if="emotions && emotions.length" class="text-center">
-    <div class="py-12 my-12">
+  <div v-if="emotions && emotions.length">
+    <div class="mt-12 mb-4 text-center">
       <h1>How do you feel?</h1>
-      <div class="mt-4">
+    </div>
+    <v-tabs
+      centered
+      optional
+      show-arrows
+      height="96px"
+      slider-size="8"
+      slider-color="#121212"
+      :active-class="undefined"
+    >
+      <v-tabs-slider color="#121212"></v-tabs-slider>
+      <v-tab
+        v-for="(emotion) in emotions" :key="emotion._id"
+        style="background-color: #121212 !important; cursor: default;"
+      >
         <EmotionItem
-          class="ma-4"
-          v-for="(emotion) in emotions"
+          class="ma-2"
+          style="cursor: pointer;"
           x-large
           :emotion="emotion"
-          :key="emotion._id"
           @click.native="emitSelectedId(emotion._id)"
         />
-      </div>
-    </div>
-  </v-alert>
+      </v-tab>
+    </v-tabs>
+  </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
@@ -35,3 +48,8 @@ export default class EmotionInput extends Vue {
   }
 }
 </script>
+<style lang="scss">
+.theme--dark.v-tabs > .v-tabs-bar {
+  background: none !important;
+}
+</style>

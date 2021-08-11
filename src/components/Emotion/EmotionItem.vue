@@ -1,5 +1,5 @@
 <template>
-  <v-btn :key="emotion._id" x-large>
+  <v-chip :key="emotion._id" large color="primary" class="px-8" label>
     <h2>
       <span class="mr-4">
         {{ emotion.emoji }}
@@ -8,7 +8,7 @@
         {{ emotion.name }}
       </span>
     </h2>
-  </v-btn>
+  </v-chip>
 </template>
 <script lang="ts">
 import Vue from "vue";
