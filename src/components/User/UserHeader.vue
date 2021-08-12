@@ -1,6 +1,6 @@
 <template>
-  <v-alert text v-if="user">
-    <v-container class="text-center">
+  <v-alert text v-if="user" class="pa-12">
+    <v-container class="text-center pa-12">
       <v-row>
         <v-col cols="12" sm="12" class="pa-12">
           <!-- Edit Button -->
