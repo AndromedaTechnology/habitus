@@ -16,10 +16,10 @@
     </v-toolbar>
     <div class="px-8 py-0">
       <!-- Emotion -->
-      <v-list-item v-if="activity.emotionId && getEmotion(activity.emotionId)">
+      <v-list-item v-if="emotion">
         <v-list-item-content>
           <EmotionItem
-            :emotion="getEmotion(activity.emotionId)"
+            :emotion="emotion"
           />
         </v-list-item-content>
       </v-list-item>
@@ -87,9 +87,16 @@ export default class ActivityHeader extends Vue {
   colors: any = COLORS;
   note: Note | null = null;
 
+  get emotion() {
+    return this.activity.emotionId && this.getEmotion(this.activity.emotionId);
+  }
+
   get color() {
     if (this.habit) {
       return this.habit.isGood ? this.colors.GOOD : this.colors.BAD;
+    }
+    if (this.emotion) {
+      return 'primary';
     }
     return undefined;
   }
