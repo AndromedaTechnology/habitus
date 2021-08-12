@@ -1,5 +1,6 @@
 <template>
   <v-bottom-sheet
+    inset
     scrollable
     persistent
     hide-overlay
