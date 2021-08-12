@@ -11,8 +11,12 @@
         <span v-if="habit.name">{{ habit.name }}</span>
       </h1>
       <!-- Health -->
-      <div class="mt-4">
-        <v-chip :color="getHabitHealth(habit) >= 0 ? colors.GOOD : colors.BAD">
+      <div class="ma-4">
+        <v-chip
+          large
+          class="px-8"
+          :color="getHabitHealth(habit) >= 0 ? colors.GOOD : colors.BAD"
+        >
           <h3>
             {{
               getHabitHealth(habit) >= 0
