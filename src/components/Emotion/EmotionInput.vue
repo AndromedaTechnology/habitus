@@ -1,7 +1,13 @@
 <template>
   <div v-if="emotions && emotions.length">
     <div class="mt-12 mb-4 text-center">
-      <h1>How do you feel?</h1>
+      <h1>
+        <vue-typer
+          text="How do you feel?"
+          :repeat="0"
+          :preTypeDelay="300"
+        ></vue-typer>
+      </h1>
     </div>
     <v-tabs
       centered
@@ -30,6 +36,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import { VueTyper } from 'vue-typer';
 import EmotionItem from './EmotionItem.vue';
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
@@ -37,6 +44,7 @@ import { Emotion } from "@/store/emotion/types";
 @Component({
   name: "EmotionInput",
   components: {
+    VueTyper,
     EmotionItem,
   }
 })
@@ -51,5 +59,12 @@ export default class EmotionInput extends Vue {
 <style lang="scss">
 .theme--dark.v-tabs > .v-tabs-bar {
   background: none !important;
+}
+</style>
+<style lang="scss">
+.vue-typer {
+  .custom.char {
+    color: white;
+  }
 }
 </style>
