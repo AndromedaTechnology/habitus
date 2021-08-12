@@ -18,7 +18,11 @@
             <span>{{ user.username }}</span>
           </h1>
           <!-- Health -->
-          <v-chip class="mt-4" :color="getHealth() >= 0 ? colors.GOOD : colors.BAD">
+          <v-chip
+            large
+            class="px-8 ma-4"
+            :color="getHealth() >= 0 ? colors.GOOD : colors.BAD"
+          >
             <h3>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h3>
           </v-chip>
         </v-col>
