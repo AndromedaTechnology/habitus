@@ -1,6 +1,7 @@
 <template>
   <v-chip
-    class="ma-2"
+    large
+    class="px-8"
     text-color="white"
     :color="habit.isGood ? colors.GOOD : colors.BAD"
   >
