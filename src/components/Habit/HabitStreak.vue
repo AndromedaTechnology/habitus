@@ -1,9 +1,8 @@
 <template>
   <v-chip
-    v-if="streak"
     class="ma-2"
-    :color="habit.isGood ? colors.GOOD : colors.BAD"
     text-color="white"
+    :color="habit.isGood ? colors.GOOD : colors.BAD"
   >
     <h3 class="font-weight-bold">{{ streak }} day streak</h3>
   </v-chip>
