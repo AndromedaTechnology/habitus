@@ -31,10 +31,10 @@
                   @click.native="saveActivity(undefined, undefined, habit._id)"
                 >
                   <div class="text-center">
-                    <h2>
+                    <h1>
                     {{habit.emoji}}
                     {{habit.name}}
-                    </h2>
+                    </h1>
                   </div>
                 </v-alert>
               </v-col>
