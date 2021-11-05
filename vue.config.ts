@@ -11,8 +11,9 @@ const config = {
       maskIcon: "img/icons/safari-pinned-tab.svg",
       msTileImage: "img/icons/msapplication-icon-144x144.png",
     },
+    workboxPluginMode: "GenerateSW",
     workboxOptions: {
-      exclude: ["_redirects"],
+      exclude: [/_redirects/],
     },
   },
   transpileDependencies: ["vuetify"],
