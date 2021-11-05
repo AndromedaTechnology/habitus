@@ -35,14 +35,14 @@
       :timeout="0"
       color="primary"
     >
-      <h2>
+      <h3>
         An update is available!
-      </h2>
+      </h3>
       <v-btn @click="refreshApp">
-        <h2>
+        <h3>
           <v-icon>refresh</v-icon>
           Update
-        </h2>
+        </h3>
       </v-btn>
     </v-snackbar>
   </v-app>
