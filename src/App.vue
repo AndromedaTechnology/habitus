@@ -27,20 +27,38 @@
         </v-col>
       </v-row>
     </v-container>
+    <!-- ServiceWorker Update -->
+    <v-snackbar
+      :value="updateExists"
+      right
+      bottom
+      :timeout="0"
+      color="primary"
+    >
+      An update is available
+      <v-btn text @click="refreshApp">
+        Update
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 <script lang="ts">
 import Add from "@/components/Add.vue";
+import SWMixin from "./mixins/sw.mixin";
 import { Action, Getter} from "vuex-class";
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
+import { Component, Watch } from "vue-property-decorator";
 import { CURRENT_USER_INITIAL_USERNAME, User, UserCreateDto } from "./store/user/types";
 @Component({
   name: "App",
   components: {
     Add,
-  }
+  },
+  mixins: [
+    SWMixin
+  ]
 })
-export default class App extends Vue {
+export default class App extends mixins(SWMixin) {
   @Action("fetchUsers", { namespace: "user" }) fetchUsers: any;
   @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
   @Getter("currentUserId", { namespace: "user" }) currentUserId: string | undefined;
