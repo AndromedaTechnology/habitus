@@ -1,5 +1,3 @@
-import { InjectManifest } from "workbox-webpack-plugin";
-
 const config = {
   pwa: {
     name: "Habitus",
@@ -18,18 +16,5 @@ const config = {
   },
   transpileDependencies: ["vuetify"],
 };
-
-/**
- * ServiceWorker
- */
-if (process.env.NODE_ENV === "production") {
-  config["configureWebpack"] = {
-    plugins: [
-      new InjectManifest({
-        swSrc: "./service-worker.js",
-      }),
-    ],
-  };
-}
 
 module.exports = config;
