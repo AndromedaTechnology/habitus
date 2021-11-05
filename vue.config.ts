@@ -13,7 +13,7 @@ const config = {
     },
     workboxPluginMode: "GenerateSW",
     workboxOptions: {
-      exclude: [/_redirects/],
+      exclude: [/\.map$/, /_redirects/],
     },
   },
   transpileDependencies: ["vuetify"],
