@@ -36,7 +36,7 @@
       color="primary"
     >
       <h3>
-        An update is available!
+        An update is available.
       </h3>
       <v-btn @click="refreshApp">
         <h3>
