@@ -1,5 +1,5 @@
 <template>
-  <div v-if="emotions && emotions.length">
+  <div>
     <div class="mt-12 mb-4 text-center">
       <h1>
         <vue-typer
@@ -10,6 +10,7 @@
       </h1>
     </div>
     <v-tabs
+      v-if="emotions && emotions.length"
       centered
       optional
       show-arrows
@@ -32,6 +33,28 @@
         />
       </v-tab>
     </v-tabs>
+    <v-tabs
+      v-if="isLoading"
+      centered
+      optional
+      show-arrows
+      height="96px"
+      slider-size="8"
+      slider-color="#121212"
+      :active-class="undefined"
+    >
+      <v-tabs-slider color="#121212"></v-tabs-slider>
+      <v-tab
+        v-for="index in 12" :key="index"
+        style="background-color: #121212 !important; cursor: default;"
+      >
+        <v-skeleton-loader
+          class="d-inline-block"
+          max-width="300"
+          type="chip"
+        ></v-skeleton-loader>
+      </v-tab>
+    </v-tabs>
   </div>
 </template>
 <script lang="ts">
@@ -50,6 +73,7 @@ import { Emotion } from "@/store/emotion/types";
 })
 export default class EmotionInput extends Vue {
   @Prop({ type: Array, required: true, default: undefined }) emotions?: Array<Emotion>;
+  @Prop({ type: Boolean, required: false, default: false }) isLoading?: boolean;
 
   emitSelectedId(id: string) {
     this.$emit("selectedId", id);

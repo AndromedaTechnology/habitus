@@ -10,4 +10,5 @@ export interface Emotion {
 
 export interface EmotionState {
   emotions: Array<Emotion>;
+  isLoading: boolean;
 }

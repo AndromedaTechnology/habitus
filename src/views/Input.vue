@@ -3,7 +3,7 @@
     <EmotionInput
       class="my-12 py-12"
       :emotions="emotions"
-      v-if="emotions && emotions.length"
+      :isLoading="emotionsIsLoading"
       @selectedId="handleSaveEmotion($event)"
     />
     <v-container fluid>
@@ -80,6 +80,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 })
 export default class Input extends Vue {
   @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
+  @Getter("isLoading", { namespace: "emotion" }) emotionsIsLoading: boolean | undefined;
   @Getter("emotions", { namespace: "emotion" }) emotions: Array<Emotion> | undefined;
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("createNote", { namespace: "note" }) createNote!: (data: NoteCreateDto) => any;

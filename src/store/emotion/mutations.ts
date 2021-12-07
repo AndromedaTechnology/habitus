@@ -15,6 +15,9 @@ export const mutations: MutationTree<EmotionState> = {
 
     state.emotions = emotions;
   },
+  isLoading(state, payload = false) {
+    state.isLoading = payload;
+  },
   setEmotions(state, payload: Array<Emotion>) {
     state.emotions = payload;
   },

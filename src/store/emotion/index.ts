@@ -7,6 +7,7 @@ import { RootState } from "../types";
 
 export const state: EmotionState = {
   emotions: Array<Emotion>(),
+  isLoading: false,
 };
 
 const namespaced = true;

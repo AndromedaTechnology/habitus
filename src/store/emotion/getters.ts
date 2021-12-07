@@ -3,6 +3,10 @@ import { EmotionState, Emotion } from "./types";
 import { RootState } from "../types";
 
 export const getters: GetterTree<EmotionState, RootState> = {
+  isLoading(state): boolean | undefined {
+    const { isLoading } = state;
+    return isLoading;
+  },
   emotions(state): Array<Emotion> | undefined {
     const { emotions } = state;
     return emotions;
