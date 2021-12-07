@@ -23,7 +23,7 @@
             <div class="mb-4">
               <h1>🧘‍♀️ What did you do?</h1>
             </div>
-            <v-row>
+            <v-row v-if="habits && habits.length">
               <v-col v-for="(habit, index) in habits" :key="habit._id" cols="12" :sm="getColumnSize(index, habits.length)">
                 <v-alert
                   :color="habit.isGood ? colors.GOOD : colors.BAD"
@@ -37,6 +37,13 @@
                     </h1>
                   </div>
                 </v-alert>
+              </v-col>
+            </v-row>
+            <v-row v-else-if="habitsIsLoading">
+              <v-col v-for="(index) in 12" :key="index" cols="12" :sm="getColumnSize(index, 12)">
+                <v-skeleton-loader
+                  type="card"
+                ></v-skeleton-loader>
               </v-col>
             </v-row>
           </v-alert>
@@ -82,6 +89,7 @@ export default class Input extends Vue {
   @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
   @Getter("isLoading", { namespace: "emotion" }) emotionsIsLoading: boolean | undefined;
   @Getter("emotions", { namespace: "emotion" }) emotions: Array<Emotion> | undefined;
+  @Getter("isLoading", { namespace: "habit" }) habitsIsLoading: boolean | undefined;
   @Getter("habits", { namespace: "habit" }) habits: Array<Habit> | undefined;
   @Action("createNote", { namespace: "note" }) createNote!: (data: NoteCreateDto) => any;
   @Action("createActivity", { namespace: "activity" }) createActivity!: (data: ActivityCreateDto) => any;

@@ -6,9 +6,11 @@ import { UserHabitHelpers } from "./userHelpers";
 
 export const actions: ActionTree<HabitState, RootState> = {
   async fetchHabits({ commit }): Promise<Array<Habit>> {
-      const items = await HabitHelpers.fetchHabits();
-      commit("setHabits", items);
-      return Promise.resolve(items);
+    commit("isLoading", true);
+    const items = await HabitHelpers.fetchHabits();
+    commit("isLoading", false);
+    commit("setHabits", items);
+    return Promise.resolve(items);
   },
   updateHabit(
     { state, getters, commit },
@@ -16,7 +18,7 @@ export const actions: ActionTree<HabitState, RootState> = {
   ): any {
     commit("updateHabit", {
       habitId: payload.habit._id,
-      data: payload.data
+      data: payload.data,
     });
     UserHabitHelpers.persistUserHabits(getters["userHabits"]);
   },

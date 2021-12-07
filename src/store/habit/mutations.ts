@@ -2,14 +2,14 @@ import { MutationTree } from "vuex";
 import { HabitState, Habit } from "./types";
 
 export const mutations: MutationTree<HabitState> = {
+  isLoading(state, payload = false) {
+    state.isLoading = payload;
+  },
   setHabits(state, payload: Array<Habit>) {
     state.habits = payload;
   },
   addHabit(state, payload: Habit) {
-    state.habits = [
-      ...state.habits,
-      payload
-    ];
+    state.habits = [...state.habits, payload];
   },
   updateHabit(state, payload: { habitId: string; data: any }) {
     state.habits = state.habits?.map((el: Habit) => {

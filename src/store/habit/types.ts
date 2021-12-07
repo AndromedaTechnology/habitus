@@ -24,4 +24,5 @@ export interface Habit {
 
 export interface HabitState {
   habits: Array<Habit>;
+  isLoading: boolean;
 }

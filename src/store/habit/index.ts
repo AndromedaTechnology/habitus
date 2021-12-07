@@ -7,6 +7,7 @@ import { RootState } from "../types";
 
 export const state: HabitState = {
   habits: Array<Habit>(),
+  isLoading: false,
 };
 
 const namespaced = true;
