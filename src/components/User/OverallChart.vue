@@ -1,7 +1,6 @@
 <template>
   <div>
     <DoughnutChart
-      v-if="chartData"
       :chartData="chartData"
       :options="chartOptions"
       :height="320"
@@ -24,9 +23,14 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 export default class OverallChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
   @Prop() private activities!: Array<Activity> | undefined;
+  @Prop() private dateStart!: Date | undefined;
+  @Prop() private dateEnd!: Date | undefined;
 
   @Getter("getActivities", { namespace: "activity" }) getActivities!: (
-    habitId: string
+    habitId: string | undefined,
+    isDescending?: boolean,
+    dateStart?: Date,
+    dateEnd?: Date
   ) => Array<Activity> | undefined;
 
   colors: any = COLORS;
@@ -69,7 +73,7 @@ export default class OverallChart extends Vue {
 
     // Add to chart
     habits?.forEach((habit: Habit) => {
-      const acts = this.getActivities(habit._id);
+      const acts = this.getActivities(habit._id, false, this.dateStart, this.dateEnd);
       labels.push(habit.name ?? "");
       backgroundColors.push(habit.isGood ? this.colors.GOOD : this.colors.BAD);
       chartData.push(acts ? acts.length : 0);

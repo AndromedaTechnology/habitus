@@ -18,6 +18,8 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 export default class UserChart extends Vue {
   @Prop() private habits!: Array<Habit> | undefined;
   @Prop() private activities!: Array<Activity> | undefined;
+  @Prop() private dateStart!: Date;
+  @Prop() private dateEnd!: Date;
   @Getter("getHabitHealth", { namespace: "activity" }) getHabitHealth: any;
 
   colors: any = COLORS;
@@ -101,13 +103,13 @@ export default class UserChart extends Vue {
 
     for (let hour = 0; hour < 24; hour += hourStep) {
       // Date Start
-      const dateStart = new Date();
+      const dateStart = new Date(this.dateStart);
       dateStart.setHours(hour);
       dateStart.setMinutes(0);
       dateStart.setSeconds(0);
 
       // Date End
-      const dateEnd = new Date();
+      const dateEnd = new Date(this.dateEnd);
       dateEnd.setHours(hour + hourStep);
       dateEnd.setMinutes(0);
       dateEnd.setSeconds(0);

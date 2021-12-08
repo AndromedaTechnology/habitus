@@ -1,13 +1,19 @@
 <template>
   <div>
-    <ActivityHeader
-      v-for="activity in activities"
-      :habit="getHabit(activity.habitId)"
-      :activity="activity"
-      :showHabit="true"
-      :key="activity.id"
-      class="my-12"
-    />
+    <div v-if="activities && activities.length">
+      <ActivityHeader
+        v-for="activity in activities"
+        :habit="getHabit(activity.habitId)"
+        :activity="activity"
+        :showHabit="true"
+        :key="activity.id"
+        class="my-12"
+      />
+    </div>
+    <v-alert type="info" v-else>
+      <h2>Nothing to show.</h2>
+      <h3>Add activity to show it here.</h3>
+    </v-alert>
   </div>
 </template>
 <script lang="ts">

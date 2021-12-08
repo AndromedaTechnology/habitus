@@ -8,10 +8,19 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2">
-          <Stats :habits="habits" :activities="getActivities()" />
+          <SelectDate
+            :initialDate="activityListDateStart"
+            @save="setActivityListDate(new Date($event))"
+          />
+          <Stats
+            :habits="habits"
+            :dateStart="activityListDateStart"
+            :dateEnd="activityListDateEnd"
+            :activities="activities"
+          />
           <ActivityList
             class="mt-12"
-            :activities="getActivities(undefined, true, activityListDateStart, activityListDateEnd)"
+            :activities="activities"
           />
         </v-col>
       </v-row>
@@ -20,19 +29,21 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { User as UserType } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
 import { Action, Getter } from "vuex-class";
 import Component from "vue-class-component";
 import Stats from "@/components/User/Stats.vue";
 import { Activity } from "@/store/activity/types";
+import { User as UserType } from "@/store/user/types";
 import UserHeader from "@/components/User/UserHeader.vue";
+import SelectDate from "@/components/General/SelectDate.vue";
 import ActivityList from "@/components/Activity/ActivityList.vue";
 @Component({
   name: "User",
   components: {
     Stats,
     UserHeader,
+    SelectDate,
     ActivityList,
   },
 })
@@ -49,21 +60,35 @@ export default class User extends Vue {
 
   // Activities
   @Getter("getActivities", { namespace: "activity" })
-  getActivities: Array<Activity> | undefined;
+  getActivities!: (
+    habitId: string | undefined,
+    isDescending?: boolean,
+    dateStart?: Date,
+    dateEnd?: Date
+  ) => Array<Activity> | undefined;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
   activityListDateStart: Date | null = null;
   activityListDateEnd: Date | null = null;
 
   mounted() {
-    this.setActivityListDates();
+    this.setActivityListDate(new Date());
   }
 
-  setActivityListDates(start: Date | null = null, end: Date | null = null) {
-    this.activityListDateStart = new Date();
+  get activities() {
+    return this.getActivities(
+      undefined,
+      true,
+      this.activityListDateStart ?? undefined,
+      this.activityListDateEnd ?? undefined
+    );
+  }
+
+  setActivityListDate(start: Date) {
+    this.activityListDateStart = new Date(start);
     this.activityListDateStart.setHours(0, 0, 0, 0);
 
-    this.activityListDateEnd = new Date();
+    this.activityListDateEnd = new Date(start);
     this.activityListDateEnd.setHours(23, 59, 59, 999);
   }
 
