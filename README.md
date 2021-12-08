@@ -19,15 +19,19 @@ Anonymous.
 
 ## 🏄‍♂️ Features
 
-- **Emotions**
-- **Notes**
-- **Habits - Good/Bad, Impact on Health**
+- **🥰 Emotions**
+- **📝 Notes**
+- **💪 Habits - Good and Bad, Impact on Health**
 
-* Sound Notifications for added Activity (Good and Bad Sounds)
-* Graphs for User and Habit Activity
+### Interactive
 
-- Your Health Status
-- Daily Overview
+- 📣 Sound Notifications for added Activity (Good and Bad Sounds)
+- 📈 Graphs and Filtering for User and Habit Activity
+
+### Gamified
+
+- ⚡️ Your Health Status
+- 🌁 Daily Overview
 
 ## Preview
 
