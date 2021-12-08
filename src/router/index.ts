@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
-import Home from "../views/Home.vue";
+import User from "../views/User.vue";
 import Habit from "../views/Habit.vue";
 import Input from "../views/Input.vue";
 import HabitCreate from "../views/HabitCreate.vue";
@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/user",
     name: "user",
-    component: Home,
+    component: User,
   },
   {
     path: "/habitCreate",

@@ -20,7 +20,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { User } from "@/store/user/types";
+import { User as UserType } from "@/store/user/types";
 import { Habit } from "@/store/habit/types";
 import { Action, Getter } from "vuex-class";
 import Component from "vue-class-component";
@@ -29,16 +29,16 @@ import { Activity } from "@/store/activity/types";
 import UserHeader from "@/components/User/UserHeader.vue";
 import ActivityList from "@/components/Activity/ActivityList.vue";
 @Component({
-  name: "Home",
+  name: "User",
   components: {
     Stats,
     UserHeader,
     ActivityList,
   },
 })
-export default class Home extends Vue {
+export default class User extends Vue {
   // User
-  @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
+  @Getter("currentUser", { namespace: "user" }) currentUser: UserType | undefined;
   @Action("deleteUser", { namespace: "user" }) deleteUser!: (id: string) => any;
   @Action("setCurrentUserId", { namespace: "user" }) setCurrentUserId!: (id: string | undefined) => any;
 
