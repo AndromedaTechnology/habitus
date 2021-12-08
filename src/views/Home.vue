@@ -82,14 +82,14 @@ import EmotionInput from '../components/Emotion/EmotionInput.vue';
 import { Activity, ActivityCreateDto } from "@/store/activity/types";
 import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
-  name: "Input",
+  name: "Home",
   components: {
     Info,
     EmotionInput,
     ActivityEditDialog,
   },
 })
-export default class Input extends Vue {
+export default class Home extends Vue {
   @Getter("currentUser", { namespace: "user" }) currentUser: User | undefined;
   @Getter("isLoading", { namespace: "emotion" }) emotionsIsLoading: boolean | undefined;
   @Getter("emotions", { namespace: "emotion" }) emotions: Array<Emotion> | undefined;
