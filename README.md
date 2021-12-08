@@ -48,7 +48,7 @@ Anonymous.
 
 ## Technology
 
-- Installable
+- Installable and Refreshable Web App (via ServiceWorker)
 - Progressive Web App
 - TypeScript 3.8
 - Vue.js 2.6
