@@ -6,9 +6,9 @@
       :isLoading="emotionsIsLoading"
       @selectedId="handleSaveEmotion($event)"
     />
-    <v-container fluid>
+    <v-container>
       <v-row>
-        <v-col cols="12" sm="8" offset-sm="2" class="pa-8">
+        <v-col cols="12" sm="12">
           <v-alert text class="pa-8" elevation="12">
             <div class="mb-4">
               <h1>✍️ What are you thinking about?</h1>
@@ -19,6 +19,10 @@
               <h3>Save</h3>
             </v-btn>
           </v-alert>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" sm="12">
           <v-alert text class="pa-8" elevation="12">
             <div class="mb-4">
               <h1>🧘‍♀️ What did you do?</h1>
@@ -57,7 +61,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" sm="12" md="8" offset-md="2">
+        <v-col cols="12" sm="12">
           <Info class="my-12" />
         </v-col>
       </v-row>
