@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <v-chip color="green" class="ma-4 px-12 py-4" label outlined
-          ><h2>Easy to use</h2></v-chip
+          ><h2>Easiest to use</h2></v-chip
         >
         <v-chip color="blue" class="ma-4 px-12 py-4" label outlined
           ><h2>Anonymous</h2></v-chip
