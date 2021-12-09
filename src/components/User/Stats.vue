@@ -2,7 +2,7 @@
   <v-container v-if="isVisible">
     <v-row>
       <v-col cols="12" sm="12" md="6">
-        <OverallChart
+        <DayChart
           :habits="habits"
           :activities="activities"
           :dateStart="dateStart"
@@ -10,7 +10,7 @@
         />
       </v-col>
       <v-col cols="12" sm="12" md="6">
-        <DayChart
+        <OverallChart
           :habits="habits"
           :activities="activities"
           :dateStart="dateStart"
