@@ -12,7 +12,7 @@
         <v-text-field
           v-model="date"
           label="Select the date"
-          prepend-icon="mdi-calendar"
+          prepend-inner-icon="mdi-calendar"
           readonly
           solo
           v-bind="attrs"
