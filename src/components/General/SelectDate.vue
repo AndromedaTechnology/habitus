@@ -14,7 +14,8 @@
           label="Select the date"
           prepend-inner-icon="mdi-calendar"
           readonly
-          solo
+          filled
+          rounded
           v-bind="attrs"
           v-on="on"
         ></v-text-field>

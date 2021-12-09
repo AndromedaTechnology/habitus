@@ -19,7 +19,6 @@
             :activities="activities"
           />
           <ActivityList
-            class="mt-12"
             :activities="activities"
           />
         </v-col>
