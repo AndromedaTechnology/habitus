@@ -14,7 +14,7 @@
           />
         </router-link>
         <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
-          <v-icon x-large>face</v-icon>
+          <v-icon x-large>mdi-incognito</v-icon>
         </router-link>
         <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
           <v-icon x-large>mdi-chart-timeline-variant-shimmer</v-icon>

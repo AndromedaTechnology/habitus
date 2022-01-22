@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-12 mb-4 text-center">
+    <div class="mb-4 text-center">
       <h1>
         <vue-typer
           text="How do you feel?"

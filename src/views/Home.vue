@@ -1,7 +1,8 @@
 <template>
   <div>
+    <AnonymousMode class="mt-12 pt-12 text-center" />
     <EmotionInput
-      class="my-12 py-12"
+      class="mb-12 pb-12"
       :emotions="emotions"
       :isLoading="emotionsIsLoading"
       @selectedId="handleSaveEmotion($event)"
@@ -83,6 +84,7 @@ import { Emotion } from "@/store/emotion/types";
 import Info from '../components/General/Info.vue';
 import { NoteCreateDto } from "@/store/note/types";
 import EmotionInput from '../components/Emotion/EmotionInput.vue';
+import AnonymousMode from "../components/General/AnonymousMode.vue";
 import { Activity, ActivityCreateDto } from "@/store/activity/types";
 import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
@@ -91,6 +93,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
     Add,
     Info,
     EmotionInput,
+    AnonymousMode,
     ActivityEditDialog,
   },
 })
