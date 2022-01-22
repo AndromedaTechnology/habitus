@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="currentUser" fluid>
-    <v-row class="mt-12">
+    <v-row>
       <v-col :cols="habit ? 8 : 12">
         <v-select
           solo
@@ -8,7 +8,7 @@
           :items="habitList"
           :item-text="itemText"
           return-object
-          label="Select a Habit"
+          label="Select or Create a Habit"
           d-inline
         ></v-select>
       </v-col>

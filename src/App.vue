@@ -16,8 +16,11 @@
         <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
           <v-icon x-large>face</v-icon>
         </router-link>
+        <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
+          <v-icon x-large>mdi-chart-timeline-variant-shimmer</v-icon>
+        </router-link>
       </div>
-      <Add />
+      <Add class="mt-12" />
     </v-app-bar>
     <router-view v-if="currentUser" class="routerView" />
     <v-container v-else>

@@ -27,6 +27,9 @@
             <div class="mb-4">
               <h1>🧘‍♀️ What did you do?</h1>
             </div>
+            <div>
+              <Add />
+            </div>
             <v-row v-if="habits && habits.length">
               <v-col v-for="(habit, index) in habits" :key="habit._id" cols="12" :sm="getColumnSize(index, habits.length)">
                 <v-alert
@@ -70,6 +73,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import Add from "../components/Add.vue";
 import { COLORS } from "@/helpers/enums";
 import { User } from "@/store/user/types";
 import Component from "vue-class-component";
@@ -84,6 +88,7 @@ import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
 @Component({
   name: "Home",
   components: {
+    Add,
     Info,
     EmotionInput,
     ActivityEditDialog,
