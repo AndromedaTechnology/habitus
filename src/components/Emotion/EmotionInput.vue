@@ -10,7 +10,6 @@
       </h1>
     </div>
     <v-tabs
-      v-if="emotions && emotions.length"
       centered
       optional
       show-arrows
@@ -20,40 +19,32 @@
       :active-class="undefined"
     >
       <v-tabs-slider color="#121212"></v-tabs-slider>
-      <v-tab
-        v-for="(emotion) in emotions" :key="emotion._id"
-        style="background-color: #121212 !important; cursor: default;"
-      >
-        <EmotionItem
-          class="ma-2"
-          style="cursor: pointer;"
-          x-large
-          :emotion="emotion"
-          @click.native="emitSelectedId(emotion._id)"
-        />
-      </v-tab>
-    </v-tabs>
-    <v-tabs
-      v-if="isLoading"
-      centered
-      optional
-      show-arrows
-      height="96px"
-      slider-size="8"
-      slider-color="#121212"
-      :active-class="undefined"
-    >
-      <v-tabs-slider color="#121212"></v-tabs-slider>
-      <v-tab
-        v-for="index in 12" :key="index"
-        style="background-color: #121212 !important; cursor: default;"
-      >
-        <v-skeleton-loader
-          class="d-inline-block"
-          max-width="300"
-          type="chip"
-        ></v-skeleton-loader>
-      </v-tab>
+      <span v-if="emotions && emotions.length" class="d-flex">
+        <v-tab
+          v-for="(emotion) in emotions" :key="emotion._id"
+          style="background-color: #121212 !important; cursor: default;"
+        >
+          <EmotionItem
+            class="ma-2"
+            style="cursor: pointer;"
+            x-large
+            :emotion="emotion"
+            @click.native="emitSelectedId(emotion._id)"
+          />
+        </v-tab>
+      </span>
+      <span v-if="isLoading" class="d-flex">
+        <v-tab
+          v-for="index in 12" :key="index"
+          style="background-color: #121212 !important; cursor: default;"
+        >
+          <v-skeleton-loader
+            class="d-inline-block"
+            max-width="300"
+            type="chip"
+          ></v-skeleton-loader>
+        </v-tab>
+      </span>
     </v-tabs>
   </div>
 </template>

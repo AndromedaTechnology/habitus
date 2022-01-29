@@ -1,5 +1,5 @@
 import apiClient from "@/apiClient";
-import { Habit, LOCALSTORAGE_KEY_HABITS_GLOBAL } from './types';
+import { Habit, LOCALSTORAGE_KEY_HABITS_GLOBAL } from "./types";
 
 export class GlobalHabitHelpers {
   /**
@@ -8,7 +8,7 @@ export class GlobalHabitHelpers {
    *
    * @returns {Promise<Array<Habit> | undefined>}
    */
-  static async fetchGlobalHabits(): Promise<Array<Habit> | undefined> {
+  static async fetchGlobalHabits(): Promise<Array<Habit>> {
     const items = await this.fetchGlobalHabitsFromApi();
     if (items) {
       this.cacheGlobalHabits(items);
@@ -23,7 +23,9 @@ export class GlobalHabitHelpers {
    *
    * @returns {Promise<Array<Habit> | undefined>}
    */
-  private static async fetchGlobalHabitsFromApi(): Promise<Array<Habit> | undefined> {
+  private static async fetchGlobalHabitsFromApi(): Promise<
+    Array<Habit> | undefined
+  > {
     try {
       const response = await apiClient.get("/habits");
       return response ? response.data : undefined;
@@ -38,13 +40,10 @@ export class GlobalHabitHelpers {
    * @returns {Array<Habit>}
    */
   private static getCachedGlobalHabits(): Array<Habit> {
-    const ls:
-      | string
-      | null
-      | undefined = localStorage.getItem(LOCALSTORAGE_KEY_HABITS_GLOBAL);
-    const items: Array<Habit> = ls
-      ? JSON.parse(ls)
-      : [];
+    const ls: string | null | undefined = localStorage.getItem(
+      LOCALSTORAGE_KEY_HABITS_GLOBAL
+    );
+    const items: Array<Habit> = ls ? JSON.parse(ls) : [];
     return items;
   }
 

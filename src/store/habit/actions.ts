@@ -1,16 +1,22 @@
 import { ActionTree } from "vuex";
 import { RootState } from "../types";
-import { HabitHelpers } from "./helpers";
 import { HabitState, Habit } from "./types";
 import { UserHabitHelpers } from "./userHelpers";
+import { GlobalHabitHelpers } from "./globalHelpers";
 
 export const actions: ActionTree<HabitState, RootState> = {
   async fetchHabits({ commit }): Promise<Array<Habit>> {
+    commit("setHabits", []);
+    // Cached: User-created Habits
+    const itemsCached = UserHabitHelpers.fetchUserHabits();
+    commit("pushHabits", itemsCached);
+    // Api
     commit("isLoading", true);
-    const items = await HabitHelpers.fetchHabits();
+    const itemsApi = await GlobalHabitHelpers.fetchGlobalHabits();
+    commit("pushHabits", itemsApi);
     commit("isLoading", false);
-    commit("setHabits", items);
-    return Promise.resolve(items);
+    // Return
+    return Promise.resolve([...itemsCached, ...itemsApi]);
   },
   updateHabit(
     { state, getters, commit },

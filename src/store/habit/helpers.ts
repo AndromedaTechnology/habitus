@@ -1,4 +1,4 @@
-import { Habit } from './types';
+import { Habit } from "./types";
 import { UserHabitHelpers } from "./userHelpers";
 import { GlobalHabitHelpers } from "./globalHelpers";
 
@@ -11,7 +11,7 @@ export class HabitHelpers {
   static async fetchHabits(): Promise<Array<Habit>> {
     return [
       ...UserHabitHelpers.fetchUserHabits(),
-      ...await GlobalHabitHelpers.fetchGlobalHabits() ?? [],
+      ...(await GlobalHabitHelpers.fetchGlobalHabits()),
     ];
   }
 

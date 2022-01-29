@@ -8,11 +8,20 @@ export const actions: ActionTree<EmotionState, RootState> = {
     getters,
     commit,
   }): Promise<Array<Emotion> | undefined> {
+    // Cached
+    const itemsCached = EmotionHelpers.getFromCache();
+    if (itemsCached) {
+      commit("setEmotions", itemsCached);
+    }
+    // Api
     commit("isLoading", true);
-    const items = await EmotionHelpers.fetchEmotions();
+    const itemsApi = await EmotionHelpers.getFromApi();
+    if (itemsApi) {
+      commit("setEmotions", itemsApi);
+    }
     commit("isLoading", false);
-    commit("setEmotions", items);
+    // Set
     EmotionHelpers.cacheStore(getters);
-    return Promise.resolve(items);
+    return Promise.resolve(itemsApi ?? itemsCached ?? []);
   },
 };

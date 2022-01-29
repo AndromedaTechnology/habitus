@@ -11,6 +11,9 @@ export const mutations: MutationTree<HabitState> = {
   addHabit(state, payload: Habit) {
     state.habits = [...state.habits, payload];
   },
+  pushHabits(state, payload: Array<Habit>) {
+    state.habits = [...state.habits, ...payload];
+  },
   updateHabit(state, payload: { habitId: string; data: any }) {
     state.habits = state.habits?.map((el: Habit) => {
       if (el._id === payload.habitId) {

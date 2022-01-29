@@ -47,7 +47,7 @@
                 </v-alert>
               </v-col>
             </v-row>
-            <v-row v-else-if="habitsIsLoading">
+            <v-row v-if="habitsIsLoading">
               <v-col v-for="(index) in 12" :key="index" cols="12" :sm="getColumnSize(index, 12)">
                 <v-skeleton-loader
                   type="card"
