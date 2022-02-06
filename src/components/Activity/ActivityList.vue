@@ -12,7 +12,7 @@
     </div>
     <v-alert type="info" v-else>
       <h2>Nothing to show.</h2>
-      <h3>Add activity to show it here.</h3>
+      <h3>Add activity or select a different date.</h3>
     </v-alert>
   </div>
 </template>

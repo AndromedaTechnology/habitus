@@ -1,5 +1,5 @@
 <template>
-  <v-alert text v-if="user" class="pa-12">
+  <v-alert text v-if="user" class="pt-12 pb-0 px-0">
     <v-container class="text-center pa-12">
       <v-row>
         <v-col cols="12" sm="12" class="pa-12">
@@ -13,18 +13,10 @@
             <h3>Edit</h3>
           </v-btn>
           <!-- Username -->
-          <h1 class="mt-4">
+          <h1 class="mt-4 display-2 font-weight-bold">
             <span>@</span>
             <span>{{ user.username }}</span>
           </h1>
-          <!-- Health -->
-          <v-chip
-            large
-            class="px-8 ma-4"
-            :color="getHealth() >= 0 ? colors.GOOD : colors.BAD"
-          >
-            <h3>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h3>
-          </v-chip>
         </v-col>
       </v-row>
       <!-- Edit Dialog -->
@@ -43,6 +35,16 @@
         />
       </v-dialog>
     </v-container>
+    <v-toolbar>
+      <!-- Health -->
+      <v-chip
+        label
+        class="px-8 ma-4 mx-auto"
+        :color="getHealth() >= 0 ? colors.GOOD : colors.BAD"
+      >
+        <h2>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h2>
+      </v-chip>
+    </v-toolbar>
   </v-alert>
 </template>
 <script lang="ts">

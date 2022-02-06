@@ -41,7 +41,7 @@ export function sortActivities(
   activities: Array<Activity>,
   isDescending = true
 ): Array<Activity> {
-  activities = activities.slice().sort(function (a, b) {
+  activities = activities.slice().sort(function(a, b) {
     const dateA = new Date(a.createdAt).getTime();
     const dateB = new Date(b.createdAt).getTime();
 
@@ -97,10 +97,12 @@ export const getters: GetterTree<ActivityState, RootState> = {
 
     // Habits
     const activities: Array<Activity> | undefined = state.activities;
-    for (const habitId in activities) {
-      const habit = rootGetters["habit/getHabit"](habitId);
+    for (const activity of activities) {
+      if (!activity.habitId) continue;
+      const habit = rootGetters["habit/getHabit"](activity.habitId);
       if (!habit) continue;
-      health += getters["getHabitHealth"](habit);
+      const habitImpact = habit.impact ?? 1;
+      health += habit.isGood ? habitImpact : -habitImpact;
     }
 
     return health;

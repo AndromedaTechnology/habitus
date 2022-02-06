@@ -6,18 +6,15 @@
         <router-link :to="{ name: 'home' }">
           <v-img
             alt="Habitus Logo"
-            class="shrink mr-2 mt-4"
+            class="shrink mx-4 mt-4"
             contain
             src="/img/icons/logo.png"
             transition="scale-transition"
-            width="40"
+            width="48"
           />
         </router-link>
-        <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
-          <v-icon x-large>mdi-incognito</v-icon>
-        </router-link>
-        <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-4 mx-4">
-          <v-icon x-large>mdi-chart-timeline-variant-shimmer</v-icon>
+        <router-link v-if="currentUser" :to="{ name: 'user' }" class="mt-2 mx-4">
+          <v-icon :color="colors.GOOD" class="display-3">mdi-chart-timeline-variant-shimmer</v-icon>
         </router-link>
       </div>
       <Add class="mt-12" />
@@ -39,6 +36,7 @@ import { Action, Getter} from "vuex-class";
 import { Component, Vue, Watch } from "vue-property-decorator";
 import ServiceWorkerUpdate from "./components/General/ServiceWorkerUpdate.vue";
 import { CURRENT_USER_INITIAL_USERNAME, User, UserCreateDto } from "./store/user/types";
+import { COLORS } from "./helpers/enums";
 @Component({
   name: "App",
   components: {
@@ -59,6 +57,7 @@ export default class App extends Vue {
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("fetchActivities", { namespace: "activity" }) fetchActivities: any;
 
+  colors: any = COLORS;
   isWelcomeDone = false;
 
   mounted() {

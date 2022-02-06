@@ -1,23 +1,21 @@
 <template>
   <div v-if="currentUser && habit">
-    <v-alert text class="pa-12">
-      <div class="pa-12">
-        <!-- Edit Button -->
-        <div v-if="isEditable" class="text-center mt-4">
-          <v-btn @click="editDialog = true" large>
-            <v-icon class="pr-4">edit</v-icon>
-            <h3>Edit</h3>
-          </v-btn>
-        </div>
-        <!-- Header -->
-        <HabitHeader
-          class="mt-4 text-center"
-          v-if="habit"
-          :showStreak="true"
-          :habit="habit"
-          :activities="getActivities(habit._id)"
-        />
+    <v-alert text class="pa-0">
+      <!-- Edit Button -->
+      <div class="text-center pt-12 mt-12">
+        <v-btn v-show="isEditable" @click="editDialog = true" large>
+          <v-icon class="pr-4">edit</v-icon>
+          <h3>Edit</h3>
+        </v-btn>
       </div>
+      <!-- Header -->
+      <HabitHeader
+        class="text-center"
+        v-if="habit"
+        :showStreak="true"
+        :habit="habit"
+        :activities="getActivities(habit._id)"
+      />
     </v-alert>
     <v-container fluid>
       <v-row>
@@ -38,12 +36,14 @@
             />
           </v-dialog>
           <!--  Activity Chart -->
-          <ActivityChart
-            v-if="getActivities(habit._id)"
-            class="mt-4"
-            :habit="habit"
-            :activities="getActivities(habit._id)"
-          />
+          <v-alert class="pa-8" elevation="12">
+            <ActivityChart
+              v-if="getActivities(habit._id)"
+              class="mt-4"
+              :habit="habit"
+              :activities="getActivities(habit._id)"
+            />
+          </v-alert>
           <!-- Activity List -->
           <div class="mt-12">
             <ActivityHeader

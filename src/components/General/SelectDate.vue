@@ -15,7 +15,7 @@
           prepend-inner-icon="mdi-calendar"
           readonly
           filled
-          rounded
+          solo
           v-bind="attrs"
           v-on="on"
         ></v-text-field>

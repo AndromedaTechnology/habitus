@@ -1,11 +1,11 @@
 <template>
   <v-chip
-    large
+    label
     class="px-8"
     text-color="white"
     :color="habit.isGood ? colors.GOOD : colors.BAD"
   >
-    <h3 class="font-weight-bold">{{ streak }} day streak</h3>
+    <h2 class="font-weight-bold">{{ streak }} day streak</h2>
   </v-chip>
 </template>
 <script lang="ts">

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <AnonymousMode class="mt-12 pt-12 text-center" />
+    <AnonymousMode v-if="false" class="mt-12 pt-12 text-center" />
     <EmotionInput
-      class="mb-12 pb-12"
+      class="mb-12 pb-12 mt-12 pt-12"
       :emotions="emotions"
       :isLoading="emotionsIsLoading"
       @selectedId="handleSaveEmotion($event)"
@@ -10,11 +10,11 @@
     <v-container>
       <v-row>
         <v-col cols="12" sm="12">
-          <v-alert text class="pa-8" elevation="12">
+          <v-alert text class="pa-8" elevation="24">
             <div class="mb-4">
-              <h1>✍️ What are you thinking about?</h1>
+              <h1>✍️ What's on your mind?</h1>
             </div>
-            <v-textarea v-model="noteContent" placeholder="What are you thinking about?" solo></v-textarea>
+            <v-textarea v-model="noteContent" placeholder="What's on your mind?" solo></v-textarea>
             <v-btn block x-large @click="handleCreateNote()">
               <v-icon class="pr-4">save</v-icon>
               <h3>Save</h3>
@@ -24,7 +24,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" sm="12">
-          <v-alert text class="pa-8" elevation="12">
+          <v-alert text class="pa-8" elevation="24">
             <div class="mb-4">
               <h1>🧘‍♀️ What did you do?</h1>
             </div>
@@ -32,8 +32,24 @@
               <Add />
             </div>
             <v-row v-if="habits && habits.length">
-              <v-col v-for="(habit, index) in habits" :key="habit._id" cols="12" :sm="getColumnSize(index, habits.length)">
+              <v-col cols="12" :sm="getColumnSize(0, habits.length + 1)">
+                <router-link :to="{ name: 'habitCreate' }">
+                  <v-alert
+                    class="pa-12 cursorPointer"
+                    elevation="24"
+                  >
+                    <div class="text-center">
+                      <h1>
+                        <v-icon x-large class="mr-2">add</v-icon>
+                        <span>New habit</span>
+                      </h1>
+                    </div>
+                  </v-alert>
+                </router-link>
+              </v-col>
+              <v-col v-for="(habit, index) in habits" :key="habit._id" cols="12" :sm="getColumnSize(index + 1, habits.length + 1)">
                 <v-alert
+                  elevation="24"
                   :color="habit.isGood ? colors.GOOD : colors.BAD"
                   class="pa-12 cursorPointer"
                   @click.native="saveActivity(undefined, undefined, habit._id)"

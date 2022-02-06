@@ -8,7 +8,7 @@
           :items="habitList"
           :item-text="itemText"
           return-object
-          label="Select or Create a Habit"
+          label="Select a Habit"
           d-inline
         ></v-select>
       </v-col>

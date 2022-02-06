@@ -13,6 +13,7 @@
             @save="setActivityListDate(new Date($event))"
           />
           <Stats
+            v-if="activities && activities.length"
             :habits="habits"
             :dateStart="activityListDateStart"
             :dateEnd="activityListDateEnd"

@@ -1,40 +1,44 @@
 <template>
   <div class="habitHeader">
-    <router-link
-      :to="{ name: 'habit', params: { id: habit._id } }"
-      :class="{ habitLink: true, isBad: !habit.isGood }"
-    >
-      <!-- Name -->
-      <h1>
-        <span v-if="habit.emoji">{{ habit.emoji }}</span>
-        &nbsp;
-        <span v-if="habit.name">{{ habit.name }}</span>
-      </h1>
-      <!-- Health -->
-      <div class="ma-4">
+    <div class="pb-12">
+      <router-link
+        :to="{ name: 'habit', params: { id: habit._id } }"
+        :class="{ habitLink: true, isBad: !habit.isGood }"
+      >
+        <!-- Name -->
+        <h1 class="my-12 display-2 font-weight-bold">
+          <span v-if="habit.emoji">{{ habit.emoji }}</span>
+          &nbsp;
+          <span v-if="habit.name">{{ habit.name }}</span>
+        </h1>
+      </router-link>
+    </div>
+    <v-toolbar>
+      <span class="mx-auto">
+        <!-- Health -->
         <v-chip
-          large
-          class="px-8"
+          label
+          class="px-8 mx-4"
           :color="getHabitHealth(habit) >= 0 ? colors.GOOD : colors.BAD"
         >
-          <h3>
+          <h2>
             {{
               getHabitHealth(habit) >= 0
                 ? "+" + getHabitHealth(habit)
                 : getHabitHealth(habit)
             }}
             HEALTH
-          </h3>
+          </h2>
         </v-chip>
-      </div>
-      <!-- Streak -->
-      <HabitStreak
-        v-if="showStreak"
-        class="streak mb-4"
-        :habit="habit"
-        :activities="activities"
-      />
-    </router-link>
+        <!-- Streak -->
+        <HabitStreak
+          v-if="showStreak"
+          class="streak"
+          :habit="habit"
+          :activities="activities"
+        />
+      </span>
+    </v-toolbar>
   </div>
 </template>
 <script lang="ts">
