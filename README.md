@@ -12,7 +12,6 @@
   <img src="https://badges.aleen42.com/src/vue.svg" alt="Vue" />
   <img src="https://badges.aleen42.com/src/typescript.svg" alt="TypeScript" />
   <br />
-  <br />
   <a href="https://medium.com/@habitus.today"><img src="https://badges.aleen42.com/src/medium.svg" alt="Medium" /></a>
   <a href="https://twitter.com/HabitusToday"><img src="https://badges.aleen42.com/src/twitter.svg" alt="Twitter" /></a>
   <a href="https://www.patreon.com/moltouni"><img src="https://badges.aleen42.com/src/patreon.svg" alt="Patreon" /></a>
