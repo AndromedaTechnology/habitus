@@ -1,9 +1,6 @@
-<h1 align="center">Habitus App</h1>
+<h1 align="center">Habitus Tracker</h1>
 <p align="center">
   <a href="https://habitus.today"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
-  <br />
-  <br />
-  <a href="https://habitus.today">https://habitus.today</a>
   <br />
   <a href="https://habitus.today">Healthiest version of you.</a>
   <br />
@@ -11,6 +8,17 @@
   <br />
   <br />
   <a href="https://app.netlify.com/sites/andromeda-habitus/deploys"><img src="https://api.netlify.com/api/v1/badges/697e3f91-eed9-460f-8f92-14ed2f9da5fb/deploy-status" alt="Netlify Status" /></a>
+  <br />
+  <img src="https://badges.aleen42.com/src/vue.svg" alt="Vue" />
+  <img src="https://badges.aleen42.com/src/typescript.svg" alt="TypeScript" />
+  <br />
+  <br />
+  <a href="https://medium.com/@habitus.today"><img src="https://badges.aleen42.com/src/medium.svg" alt="Medium" /></a>
+  <a href="https://twitter.com/HabitusToday"><img src="https://badges.aleen42.com/src/twitter.svg" alt="Twitter" /></a>
+  <a href="https://www.patreon.com/moltouni"><img src="https://badges.aleen42.com/src/patreon.svg" alt="Patreon" /></a>
+  <a href="https://www.buymeacoffee.com/moltouni"><img src="https://badges.aleen42.com/src/buymeacoffee.svg" alt="Buymeacoffee" /></a>
+  <br />
+  <br />
 </p>
 
 ```
@@ -95,12 +103,21 @@ VUE_APP_API_URL=""
 VUE_APP_API_PREFIX=""
 ```
 
-## 5. 🛠 Habitus API
+## 5. ⚡️ Habitus API
+
+<a href="https://github.com/AndromedaTechnology/habitus-api"><img src="https://badges.aleen42.com/src/github.svg" alt="GitHub" /></a>
+<img src="https://badges.aleen42.com/src/node.svg" alt="Node" />
+<img src="https://badges.aleen42.com/src/typescript.svg" alt="TypeScript" />
+<img src="https://badges.aleen42.com/src/jest_1.svg" alt="Jest" />
+
+Optional; app can be used without it.
+
+Provides initial data for the Frontend.
+
+Join the open-source development of [the Habitus API](https://github.com/AndromedaTechnology/habitus-api).
 
 Tested and written in `TypeScript`,
 using `Koa.js` and `MongoDB`.
-
-[Join the open-source development of the Habitus API](https://github.com/AndromedaTechnology/habitus-api).
 
 ## 6. Social
 
