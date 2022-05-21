@@ -17,6 +17,28 @@ export function filterActivitiesByDate(
   });
 }
 
+export function filterActivitiesByTagIds(
+  activities?: Array<Activity>,
+  tagIds?: Array<string>
+): Array<Activity> {
+  if (!activities) return [];
+  if (!tagIds) return activities;
+
+  return activities.filter((activity) => {
+    if (!activity.tagIds) return false;
+
+    let isValid = true;
+    for (const tagId of tagIds) {
+      const isTagIdFound = activity.tagIds.find((item) => item === tagId);
+      if (!isTagIdFound) {
+        isValid = false;
+        break;
+      }
+    }
+    return isValid;
+  });
+}
+
 export function calculateActivitiesImpact(
   activities: Array<Activity>,
   itemImpact = 1
@@ -58,6 +80,7 @@ export const getters: GetterTree<ActivityState, RootState> = {
   getActivities: (state) => (
     habitId: string | undefined = undefined,
     isDescending = false,
+    tagIds?: Array<string>,
     dateStart?: Date,
     dateEnd?: Date
   ): Array<Activity> | undefined => {
@@ -66,6 +89,7 @@ export const getters: GetterTree<ActivityState, RootState> = {
       activities = filterActivitiesByHabit(activities, habitId);
     }
     activities = filterActivitiesByDate(activities, dateStart, dateEnd);
+    activities = filterActivitiesByTagIds(activities, tagIds);
     activities = sortActivities(activities, isDescending);
     return activities;
   },

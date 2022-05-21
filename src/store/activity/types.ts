@@ -2,6 +2,7 @@ export interface Activity {
   _id: string;
   emotionId?: string;
   habitId?: string;
+  tagIds?: Array<string>;
   userId?: string;
   noteId?: string;
   amount?: number;

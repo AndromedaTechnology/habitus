@@ -52,6 +52,7 @@ export default class App extends Vue {
   @Action("createUser", { namespace: "user" }) createUser!: (data: UserCreateDto) => any;
   @Action("setCurrentUserId", { namespace: "user" }) setCurrentUserId!: (id: string) => any;
 
+  @Action("fetchTags", { namespace: "tag" }) fetchTags: any;
   @Action("fetchEmotions", { namespace: "emotion" }) fetchEmotions: any;
   @Action("fetchNotes", { namespace: "note" }) fetchNotes: any;
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
@@ -68,6 +69,7 @@ export default class App extends Vue {
       }
     });
 
+    this.fetchTags();
     this.fetchEmotions();
     this.fetchNotes();
     this.fetchHabits();

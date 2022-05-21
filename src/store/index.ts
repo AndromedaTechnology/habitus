@@ -5,6 +5,7 @@ import { RootState } from "./types";
 import { note } from "./note/index";
 import { user } from "./user/index";
 import { habit } from "./habit/index";
+import { tag } from "./tag/index";
 import { emotion } from "./emotion/index";
 import { impact } from "./impact/index";
 import { activity } from "./activity/index";
@@ -19,6 +20,7 @@ const store: StoreOptions<RootState> = {
     user,
     emotion,
     habit,
+    tag,
     note,
     impact,
     activity,

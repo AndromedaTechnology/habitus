@@ -7,11 +7,12 @@
     />
     <v-container fluid>
       <v-row>
-        <v-col cols="12" sm="8" offset-sm="2">
+        <v-col cols="12" lg="8" offset-lg="2">
           <SelectDate
             :initialDate="activityListDateStart"
             @save="setActivityListDate(new Date($event))"
           />
+          <TagInput :tags="tags" @selectedIds="setSelectedTagIds($event)" />
           <Stats
             v-if="activities && activities.length"
             :habits="habits"
@@ -29,11 +30,13 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import { Tag } from "@/store/tag/types";
 import { Habit } from "@/store/habit/types";
 import { Action, Getter } from "vuex-class";
 import Component from "vue-class-component";
 import Stats from "@/components/User/Stats.vue";
 import { Activity } from "@/store/activity/types";
+import TagInput from "../components/Tag/TagInput.vue";
 import { User as UserType } from "@/store/user/types";
 import UserHeader from "@/components/User/UserHeader.vue";
 import SelectDate from "@/components/General/SelectDate.vue";
@@ -42,6 +45,7 @@ import ActivityList from "@/components/Activity/ActivityList.vue";
   name: "User",
   components: {
     Stats,
+    TagInput,
     UserHeader,
     SelectDate,
     ActivityList,
@@ -58,16 +62,20 @@ export default class User extends Vue {
   @Action("fetchHabits", { namespace: "habit" }) fetchHabits: any;
   @Action("deleteHabits", { namespace: "habit" }) deleteHabits: any;
 
+  @Getter("tags", { namespace: "tag" }) tags: Array<Tag> | undefined;
+
   // Activities
   @Getter("getActivities", { namespace: "activity" })
   getActivities!: (
     habitId: string | undefined,
     isDescending?: boolean,
+    tagIds?: Array<string>,
     dateStart?: Date,
     dateEnd?: Date
   ) => Array<Activity> | undefined;
   @Action("deleteActivities", { namespace: "activity" }) deleteActivities: any;
 
+  tagIds: Array<string> = [];
   activityListDateStart: Date | null = null;
   activityListDateEnd: Date | null = null;
 
@@ -75,10 +83,16 @@ export default class User extends Vue {
     this.setActivityListDate(new Date());
   }
 
+
+  setSelectedTagIds(ids: Array<string>) {
+    this.tagIds = ids;
+  }
+
   get activities() {
     return this.getActivities(
       undefined,
       true,
+      this.tagIds ?? undefined,
       this.activityListDateStart ?? undefined,
       this.activityListDateEnd ?? undefined
     );

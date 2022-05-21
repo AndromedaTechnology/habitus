@@ -16,6 +16,16 @@
     </v-toolbar>
     <v-card-text>
       <v-list three-line>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>Tags</v-list-item-title>
+            <TagInput
+              :tags="tags"
+              :selectedIds="activity.tagIds"
+              @selectedIds="setTagIds($event)"
+            />
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item v-if="activity.emotionId && getEmotion(activity.emotionId)">
           <v-list-item-content>
             <v-list-item-title>Feeling</v-list-item-title>
@@ -59,8 +69,10 @@
   </v-card>
 </template>
 <script lang="ts">
+import { Tag } from "@/store/tag/types";
 import { COLORS } from "@/helpers/enums";
 import { Note } from "@/store/note/types";
+import TagInput from "../Tag/TagInput.vue";
 import { Habit } from "@/store/habit/types";
 import { Action, Getter } from "vuex-class";
 import { Emotion } from "@/store/emotion/types";
@@ -73,6 +85,7 @@ import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 @Component({
   name: "ActivityEdit",
   components: {
+    TagInput,
     EmotionItem,
     DeleteDialog,
   },
@@ -80,6 +93,8 @@ import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 export default class ActivityEdit extends Vue {
   @Prop() private habit?: Habit;
   @Prop() private activity!: Activity;
+
+  @Getter("tags", { namespace: "tag" }) tags: Array<Tag> | undefined;
 
   @Getter("getEmotion", { namespace: "emotion" }) getEmotion!: (id: string) => Emotion | undefined;
 
@@ -155,6 +170,12 @@ export default class ActivityEdit extends Vue {
         noteId: note._id
       });
     }
+  }
+
+  setTagIds(ids: Array<string>) {
+    this.handleUpdateActivity({
+      tagIds: ids
+    });
   }
 
   @Watch("amount")

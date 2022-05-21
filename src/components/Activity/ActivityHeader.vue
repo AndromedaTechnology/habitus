@@ -15,6 +15,19 @@
       </router-link>
     </v-toolbar>
     <div class="px-8 py-0">
+      <!-- Tag -->
+      <v-list-item v-if="tagsSelected && tagsSelected.length">
+        <v-list-item-content>
+          <div>
+            <TagItem
+              v-for="tag in tagsSelected"
+              :key="tag._id"
+              :tag="tag"
+              class="mx-2"
+            />
+          </div>
+        </v-list-item-content>
+      </v-list-item>
       <!-- Emotion -->
       <v-list-item v-if="emotion">
         <v-list-item-content>
@@ -59,6 +72,7 @@
 </template>
 <script lang="ts">
 import { Getter } from "vuex-class";
+import TagItem from "../Tag/TagItem.vue";
 import { Note } from "@/store/note/types";
 import { Habit } from "@/store/habit/types";
 import { COLORS } from '../../helpers/enums';
@@ -67,8 +81,10 @@ import { Activity } from "@/store/activity/types";
 import EmotionItem from '../Emotion/EmotionItem.vue';
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import ActivityEditDialog from "@/components/Activity/ActivityEditDialog.vue";
+import { Tag } from "@/store/tag/types";
 @Component({
   components: {
+    TagItem,
     EmotionItem,
     ActivityEditDialog,
   },
@@ -83,9 +99,24 @@ export default class ActivityHeader extends Vue {
 
   @Getter("getEmotion", { namespace: "emotion" }) getEmotion!: (id: string) => Emotion | undefined;
 
+  @Getter("tags", { namespace: "tag" }) tags: Array<Tag> | undefined;
+
   editDialog = false;
   colors: any = COLORS;
   note: Note | null = null;
+
+  get tagsSelected(): Array<Tag> {
+    const ids = this.activity.tagIds;
+    const tags = [];
+    if (!ids) return [];
+    for (const id of ids) {
+      const tag = this.tags?.find(item => item._id === id);
+      if (tag) {
+        tags.push(tag);
+      }
+    }
+    return tags;
+  }
 
   get emotion() {
     return this.activity.emotionId && this.getEmotion(this.activity.emotionId);

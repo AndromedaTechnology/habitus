@@ -2,6 +2,8 @@
 <p align="center">
   <a href="https://habitus.today"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
   <br />
+  <a href="https://habitus.today">Truly Amazing Life Tracker.</a>
+  <br />
   <a href="https://habitus.today">Healthiest version of you.</a>
   <br />
   <a href="https://habitus.today">Gamified Habit, Emotion Tracker and Journal.</a>
@@ -31,12 +33,13 @@ State-of-the-Art Life Tracker.
 ## 🏄‍♂️ Features
 
 - 📝 Journal
-- 🥰 Emotion Tracker
-- 💪 Habit Tracker - Good and Bad, with Impact on Health
-- Interactive
-  - 📈 Graphs and Filtering - for User and Habit Activity
-  - 📣 Sound Notifications - for added Activity (Good and Bad Sounds)
-- Gamified
+- 🥰 Emotions
+- 💪 Habits (Good and Bad, with Impact on Health)
+- **🆕 🏷 Tag Everything! (Easily Filter Notes, Activity, ...)**
+- ⚡️ Interactive
+  - 📈 Graphs and Filtering - User and Habit Activity
+  - 📣 Sound Notifications - Activity (Good and Bad Sounds)
+- 🎯 Gamified
   - 🌁 Daily Overview
   - ⚡️ Your Health Status
 
