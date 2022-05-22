@@ -25,11 +25,9 @@ export function filterActivitiesByTagIds(
   if (!tagIds) return activities;
 
   return activities.filter((activity) => {
-    if (!activity.tagIds) return false;
-
     let isValid = true;
     for (const tagId of tagIds) {
-      const isTagIdFound = activity.tagIds.find((item) => item === tagId);
+      const isTagIdFound = activity.tagIds?.find((item) => item === tagId);
       if (!isTagIdFound) {
         isValid = false;
         break;
