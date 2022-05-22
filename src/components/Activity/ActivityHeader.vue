@@ -1,5 +1,18 @@
 <template>
   <v-alert class="pa-0" :color="color">
+    <v-toolbar v-if="habit && showHabit" color="rgba(0,0,0,0.2)">
+      <!-- Habit Emoji and Name  -->
+      <router-link
+        :to="{name: 'habit', params: {id: habit._id}}"
+        :class="{'habit': true}"
+      >
+        <h3>
+          <span v-if="habit.emoji">{{ habit.emoji }}</span>
+          &nbsp;
+          <span>{{ habit.name }}</span>
+        </h3>
+      </router-link>
+    </v-toolbar>
     <v-container fluid>
       <v-list flat dense :color="color">
         <!-- Amount -->
@@ -41,22 +54,10 @@
         </v-list-item>
       </v-list>
     </v-container>
-    <v-toolbar color="rgba(0,0,0,0.2)" class="px-4">
-      <!-- Habit Emoji and Name  -->
-      <router-link
-        v-if="habit && showHabit"
-        :to="{name: 'habit', params: {id: habit._id}}"
-        :class="{'habit': true}"
-      >
-        <h3>
-          <span v-if="habit.emoji">{{ habit.emoji }}</span>
-          &nbsp;
-          <span>{{ habit.name }}</span>
-        </h3>
-      </router-link>
-      <v-spacer></v-spacer>
+    <v-toolbar color="rgba(0,0,0,0.2)">
       <!-- Ago -->
       <timeago class="d-block" :datetime="activity.createdAt" :auto-update="60"></timeago>
+      <v-spacer></v-spacer>
       <!-- Edit Button -->
       <v-btn @click="editDialog = true" large text>
         <v-icon class="pr-4">edit</v-icon>
