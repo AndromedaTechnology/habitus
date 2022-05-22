@@ -97,16 +97,12 @@ export default class ActivityHeader extends Vue {
   @Prop() private activity!: Activity;
   @Prop({ default: false, type: Boolean }) showHabit?: boolean;
 
-  @Getter("notes", { namespace: "note" }) notes!: Array<Note> | undefined;
-  @Getter("note", { namespace: "note" }) getNote!: (id: string) => Note | undefined;
-
-  @Getter("getEmotion", { namespace: "emotion" }) getEmotion!: (id: string) => Emotion | undefined;
-
   @Getter("tags", { namespace: "tag" }) tags: Array<Tag> | undefined;
+  @Getter("note", { namespace: "note" }) getNote!: (id: string) => Note | undefined;
+  @Getter("getEmotion", { namespace: "emotion" }) getEmotion!: (id: string) => Emotion | undefined;
 
   editDialog = false;
   colors: any = COLORS;
-  note: Note | null = null;
 
   get tagsSelected(): Array<Tag> {
     const ids = this.activity.tagIds;
@@ -121,6 +117,10 @@ export default class ActivityHeader extends Vue {
     return tags;
   }
 
+  get note(): Note | null | undefined {
+    return this.activity.noteId ? this.getNote(this.activity.noteId) : null;
+  }
+
   get emotion() {
     return this.activity.emotionId && this.getEmotion(this.activity.emotionId);
   }
@@ -133,14 +133,6 @@ export default class ActivityHeader extends Vue {
       return 'primary';
     }
     return undefined;
-  }
-
-  @Watch("notes", {
-    deep: true,
-    immediate: true,
-  })
-  notesChanged(newValue: any, oldValue: any) {
-    this.note = this.activity.noteId ? (this.getNote(this.activity.noteId) ?? null) : null;
   }
 }
 </script>
