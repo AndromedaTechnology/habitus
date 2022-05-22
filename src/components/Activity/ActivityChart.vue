@@ -1,6 +1,6 @@
 <template>
-  <div class="activityChart">
-    <chart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="200"></chart>
+  <div class="chartContainer">
+    <chart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="300"></chart>
   </div>
 </template>
 <script lang="ts">
@@ -80,4 +80,10 @@ export default class ActivityChart extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+.chartContainer {
+  canvas {
+    max-width: 100% !important;
+  }
+}
+</style>

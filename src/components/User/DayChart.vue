@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chartContainer">
     <BarChart v-if="chartData" :chartData="chartData" :options="chartOptions" :height="320"></BarChart>
   </div>
 </template>
@@ -145,4 +145,10 @@ export default class UserChart extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style lang="scss">
+.chartContainer {
+  canvas {
+    max-width: 100% !important;
+  }
+}
+</style>

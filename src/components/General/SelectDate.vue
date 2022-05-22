@@ -22,7 +22,6 @@
       </template>
       <v-date-picker
         v-model="date"
-        landscape
         @input="save"
       ></v-date-picker>
     </v-menu>

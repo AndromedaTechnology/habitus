@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chartContainer">
     <DoughnutChart
       :chartData="chartData"
       :options="chartOptions"
@@ -94,3 +94,11 @@ export default class OverallChart extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.chartContainer {
+  canvas {
+    max-width: 100% !important;
+  }
+}
+</style>
