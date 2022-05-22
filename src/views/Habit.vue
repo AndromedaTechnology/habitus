@@ -8,6 +8,21 @@
           <h3>Edit</h3>
         </v-btn>
       </div>
+      <!-- Edit Dialog -->
+      <v-dialog
+        v-model="editDialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+        scrollable
+      >
+        <HabitEdit
+          :habit="habit"
+          @update="handleUpdate($event)"
+          @delete="handleDelete()"
+          @close="editDialog = false"
+        />
+      </v-dialog>
       <!-- Header -->
       <HabitHeader
         class="text-center"
@@ -20,23 +35,8 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="8" offset-sm="2">
-          <!-- Edit Dialog -->
-          <v-dialog
-            v-model="editDialog"
-            fullscreen
-            hide-overlay
-            transition="dialog-bottom-transition"
-            scrollable
-          >
-            <HabitEdit
-              :habit="habit"
-              @update="handleUpdate($event)"
-              @delete="handleDelete()"
-              @close="editDialog = false"
-            />
-          </v-dialog>
-          <!--  Activity Chart -->
-          <v-alert class="pa-8" elevation="12">
+          <v-alert elevation="12">
+            <!--  Activity Chart -->
             <ActivityChart
               v-if="getActivities(habit._id)"
               class="mt-4"
@@ -44,6 +44,12 @@
               :activities="getActivities(habit._id)"
             />
           </v-alert>
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="12" sm="8" offset-sm="2">
           <!-- Activity List -->
           <div class="mt-12">
             <ActivityHeader

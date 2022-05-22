@@ -5,7 +5,7 @@
     text-color="white"
     :color="habit.isGood ? colors.GOOD : colors.BAD"
   >
-    <h2 class="font-weight-bold">{{ streak }} day streak</h2>
+    <h2 class="font-weight-bold">{{ streak }} Day streak</h2>
   </v-chip>
 </template>
 <script lang="ts">

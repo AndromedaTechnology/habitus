@@ -24,7 +24,7 @@
             left
             large
             class="accent white--text mr-3"
-            v-text="data.item.name"
+            v-text="getAvatarText(data.item)"
           ></v-avatar>
           <h3>{{ data.item.name }}</h3>
         </v-chip>
@@ -52,6 +52,11 @@ export default class TagInput extends Vue {
     if (this.selectedIds) {
       this.setTagsSelected(this.selectedIds);
     }
+  }
+
+  getAvatarText(item: Tag | string) {
+    const name = typeof item === 'string' ? item : item.name;
+    return name?.slice(0, 1);
   }
 
   setTagsSelected(selectedIds: Array<string>) {

@@ -1,6 +1,47 @@
 <template>
   <v-alert class="pa-0" :color="color">
-    <v-toolbar color="rgba(0,0,0,0.2)">
+    <v-container fluid>
+      <v-list flat dense :color="color">
+        <!-- Amount -->
+        <v-list-item v-if="activity.amount">
+          <v-list-item-content>
+            <h4>Amount 🎯 {{ activity.amount }}</h4>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- Note -->
+        <v-list-item v-if="note && note.content">
+          <v-list-item-content>
+            <h5>
+              <blockquote class="blockquote note">{{ note.content }}</blockquote>
+            </h5>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- Emotion -->
+        <v-list-item v-if="emotion">
+          <v-list-item-content>
+            <div>
+              <EmotionItem
+                :emotion="emotion"
+              />
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+        <!-- Tag -->
+        <v-list-item v-if="tagsSelected && tagsSelected.length">
+          <v-list-item-content>
+            <div>
+              <TagItem
+                v-for="tag in tagsSelected"
+                :key="tag._id"
+                :tag="tag"
+                class="ma-2"
+              />
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-container>
+    <v-toolbar color="rgba(0,0,0,0.2)" class="px-4">
       <!-- Habit Emoji and Name  -->
       <router-link
         v-if="habit && showHabit"
@@ -13,48 +54,9 @@
           <span>{{ habit.name }}</span>
         </h3>
       </router-link>
-    </v-toolbar>
-    <div class="px-8 py-0">
-      <!-- Tag -->
-      <v-list-item v-if="tagsSelected && tagsSelected.length">
-        <v-list-item-content>
-          <div>
-            <TagItem
-              v-for="tag in tagsSelected"
-              :key="tag._id"
-              :tag="tag"
-              class="mx-2"
-            />
-          </div>
-        </v-list-item-content>
-      </v-list-item>
-      <!-- Emotion -->
-      <v-list-item v-if="emotion">
-        <v-list-item-content>
-          <EmotionItem
-            :emotion="emotion"
-          />
-        </v-list-item-content>
-      </v-list-item>
-      <!-- Note -->
-      <v-list-item v-if="note && note.content">
-        <v-list-item-content>
-          <pre class="note">{{ note.content }}</pre>
-        </v-list-item-content>
-      </v-list-item>
-      <!-- Amount -->
-      <v-list-item v-if="activity.amount">
-        <v-list-item-content>
-          <h4>
-            <span>Amount: {{ activity.amount }}</span>
-          </h4>
-        </v-list-item-content>
-      </v-list-item>
-    </div>
-    <v-toolbar color="rgba(0,0,0,0.2)" class="px-4">
+      <v-spacer></v-spacer>
       <!-- Ago -->
       <timeago class="d-block" :datetime="activity.createdAt" :auto-update="60"></timeago>
-      <div class="flex-grow-1"></div>
       <!-- Edit Button -->
       <v-btn @click="editDialog = true" large text>
         <v-icon class="pr-4">edit</v-icon>

@@ -1,13 +1,13 @@
 <template>
   <v-chip :key="emotion._id" large color="primary" class="px-8" label>
-    <h2>
+    <h3>
       <span class="mr-4">
         {{ emotion.emoji }}
       </span>
       <span>
         {{ emotion.name }}
       </span>
-    </h2>
+    </h3>
   </v-chip>
 </template>
 <script lang="ts">

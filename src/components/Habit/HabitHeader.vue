@@ -14,30 +14,30 @@
       </router-link>
     </div>
     <v-toolbar>
-      <span class="mx-auto">
-        <!-- Health -->
-        <v-chip
-          label
-          class="px-8 mx-4"
-          :color="getHabitHealth(habit) >= 0 ? colors.GOOD : colors.BAD"
-        >
-          <h2>
-            {{
-              getHabitHealth(habit) >= 0
-                ? "+" + getHabitHealth(habit)
-                : getHabitHealth(habit)
-            }}
-            HEALTH
-          </h2>
-        </v-chip>
-        <!-- Streak -->
-        <HabitStreak
-          v-if="showStreak"
-          class="streak"
-          :habit="habit"
-          :activities="activities"
-        />
-      </span>
+      <v-spacer></v-spacer>
+      <!-- Health -->
+      <v-chip
+        label
+        class="px-8 mx-1"
+        :color="getHabitHealth(habit) >= 0 ? colors.GOOD : colors.BAD"
+      >
+        <h2>
+          {{
+            getHabitHealth(habit) >= 0
+              ? "+" + getHabitHealth(habit)
+              : getHabitHealth(habit)
+          }}
+          Health
+        </h2>
+      </v-chip>
+      <!-- Streak -->
+      <HabitStreak
+        v-if="showStreak"
+        class="streak"
+        :habit="habit"
+        :activities="activities"
+      />
+      <v-spacer></v-spacer>
     </v-toolbar>
   </div>
 </template>

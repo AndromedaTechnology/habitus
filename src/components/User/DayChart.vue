@@ -30,7 +30,7 @@ export default class UserChart extends Vue {
     },
     title: {
       display: true,
-      position: "top",
+      position: "bottom",
       text: "Time of the day",
       fontSize: 24,
       padding: 24,

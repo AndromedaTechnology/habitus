@@ -1,26 +1,30 @@
 <template>
-  <v-alert elevation="12">
-    <v-container v-if="isVisible">
-      <v-row>
-        <v-col cols="12" sm="12" md="6">
+  <v-container fluid>
+    <v-row align="center" justify="center">
+      <v-col cols="12" sm="12" lg="6" class="px-0">
+        <v-alert elevation="12" class="px-0 py-4">
           <DayChart
+            class="pt-6"
             :habits="habits"
             :activities="activities"
             :dateStart="dateStart"
             :dateEnd="dateEnd"
           />
-        </v-col>
-        <v-col cols="12" sm="12" md="6">
+        </v-alert>
+      </v-col>
+      <v-col cols="12" sm="12" lg="6" class="px-0">
+        <v-alert elevation="12" class="px-0 py-4">
           <OverallChart
+            class="pt-6"
             :habits="habits"
             :activities="activities"
             :dateStart="dateStart"
             :dateEnd="dateEnd"
           />
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-alert>
+        </v-alert>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script lang="ts">
 import { Habit } from "@/store/habit/types";

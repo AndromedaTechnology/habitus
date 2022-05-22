@@ -42,7 +42,7 @@
         class="px-8 ma-4 mx-auto"
         :color="getHealth() >= 0 ? colors.GOOD : colors.BAD"
       >
-        <h2>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} HEALTH</h2>
+        <h2>{{ getHealth() >= 0 ? '+' + getHealth() : getHealth() }} Health</h2>
       </v-chip>
     </v-toolbar>
   </v-alert>

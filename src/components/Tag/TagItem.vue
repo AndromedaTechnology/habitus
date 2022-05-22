@@ -1,16 +1,15 @@
 <template>
-  <v-chip :key="tag._id" large class="px-8">
-    <h2>
+  <v-chip :key="tag._id" class="px-4">
+    <h3>
       <v-avatar
         left
-        large
         class="accent white--text mr-3"
-        v-text="tag.name"
+        v-text="avatarText"
       ></v-avatar>
       <span>
        # {{ tag.name }}
       </span>
-    </h2>
+    </h3>
   </v-chip>
 </template>
 <script lang="ts">
@@ -23,5 +22,9 @@ import { Prop } from "vue-property-decorator";
 })
 export default class TagItem extends Vue {
   @Prop({ type: Object, required: true, default: undefined }) tag!: Tag;
+
+  get avatarText() {
+    return this.tag.name?.slice(0, 1);
+  }
 }
 </script>
