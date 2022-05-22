@@ -126,6 +126,13 @@ using `Koa.js` and `MongoDB`.
 - [Medium](https://medium.com/@habitus.today)
 - [Twitter](https://twitter.com/HabitusToday)
 
+## 7. Contribute
+
+- Check out the Manifesto: [Self-Aware Software Artisan](http://selfawaresoftwareartisan.com),
+- Check and Fix the Issues,
+- Open new Issues (for Bugs, Suggestions, ...),
+- Join the Development of the [API](https://github.com/AndromedaTechnology/habitus-api) or the [Progressive Web App](https://github.com/AndromedaTechnology/habitus).
+
 <br/>
 <h3 align="center">
   Crafted with ❤️ <br />
