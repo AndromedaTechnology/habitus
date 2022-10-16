@@ -23,13 +23,11 @@ Vue.use(VueTimeago, {
  */
 import VueAnalytics from "vue-analytics";
 if (process.env.VUE_APP_GA_ID) {
-  const isProduction = process.env.NODE_ENV === "production";
   Vue.use(VueAnalytics, {
     id: process.env.VUE_APP_GA_ID,
     router,
     debug: {
-      // Enable only on production
-      sendHitTask: isProduction,
+      sendHitTask: true,
     },
   });
 }
