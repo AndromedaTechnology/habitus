@@ -7,7 +7,7 @@
           <v-btn
             large
             v-if="allowEdit"
-            @click="editDialog = true"
+            @click="showDialog()"
           >
             <v-icon class="pr-4">edit</v-icon>
             <h3>Edit</h3>
@@ -67,6 +67,16 @@ export default class UserHeader extends Vue {
 
   editDialog = false;
   colors: any = COLORS;
+
+  showDialog() {
+    this.editDialog = true;
+
+    // Save Google Analytics Event
+    this.$ga.event({
+      eventCategory: "user",
+      eventAction: "edit",
+    });
+  }
 
   handleUpdate(data: UserUpdateDto) {
     this.updateUser({

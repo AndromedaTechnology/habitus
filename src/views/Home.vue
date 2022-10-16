@@ -52,7 +52,7 @@
                   elevation="24"
                   :color="habit.isGood ? colors.GOOD : colors.BAD"
                   class="pa-12 cursorPointer"
-                  @click.native="saveActivity(undefined, undefined, habit._id)"
+                  @click.native="saveHabitActivity(habit._id)"
                 >
                   <div class="text-center">
                     <h1>
@@ -134,11 +134,22 @@ export default class Home extends Vue {
       content: this.noteContent
     });
     this.noteContent = null;
+    // Save Google Analytics Event
+    this.$ga.event({
+      eventCategory: "home.activity.note",
+      eventAction: "create",
+    });
+
     this.saveActivity(undefined, note._id);
   }
 
   handleSaveEmotion(emotionId: string) {
     this.saveActivity(emotionId);
+    // Save Google Analytics Event
+    this.$ga.event({
+      eventCategory: "home.activity.emotion",
+      eventAction: "create",
+    });
   }
 
   showDialog() {
@@ -158,6 +169,15 @@ export default class Home extends Vue {
       return total % 2 ? 12 : 6;
     }
     return 6;
+  }
+
+  saveHabitActivity(habitId: string) {
+    this.saveActivity(undefined, undefined, habitId);
+    // Save Google Analytics Event
+    this.$ga.event({
+      eventCategory: "home.activity.habit",
+      eventAction: "create",
+    });
   }
 
   saveActivity(emotionId?: string, noteId?: string, habitId?: string) {

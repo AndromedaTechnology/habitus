@@ -101,6 +101,11 @@ export default class TagInput extends Vue {
     const tag = await this.persistTag({
       name: name,
     });
+    // Save Google Analytics Event
+    this.$ga.event({
+      eventCategory: "tagCreate",
+      eventAction: "create",
+    });
     return tag;
   }
 

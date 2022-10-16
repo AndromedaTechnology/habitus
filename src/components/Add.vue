@@ -141,6 +141,12 @@ export default class Add extends Vue {
       this.activity = activity;
       this.showDialog();
       this.playSoundNotification(this.habit?.isGood);
+
+      // Save Google Analytics Event
+      this.$ga.event({
+        eventCategory: "navigation.activity.habit",
+        eventAction: "create",
+      });
     });
 
     this.redirectToHabit(this.habit!);

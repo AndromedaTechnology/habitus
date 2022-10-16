@@ -39,6 +39,11 @@ export default class HabitCreateView extends Vue {
       amountType: data.amountType,
     }).then((habit: Habit) => {
       this.$router.push({ name: "habit", params: { id: habit._id } });
+      // Save Google Analytics Event
+      this.$ga.event({
+        eventCategory: "habitCreate",
+        eventAction: "create",
+      });
     });
   }
 }

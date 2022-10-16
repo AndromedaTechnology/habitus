@@ -10,7 +10,7 @@
         <v-col cols="12" lg="8" offset-lg="2">
           <SelectDate
             :initialDate="activityListDateStart"
-            @save="setActivityListDate(new Date($event))"
+            @save="userSetActivityListDate(new Date($event))"
           />
           <TagInput :tags="tags" @selectedIds="setSelectedTagIds($event)" />
           <Stats
@@ -96,6 +96,15 @@ export default class User extends Vue {
       this.activityListDateStart ?? undefined,
       this.activityListDateEnd ?? undefined
     );
+  }
+
+  userSetActivityListDate(start: Date) {
+    this.setActivityListDate(start);
+    // Save Google Analytics Event
+    this.$ga.event({
+      eventCategory: "user.filter.date",
+      eventAction: "set",
+    });
   }
 
   setActivityListDate(start: Date) {

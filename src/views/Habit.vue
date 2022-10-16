@@ -3,7 +3,7 @@
     <v-alert text class="pa-0">
       <!-- Edit Button -->
       <div class="text-center pt-12 mt-12">
-        <v-btn v-show="isEditable" @click="editDialog = true" large>
+        <v-btn v-show="isEditable" @click="showEditDialog()" large>
           <v-icon class="pr-4">edit</v-icon>
           <h3>Edit</h3>
         </v-btn>
@@ -132,6 +132,16 @@ export default class Habit extends Vue {
   onPropertyChanged(value: any, oldValue: any) {
     if (!value) return;
     this.fetchHabit();
+  }
+
+  showEditDialog() {
+    this.editDialog = true;
+
+    // Save Google Analytics Event
+    this.$ga.event({
+      eventCategory: "habit",
+      eventAction: "edit",
+    });
   }
 
   fetchHabit() {
