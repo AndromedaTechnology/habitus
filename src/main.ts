@@ -31,6 +31,7 @@ if (process.env.VUE_APP_GA_ID) {
     },
     autoTracking: {
       exception: true,
+      screenview: true,
     },
   });
 }
