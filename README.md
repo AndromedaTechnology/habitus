@@ -134,6 +134,9 @@ using `Koa.js` and `MongoDB`.
 - Join the Development of the [API](https://github.com/AndromedaTechnology/habitus-api) or the [Progressive Web App](https://github.com/AndromedaTechnology/habitus).
 
 <br/>
+<h5 align="center">
+  Started in <a href="https://en.wikipedia.org/wiki/Croatia">Europe, Croatia 🇭🇷</a>
+</h3>
 <h3 align="center">
   Crafted with ❤️ <br />
   by contributors around the 🌍 World and <a href="https://andromeda.technology/">🌌 Andromeda</a>.
