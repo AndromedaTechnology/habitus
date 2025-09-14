@@ -1,12 +1,12 @@
 <h1 align="center">Habitus Tracker</h1>
 <p align="center">
-  <a href="https://habitus.today"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
+  <a href="https://gethabitus.com"><img src="public/img/icons/logo.png"  alt="Habitus Logo" /></a>
   <br />
-  <a href="https://habitus.today">Truly Amazing Life Tracker.</a>
+  <a href="https://gethabitus.com">Truly Amazing Life Tracker.</a>
   <br />
-  <a href="https://habitus.today">Healthiest version of you.</a>
+  <a href="https://gethabitus.com">Healthiest version of you.</a>
   <br />
-  <a href="https://habitus.today">Gamified Habit, Emotion Tracker and Journal.</a>
+  <a href="https://gethabitus.com">Gamified Habit, Emotion Tracker and Journal.</a>
   <br />
   <br />
   <a href="https://app.netlify.com/sites/andromeda-habitus/deploys"><img src="https://api.netlify.com/api/v1/badges/697e3f91-eed9-460f-8f92-14ed2f9da5fb/deploy-status" alt="Netlify Status" /></a>
@@ -45,9 +45,7 @@ State-of-the-Art Life Tracker.
 
 ## 1. Preview
 
-**[Check the gallery for more screenshots](https://imgur.com/gallery/9X7WC6U).**
-
-![User page](https://i.imgur.com/v8HgZjy.png)
+![User page](/public/img/preview/habitus-app-andromeda-preview.png)
 
 ## 2. Anonymous, Offline-first
 
