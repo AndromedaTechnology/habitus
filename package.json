@@ -15,7 +15,7 @@
     "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
-    "luxon": "^1.24.1",
+    "luxon": "^1.28.1",
     "material-design-icons-iconfont": "^5.0.1",
     "register-service-worker": "^1.7.1",
     "v-emoji-picker": "^2.3.0",
